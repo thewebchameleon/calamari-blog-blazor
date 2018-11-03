@@ -1,0 +1,187 @@
+﻿@page "/blog"
+@page "/blog/category/{Id}"
+
+@inject HttpClient Http
+@inject ICMSService CMSService
+
+<div>
+    @foreach (var post in BlogPosts)
+    {
+        <div class="post-card">
+            <a href="blog/post/@post.Id" title="@post.Title">
+                <div class="post-card-meta">
+                    <img src="@post.Category.Icon" alt="@post.Category.Name">
+                    <p>
+                        <span>@post.PublishedDate.ToString("dd MMMM yyyy")</span>
+                    </p>
+                </div>
+                <h2 class="post-card__title">
+                    @post.Title
+                </h2>
+                <p>
+                    @FormatBodyPreview(post.Body)...
+                </p>
+            </a>
+        </div>
+    }
+    @if (!BlogPosts.Any())
+    {
+        <div class="post-card">
+            <span class="center">there are no blog posts in this category...</span>
+        </div>
+    }
+</div>
+<div class="pagination">
+    <ul>
+        <li id="pagination-prev">
+            <span>
+                <!--<img src="/img/icons/prev.svg" alt="">-->
+                Prev
+            </span>
+        </li>
+        <li class="pagination-item">
+            <span id="current-page">1</span>
+        </li>
+        <li class="pagination-item">
+            <a href="/page2/">2</a>
+        </li>
+        <li id="pagination-next">
+            <a class="pagination-button" href="/page2/">
+                Next
+                <!--<img src="/img/icons/next.svg" alt="">-->
+            </a>
+        </li>
+    </ul>
+</div>
+
+@functions {
+
+    [Parameter]
+    string Id { get; set; }
+
+    List<BlogPost> BlogPosts { get; set; }
+
+    //protected override async Task OnInitAsync()
+    //{
+    //    if (string.IsNullOrEmpty(Id))
+    //    {
+    //        BlogPosts = await Http.PostJsonAsync<List<BlogPost>>("api/cms/get-blog-posts", new { });
+    //    }
+    //    else
+    //    {
+    //        BlogPosts = await Http.PostJsonAsync<List<BlogPost>>("api/cms/get-blog-posts-by-category-id", Id);
+    //    }
+    //}
+
+    protected override async Task OnInitAsync()
+    {
+        if (string.IsNullOrEmpty(Id))
+        {
+            BlogPosts = await CMSService.GetBlogPosts();
+        }
+        else
+        {
+            BlogPosts = await CMSService.GetBlogPostsByCategoryID(Id);
+        }
+    }
+
+    private string FormatBodyPreview(string content)
+    {
+        return content.Substring(0, 50).Replace("<html>", string.Empty).Replace("</html>", string.Empty);
+    }
+
+}
+
+<style>
+  .posts {
+    overflow: hidden;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.post-card:nth-child(1n) {
+    border-right: 0;
+}
+
+@@media screen and (max-width: 1100px) {
+    .post-card {
+        flex: 1 0 50%;
+    }
+}
+
+.post-card {
+    background: #fff;
+    border: 1px solid #d9e1ef;
+    flex: 1 0 33.33%;
+    margin: -1px 0 0;
+    overflow: hidden;
+    position: relative;
+}
+
+    .post-card a {
+        display: block;
+        color: #545e6f;
+        transition: all .2s ease;
+        padding: 35px;
+    }
+
+.post-card-meta {
+    font-size: 14px;
+    height: 32px;
+    color: #8598b9;
+    position: relative;
+    margin: 5px 20px 5px 0;
+    display: flex;
+    align-items: center;
+}
+
+    .post-card-meta img {
+        width: 25px;
+        margin-right: 10px;
+    }
+
+.post-card__title {
+    font-size: 22px;
+    line-height: 28px;
+    margin: 30px 0;
+}
+
+.post-card p {
+    margin: 0;
+}
+
+.pagination {
+    color: #bac1ce;
+    background: #f7f8fb;
+    text-align: center;
+    margin: 0;
+    padding: 40px 20px;
+    width: 100%;
+    font-size: 16px;
+}
+
+    .pagination ul {
+        margin: 0 auto;
+        padding: 0;
+        list-style: none;
+    }
+
+#pagination-prev {
+    margin: 0 25px 0 0;
+}
+
+.pagination ul li {
+    display: inline-block;
+    margin: 0 10px 0 0;
+}
+
+.post-card-meta p span {
+    display: block;
+}
+
+    .post-card-meta p span:nth-child(2n) {
+        font-size: 12px;
+    }
+
+</style>

@@ -1,0 +1,62 @@
+﻿@using CB.Blazor.CMS.Contracts
+@page "/blog/post/{Id}"
+
+@inject ICMSService CMSService
+
+<h1>Hello, world!</h1>
+
+@*@if (Post != null)
+{
+    <div class="post">
+        <div class="post-header">
+            <h1>@Post.Title<a [routerLink]="['/blog/' ]">x</a></h1>
+
+            <div class="post-header-detail">
+                <img class="post-header-icon" src="@Post.Category.Icon" alt="@Post.Category.Name icon">
+                @Post.Category.Name
+            </div>
+            <div class="post-header-detail">
+                <img class="post-header-icon" src="@Post.Category.Icon" alt="date published icon">
+                @Post.PublishedDate.ToString("dd MMMM yyyy")
+            </div>
+        </div>
+        <div class="post-body" innerHTML="@Post.Body"></div>
+    </div>
+}*@
+
+@functions {
+
+    [Parameter]
+    string Id { get; set; }
+
+    BlogPost BlogPost { get; set; }
+
+    protected override async Task OnInitAsync()
+    {
+        BlogPost = await CMSService.GetBlogPost(Id);
+    }
+}
+
+<style>
+    .post {
+        padding: 25px;
+    }
+
+
+    h1 a {
+        float: right;
+    }
+
+    .post-body {
+    }
+
+    .post-header-detail {
+        display: inline-block;
+        padding: 20px 20px 20px 0;
+    }
+
+    .post-header-icon {
+        width: 25px;
+        margin-right: 5px;
+    }
+</style>

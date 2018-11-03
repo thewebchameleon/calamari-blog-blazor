@@ -1,0 +1,24 @@
+﻿<div class="footer">
+    Made with <img src="@HeartIcon" alt="love" style="width: 11px;" /> @ApplicationName
+</div>
+
+@functions {
+    string HeartIcon { get; set; }
+
+    string ApplicationName { get; set; }
+
+    protected override async Task OnInitAsync()
+    {
+        HeartIcon = "";
+        ApplicationName = "";
+    }
+}
+
+<style>
+    .footer {
+        text-align: center;
+        padding: 10px;
+        background: #f7f8fb;
+    }
+
+</style>

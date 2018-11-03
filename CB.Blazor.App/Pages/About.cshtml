@@ -1,0 +1,37 @@
+﻿@page "/about"
+
+@inject ICMSService CMSService
+
+<div class="about-page">
+    <img class="profile-pic" src="@Profile.Portrait" alt="@Profile.Name">
+    <div class='wrapper' innerHTML=@Profile.Body></div>
+</div>
+
+@functions {
+    Profile Profile { get; set; }
+
+    protected override async Task OnInitAsync()
+    {
+        Profile = await CMSService.GetProfile();
+    }
+
+    //protected override async Task OnInitAsync()
+    //{
+    //    Profile = await Http.GetJsonAsync<Profile>("api/cms/get-profile");
+    //}
+}
+
+<style>
+    .about-page {
+        display: block;
+        text-align: center;
+    }
+
+    .profile-pic {
+        margin: 0 auto;
+    }
+
+    .wrapper {
+        padding: 20px 10% 0px 10%;
+    }
+</style>

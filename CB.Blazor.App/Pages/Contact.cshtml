@@ -1,0 +1,35 @@
+﻿@page "/contact"
+
+<div class='wrapper'>
+    <h1>Contact Me</h1>
+    <p>Send me a message and I'll get back to you as soon as I can</p>
+    <div class="row">
+        <div class="column ">
+            <h4>Your details</h4>
+            <form>
+                <fieldset>
+                    <label for="nameField">Name</label>
+                    <input type="text" placeholder="" id="nameField">
+                    <label for="emailField">Email address</label>
+                    <input type="text" placeholder="" id="emailField">
+                    <label for="commentField">Message</label>
+                    <textarea placeholder="What would you like to talk about?" id="commentField"></textarea>
+                    <div class="float-right">
+                        <input type="checkbox" id="confirmField">
+                        <label class="label-inline" for="confirmField">Send a copy to yourself</label>
+                    </div>
+                    <input class="button-primary" type="submit" value="Send">
+                </fieldset>
+            </form>
+        </div>
+    </div>
+</div>
+
+<style>
+    .wrapper {
+        padding: 20px 10% 0px 10%;
+        width: 80%;
+        margin: 0 auto;
+    }
+
+</style>
