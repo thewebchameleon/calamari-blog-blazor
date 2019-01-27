@@ -1,14 +1,16 @@
 using Microsoft.AspNetCore.Blazor.Builder;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Configuration;
-using CB.Blazor.Infrastructure.Configuration;
-using CB.Blazor.Infrastructure.Cache;
-using CB.Blazor.CMS.Mappers.Contracts;
-using CB.Blazor.Infrastructure.Repositories.SquidexRepo.Contracts;
 using CB.Blazor.CMS.Contracts;
 using CB.Blazor.CMS;
+using CB.Blazor.Infrastructure.Configuration;
 using CB.Blazor.CMS.Mappers;
 using CB.Blazor.Infrastructure.Repositories.SquidexRepo;
+using CB.Blazor.CMS.Mappers.Contracts;
+using CB.Blazor.Infrastructure.Repositories.SquidexRepo.Contracts;
+using CB.Blazor.Infrastructure.Cache;
+using Microsoft.Extensions.Configuration;
+using Blazorise.Bootstrap;
+using Blazorise;
 
 namespace CB.Blazor.App
 {
@@ -23,6 +25,9 @@ namespace CB.Blazor.App
             Configuration = services.BuildServiceProvider().GetService<IConfiguration>();
 
             services.Configure<SquidexConfig>(options => Configuration.GetSection("Squidex").Bind(options));
+
+            //blazorise
+            services.AddBootstrapProviders().AddIconProvider(IconProvider.FontAwesome);
 
             //cache
             services.AddSingleton<ICacheProvider, MemoryCacheProvider>();

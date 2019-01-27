@@ -100,9 +100,9 @@ namespace CB.Blazor.CMS
             return _mapper.MapToGlobalConfig(config);
         }
 
-        public async Task<Profile> GetProfile()
+        public async Task<Portfolio> GetPortfolio()
         {
-            var profile = await _repo.GetProfile();
+            var profile = await _repo.GetPortfolio();
             return _mapper.MapToProfile(profile);
         }
     }

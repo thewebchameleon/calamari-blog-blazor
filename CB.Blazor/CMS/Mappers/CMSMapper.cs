@@ -77,9 +77,9 @@ namespace CB.Blazor.CMS.Mappers
             };
         }
 
-        public Profile MapToProfile(ProfileEntity model)
+        public Portfolio MapToProfile(ProfileEntity model)
         {
-            return new Profile()
+            return new Portfolio()
             {
                 Portrait = ResolveAssetURL(model.Data.Portrait.FirstOrDefault()),
                 Title = model.Data.Title,

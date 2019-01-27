@@ -18,6 +18,6 @@ namespace CB.Blazor.CMS.Mappers.Contracts
 
         GlobalConfig MapToGlobalConfig(GlobalConfigEntity model);
 
-        Profile MapToProfile(ProfileEntity model);
+        Portfolio MapToProfile(ProfileEntity model);
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace CB.Blazor.Interface.CMS
 {
-    public class Profile
+    public class Portfolio
     {
         public string Portrait { get; set; }
 

@@ -20,7 +20,7 @@ namespace CB.Blazor.CMS.Contracts
 
         Task<List<BlogPost>> GetBlogPostsByCategoryID(string id);
 
-        Task<Profile> GetProfile();
+        Task<Portfolio> GetPortfolio();
 
         Task<GlobalConfig> GetGlobalConfig();
     }

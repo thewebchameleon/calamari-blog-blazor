@@ -59,7 +59,7 @@ namespace CB.Blazor.Infrastructure.Repositories.SquidexRepo
             return data.Items.FirstOrDefault();
         }
 
-        public async Task<ProfileEntity> GetProfile()
+        public async Task<ProfileEntity> GetPortfolio()
         {
             var data = await _profileClient.GetAsync();
             return data.Items.FirstOrDefault();

@@ -1,53 +1,27 @@
 ﻿@page "/"
+<Heading Size="HeadingSize.Is1" Margin="Margin.Is3.FromBottom.Is3.FromTop">Welcome</Heading>
 
-<h1>Hello, world!</h1>
-
-Welcome to your new app.
-
-<style>
-    .blog-categories {
-        background: #f7f8fb;
-        border-bottom: 1px solid #e6e9f3;
-        overflow: hidden;
-        padding: 0;
-    }
-
-    .blog-categories-container {
-        overflow: hidden;
-    }
-
-
-
-    .blog-categories a {
-        display: block;
-        color: #545e6f;
-        font-size: 16px;
-        float: left;
-        padding: 15px 30px;
-        text-align: center;
-        transition: all .2s ease;
-        text-decoration: none;
-        height: 100%;
-    }
-
-        .blog-categories a:first-child {
-            padding: 37px 25px;
-        }
-
-        .blog-categories a span {
-            display: block;
-        }
-
-        .blog-categories a:hover {
-            background-color: #d2d4d8;
-        }
-
-        .blog-categories a.active {
-            background: #e9ecf4;
-        }
-
-    img.category-icon {
-        width: 37px;
-    }
-
-</style>
+<Row>
+    <Column ColumnSize="ColumnSize.Is6.OnTablet">
+        <Card Margin="Margin.Is4.FromBottom">
+            <CardBody>
+                <CardTitle Size="4">Blog Posts</CardTitle>
+                <CardText>
+                    Check out my really cool blog where you can find opinions, walkthroughs and announcements.
+                </CardText>
+                <SimpleButton Color="Color.Primary" IsBlock="true">Go to my blog</SimpleButton>
+            </CardBody>
+        </Card>
+    </Column>
+    <Column ColumnSize="ColumnSize.Is6.OnTablet">
+        <Card Margin="Margin.Is4.FromBottom">
+            <CardBody>
+                <CardTitle Size="4">Portfolio</CardTitle>
+                <CardText>
+                    Have a job for me or just want to browse my work? Check out my portfolio.
+                </CardText>
+                <SimpleButton Color="Color.Primary" IsBlock="true">Go to my portfolio</SimpleButton>
+            </CardBody>
+        </Card>
+    </Column>
+</Row>

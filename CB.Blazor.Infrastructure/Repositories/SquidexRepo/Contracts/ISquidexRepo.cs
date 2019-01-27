@@ -14,6 +14,6 @@ namespace CB.Blazor.Infrastructure.Repositories.SquidexRepo.Contracts
 
         Task<GlobalConfigEntity> GetGlobalConfig();
 
-        Task<ProfileEntity> GetProfile();
+        Task<ProfileEntity> GetPortfolio();
     }
 }
