@@ -1,42 +1,46 @@
 ﻿@page "/contact"
-<Heading Size="HeadingSize.Is1" Margin="Margin.Is3.FromBottom.Is3.FromTop">Contact</Heading>
 
-<Row>
-    <Column>
-        <Card Margin="Margin.Is4.OnY">
-            <CardHeader>
-                <CardTitle>Drop a line with your requirements and get a free quote and timeline.</CardTitle>
-                <CardSubtitle>You can also contact me on name@example.com</CardSubtitle>
-            </CardHeader>
-            <CardBody>
-                <Field IsHorizontal="true">
-                    <FieldLabel ColumnSize="ColumnSize.Is2">Name</FieldLabel>
-                    <FieldBody ColumnSize="ColumnSize.Is10">
-                        <TextEdit Placeholder="name" />
-                    </FieldBody>
-                </Field>
-                <Field IsHorizontal="true">
-                    <FieldLabel ColumnSize="ColumnSize.Is2">Email</FieldLabel>
-                    <FieldBody ColumnSize="ColumnSize.Is10">
-                        <TextEdit Role="TextRole.Email" Placeholder="email" />
-                    </FieldBody>
-                </Field>
-                <Field IsHorizontal="true">
-                    <FieldLabel ColumnSize="ColumnSize.Is2">Mobile number</FieldLabel>
-                    <FieldBody ColumnSize="ColumnSize.Is10">
-                        <TextEdit Placeholder="mobile number" />
-                    </FieldBody>
-                </Field>
-                <Field IsHorizontal="true">
-                    <FieldLabel ColumnSize="ColumnSize.Is2">Message</FieldLabel>
-                    <FieldBody ColumnSize="ColumnSize.Is10">
-                        <MemoEdit Rows="8" />
-                    </FieldBody>
-                </Field>
-                <Field>
-                    <SimpleButton Color="Color.Primary">Send message</SimpleButton>
-                </Field>
-            </CardBody>
-        </Card>
-    </Column>
-</Row>
+<div class="app-content">
+    <Heading Size="HeadingSize.Is1" Margin="Margin.Is3.FromBottom.Is3.FromTop">Contact</Heading>
+
+    <Row>
+        <Column>
+            <Card Margin="Margin.Is4.OnY">
+                <CardHeader>
+                    <CardTitle>Drop a line with your requirements and get a free quote and timeline.</CardTitle>
+                    <CardSubtitle>You can also contact me on name@example.com</CardSubtitle>
+                </CardHeader>
+                <CardBody>
+                    <Field IsHorizontal="true">
+                        <FieldLabel ColumnSize="ColumnSize.Is2">Name</FieldLabel>
+                        <FieldBody ColumnSize="ColumnSize.Is10">
+                            <TextEdit Placeholder="name" />
+                        </FieldBody>
+                    </Field>
+                    <Field IsHorizontal="true">
+                        <FieldLabel ColumnSize="ColumnSize.Is2">Email</FieldLabel>
+                        <FieldBody ColumnSize="ColumnSize.Is10">
+                            <TextEdit Role="TextRole.Email" Placeholder="email" />
+                        </FieldBody>
+                    </Field>
+                    <Field IsHorizontal="true">
+                        <FieldLabel ColumnSize="ColumnSize.Is2">Mobile number</FieldLabel>
+                        <FieldBody ColumnSize="ColumnSize.Is10">
+                            <TextEdit Placeholder="mobile number" />
+                        </FieldBody>
+                    </Field>
+                    <Field IsHorizontal="true">
+                        <FieldLabel ColumnSize="ColumnSize.Is2">Message</FieldLabel>
+                        <FieldBody ColumnSize="ColumnSize.Is10">
+                            <MemoEdit Rows="8" />
+                        </FieldBody>
+                    </Field>
+                    <Field>
+                        <SimpleButton Color="Color.Primary">Send message</SimpleButton>
+                    </Field>
+                </CardBody>
+            </Card>
+        </Column>
+    </Row>
+
+</div>

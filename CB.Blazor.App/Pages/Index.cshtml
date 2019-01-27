@@ -1,27 +1,61 @@
 ﻿@page "/"
-<Heading Size="HeadingSize.Is1" Margin="Margin.Is3.FromBottom.Is3.FromTop">Welcome</Heading>
 
-<Row>
-    <Column ColumnSize="ColumnSize.Is6.OnTablet">
-        <Card Margin="Margin.Is4.FromBottom">
-            <CardBody>
-                <CardTitle Size="4">Blog Posts</CardTitle>
-                <CardText>
-                    Check out my really cool blog where you can find opinions, walkthroughs and announcements.
-                </CardText>
-                <SimpleButton Color="Color.Primary" IsBlock="true">Go to my blog</SimpleButton>
-            </CardBody>
-        </Card>
-    </Column>
-    <Column ColumnSize="ColumnSize.Is6.OnTablet">
-        <Card Margin="Margin.Is4.FromBottom">
-            <CardBody>
-                <CardTitle Size="4">Portfolio</CardTitle>
-                <CardText>
-                    Have a job for me or just want to browse my work? Check out my portfolio.
-                </CardText>
-                <SimpleButton Color="Color.Primary" IsBlock="true">Go to my portfolio</SimpleButton>
-            </CardBody>
-        </Card>
-    </Column>
-</Row>
+<style>
+    .index-page {
+        position: relative;
+        width: 100%;
+        height: 100%;
+    }
+
+    .index-cards {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        text-align: center;
+        transform: translate(-50%, -50%);
+        width: 100%;
+        padding: 30px;
+    }
+</style>
+
+<div class="index-page">
+    <div class="index-cards">
+        <Row>
+            <Column ColumnSize="ColumnSize.Is12.OnMobile.Is6.OnTablet">
+                <Card Margin="Margin.Is4.FromBottom">
+                    <CardBody>
+                        <CardTitle Size="4">Blog Posts</CardTitle>
+                        <CardText>
+                            Check out my really cool blog where you can find opinions, walkthroughs and announcements.
+                        </CardText>
+                        <SimpleButton Color="Color.Primary" IsBlock="true" Margin="Margin.Is2.FromTop" Clicked="GoToBlog">Go to my blog</SimpleButton>
+                    </CardBody>
+                </Card>
+            </Column>
+            <Column ColumnSize="ColumnSize.Is12.OnMobile.Is6.OnTablet">
+                <Card Margin="Margin.Is4.FromBottom">
+                    <CardBody>
+                        <CardTitle Size="4">Portfolio</CardTitle>
+                        <CardText>
+                            Have a job for me or just want to browse my work? Check out my portfolio.
+                        </CardText>
+                        <SimpleButton Color="Color.Primary" IsBlock="true" Margin="Margin.Is2.FromTop" Clicked="GoToPortfolio">Go to my portfolio</SimpleButton>
+                    </CardBody>
+                </Card>
+            </Column>
+        </Row>
+    </div>
+</div>
+
+@functions {
+
+    void GoToBlog()
+    {
+        UriHelper.NavigateTo("blog");
+    }
+
+    void GoToPortfolio()
+    {
+        UriHelper.NavigateTo("portfolio");
+    }
+}

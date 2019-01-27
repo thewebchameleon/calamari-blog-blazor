@@ -1,130 +1,131 @@
 ﻿@page "/portfolio"
 @inject ICMSService CMS
 
-<Heading Size="HeadingSize.Is1" Margin="Margin.Is3.FromBottom.Is3.FromTop">Portfolio</Heading>
-
-@if (Data == null)
-{
-    <span>Loading...</span>
-}
-else
-{
-    <Row>
-        <Column>
-            <CardGroup>
-                <Card Margin="Margin.Is4.FromBottom">
-                    <CardImage Source="assets/images/gallery/9.jpg" Alt="Placeholder image">
-                    </CardImage>
+<div class="app-content">
+    <Heading Size="HeadingSize.Is1" Margin="Margin.Is3.FromBottom.Is3.FromTop">Portfolio</Heading>
+    @if (Data == null)
+    {
+        <span>Loading...</span>
+    }
+    else
+    {
+        <Row>
+            <Column>
+                <CardGroup>
+                    <Card Margin="Margin.Is4.FromBottom">
+                        <CardImage Source="assets/images/gallery/9.jpg" Alt="Placeholder image">
+                        </CardImage>
+                        <CardBody>
+                            <CardTitle Size="5">Website 1</CardTitle>
+                            <CardText>
+                                This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.
+                            </CardText>
+                            <CardText>
+                                <a class="text-muted">Visit site</a>
+                            </CardText>
+                        </CardBody>
+                    </Card>
+                    <Card Margin="Margin.Is4.FromBottom">
+                        <CardImage Source="assets/images/gallery/2.jpg" Alt="Placeholder image">
+                        </CardImage>
+                        <CardBody>
+                            <CardTitle Size="5">Website 2</CardTitle>
+                            <CardText>
+                                This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.
+                            </CardText>
+                            <CardText>
+                                <a class="text-muted">Visit site</a>
+                            </CardText>
+                        </CardBody>
+                    </Card>
+                    <Card Margin="Margin.Is4.FromBottom">
+                        <CardImage Source="assets/images/gallery/3.jpg" Alt="Placeholder image">
+                        </CardImage>
+                        <CardBody>
+                            <CardTitle Size="5">Website 3</CardTitle>
+                            <CardText>
+                                This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.
+                            </CardText>
+                            <CardText>
+                                <a class="text-muted">Visit site</a>
+                            </CardText>
+                        </CardBody>
+                    </Card>
+                </CardGroup>
+            </Column>
+        </Row>
+        <Row>
+            <Column ColumnSize="ColumnSize.IsFull">
+                <Card Margin="Margin.Is4.OnY" >
                     <CardBody>
-                        <CardTitle Size="5">Website 1</CardTitle>
+                        <CardTitle Size="4">About me</CardTitle>
                         <CardText>
-                            This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.
-                        </CardText>
-                        <CardText>
-                            <a class="text-muted">Visit site</a>
+                            @((MarkupString)Data.Body)
                         </CardText>
                     </CardBody>
                 </Card>
-                <Card Margin="Margin.Is4.FromBottom">
-                    <CardImage Source="assets/images/gallery/2.jpg" Alt="Placeholder image">
-                    </CardImage>
+            </Column>
+        </Row>
+        <Row>
+            <Column ColumnSize="ColumnSize.Is12.OnTablet.Is12.OnMobile.Is4.OnDesktop">
+                <Card Margin="Margin.Is4.OnY">
+                    <CardHeader>
+                        <CardTitle Size="4">Skills</CardTitle>
+                    </CardHeader>
                     <CardBody>
-                        <CardTitle Size="5">Website 2</CardTitle>
-                        <CardText>
-                            This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.
-                        </CardText>
-                        <CardText>
-                            <a class="text-muted">Visit site</a>
-                        </CardText>
+                        <Badge Color="Color.Primary">C#</Badge>
+                        <Badge Color="Color.Primary">ASP.NET Core</Badge>
+                        <Badge Color="Color.Primary">ASP.NET MVC</Badge>
+                        <Badge Color="Color.Primary">ASP.NET Webforms</Badge>
+                        <Badge Color="Color.Primary">ASP.NET Blazor</Badge>
+
+                        <Badge Color="Color.Secondary">HTML5</Badge>
+
+                        <Badge Color="Color.Info">CSS3</Badge>
+                        <Badge Color="Color.Info">Bootstrap</Badge>
+                        <Badge Color="Color.Info">Foundation</Badge>
+                        <Badge Color="Color.Info">PotatoCSS</Badge>
+                        <Badge Color="Color.Info">Milligram</Badge>
+
+                        <Badge Color="Color.Success">Javascript</Badge>
+                        <Badge Color="Color.Success">KnockoutJS</Badge>
+                        <Badge Color="Color.Success">Angular</Badge>
+
+                        <Badge Color="Color.Warning">Visual Studio</Badge>
+                        <Badge Color="Color.Warning">Visual Studio Code</Badge>
+                        <Badge Color="Color.Warning">Webflow</Badge>
                     </CardBody>
                 </Card>
-                <Card Margin="Margin.Is4.FromBottom">
-                    <CardImage Source="assets/images/gallery/3.jpg" Alt="Placeholder image">
-                    </CardImage>
+            </Column>
+            <Column ColumnSize="ColumnSize.Is12.OnTablet.Is12.OnMobile.Is8.OnDesktop">
+                <Card Margin="Margin.Is4.OnY" Background="Background.Dark" IsWhiteText="true" ColumnSize="ColumnSize.IsFull">
                     <CardBody>
-                        <CardTitle Size="5">Website 3</CardTitle>
+                        <CardTitle Size="4">Get a quote</CardTitle>
                         <CardText>
-                            This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.
+                            Drop a line with your requirements and get a free quote and timeline.
                         </CardText>
-                        <CardText>
-                            <a class="text-muted">Visit site</a>
-                        </CardText>
+                        <SimpleButton Color="Color.Primary" Margin="Margin.Is2.FromTop" IsBlock="true">Contact Me</SimpleButton>
                     </CardBody>
                 </Card>
-            </CardGroup>
-        </Column>
-    </Row>
-    <Row>
-        <Column>
-            <Card Margin="Margin.Is4.OnY" ColumnSize="ColumnSize.IsFull">
-                <CardBody>
-                    <CardTitle Size="4">About me</CardTitle>
-                    <CardText>
-                        @((MarkupString)Data.Body)
-                    </CardText>
-                </CardBody>
-            </Card>
-        </Column>
-    </Row>
-    <Row>
-        <Column ColumnSize="ColumnSize.Is4">
-            <Card Margin="Margin.Is4.OnY">
-                <CardHeader>
-                    <CardTitle Size="4">Skills</CardTitle>
-                </CardHeader>
-                <CardBody>
-                    <Badge Color="Color.Primary">C#</Badge>
-                    <Badge Color="Color.Primary">ASP.NET Core</Badge>
-                    <Badge Color="Color.Primary">ASP.NET MVC</Badge>
-                    <Badge Color="Color.Primary">ASP.NET Webforms</Badge>
-                    <Badge Color="Color.Primary">ASP.NET Blazor</Badge>
+                <Card Margin="Margin.Is4.OnY" ColumnSize="ColumnSize.IsFull">
+                    <CardBody>
+                        <CardTitle Size="4">Looking for my CV?</CardTitle>
+                        <CardText>
+                            Here is a link to my curriculum vitae in pdf format
+                        </CardText>
+                        <SimpleButton Color="Color.Primary" Margin="Margin.Is2.FromTop" IsBlock="true">View</SimpleButton>
+                    </CardBody>
+                </Card>
+            </Column>
+        </Row>
+    }
+</div>
 
-                    <Badge Color="Color.Secondary">HTML5</Badge>
+    @functions {
+    Interface.CMS.Portfolio Data { get; set; } = new Interface.CMS.Portfolio();
 
-                    <Badge Color="Color.Info">CSS3</Badge>
-                    <Badge Color="Color.Info">Bootstrap</Badge>
-                    <Badge Color="Color.Info">Foundation</Badge>
-                    <Badge Color="Color.Info">PotatoCSS</Badge>
-                    <Badge Color="Color.Info">Milligram</Badge>
-
-                    <Badge Color="Color.Success">Javascript</Badge>
-                    <Badge Color="Color.Success">KnockoutJS</Badge>
-                    <Badge Color="Color.Success">Angular</Badge>
-
-                    <Badge Color="Color.Warning">Visual Studio</Badge>
-                    <Badge Color="Color.Warning">Visual Studio Code</Badge>
-                    <Badge Color="Color.Warning">Webflow</Badge>
-                </CardBody>
-            </Card>
-        </Column>
-        <Column ColumnSize="ColumnSize.Is8">
-            <Card Margin="Margin.Is4.OnY" Background="Background.Dark" IsWhiteText="true" ColumnSize="ColumnSize.IsFull">
-                <CardBody>
-                    <CardTitle Size="4">Get a quote</CardTitle>
-                    <CardText>
-                        Drop a line with your requirements and get a free quote and timeline.
-                    </CardText>
-                    <SimpleButton Color="Color.Primary" Margin="Margin.Is2.FromTop" IsBlock="true">Contact Me</SimpleButton>
-                </CardBody>
-            </Card>
-            <Card Margin="Margin.Is4.OnY" ColumnSize="ColumnSize.IsFull">
-                <CardBody>
-                    <CardTitle Size="4">Looking for my CV?</CardTitle>
-                    <CardText>
-                        Here is a link to my curriculum vitae in pdf format
-                    </CardText>
-                    <SimpleButton Color="Color.Primary" Margin="Margin.Is2.FromTop" IsBlock="true">View</SimpleButton>
-                </CardBody>
-            </Card>
-        </Column>
-    </Row>
-}
-
-@functions {
-Interface.CMS.Portfolio Data { get; set; } = new Interface.CMS.Portfolio();
-
-protected override async Task OnInitAsync()
-{
-    Data = await CMS.GetPortfolio();
-}
-}
+    protected override async Task OnInitAsync()
+    {
+        Data = await CMS.GetPortfolio();
+    }
+    }

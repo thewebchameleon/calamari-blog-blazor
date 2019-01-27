@@ -1,51 +1,53 @@
 ﻿@page "/blog"
 @inject ICMSService CMS
 
-<Heading Size="HeadingSize.Is1" Margin="Margin.Is3.FromBottom.Is3.FromTop">Blog</Heading>
+<div class="app-content">
+    <Heading Size="HeadingSize.Is1" Margin="Margin.Is3.FromBottom.Is3.FromTop">Blog</Heading>
 
-@if (!Posts.Any())
-{
-    <span>Loading...</span>
-}
-else
-{
-<Row>
-    @foreach (var post in Posts)
+    @if (!Posts.Any())
     {
-        <Column ColumnSize="ColumnSize.Is6.OnDesktop.Is12.OnTablet.Is12.OnMobile">
-            <Card Margin="Margin.Is4.FromBottom">
-                <CardImage Source="assets/images/gallery/9.jpg" Alt="Placeholder image">
-                </CardImage>
-                <CardBody>
-                    <CardTitle Size="4">@post.Title </CardTitle>
-                    <Badge Color="Color.Primary">@post.PublishedDate</Badge>
-                    <CardText>
-                        @FormatBodyPreview(post.Body)
-                    </CardText>
-                </CardBody>
-            </Card>
-        </Column>
+        <span>Loading...</span>
     }
-</Row>
-}
+    else
+    {
+        <Row>
+            @foreach (var post in Posts)
+            {
+                <Column ColumnSize="ColumnSize.Is6.OnDesktop.Is12.OnTablet.Is12.OnMobile">
+                    <Card Margin="Margin.Is4.FromBottom">
+                        <CardImage Source="assets/images/gallery/9.jpg" Alt="Placeholder image">
+                        </CardImage>
+                        <CardBody>
+                            <CardTitle Size="4">@post.Title </CardTitle>
+                            <Badge Color="Color.Primary">@post.PublishedDate</Badge>
+                            <CardText>
+                                @FormatBodyPreview(post.Body)
+                            </CardText>
+                        </CardBody>
+                    </Card>
+                </Column>
+            }
+        </Row>
+    }
+</div>
 
-@functions {
+    @functions {
 
-List<BlogPost> Posts { get; set; } = new List<BlogPost>();
+    List<BlogPost> Posts { get; set; } = new List<BlogPost>();
 
-protected override async Task OnInitAsync()
-{
-    Posts = await CMS.GetBlogPosts();
-}
+    protected override async Task OnInitAsync()
+    {
+        Posts = await CMS.GetBlogPosts();
+    }
 
-private string FormatBodyPreview(string content)
-{
-    content = content.Substring(0, 50)
-        .Replace("<html>", string.Empty)
-        .Replace("</html>", string.Empty)
-        .Replace("<p>", string.Empty)
-        .Replace("</p>", string.Empty);
-    return $"{content}...";
-}
+    private string FormatBodyPreview(string content)
+    {
+        content = content.Substring(0, 50)
+            .Replace("<html>", string.Empty)
+            .Replace("</html>", string.Empty)
+            .Replace("<p>", string.Empty)
+            .Replace("</p>", string.Empty);
+        return $"{content}...";
+    }
 
-}
+    }
