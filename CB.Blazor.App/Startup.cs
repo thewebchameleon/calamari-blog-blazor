@@ -1,7 +1,5 @@
 using Microsoft.AspNetCore.Blazor.Builder;
 using Microsoft.Extensions.DependencyInjection;
-using CB.Blazor.Infrastructure.Configuration;
-using Microsoft.Extensions.Configuration;
 using Blazorise.Bootstrap;
 using Blazorise;
 

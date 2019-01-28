@@ -32,7 +32,10 @@
                                 <CardTitle Size="4">@post.Title </CardTitle>
                                 <CardSubTitle>@post.PublishedDate.ToString("dddd, dd MMM yyyy")</CardSubTitle>
                                 <CardText>
-                                    @*@FormatBodyPreview(post.Body)*@
+                                    @foreach (var skill in post.Skills)
+                                    {
+                                        <Badge Color="@BlazoriseHelper.ResolveColour(skill.Colour)">@skill.Name</Badge>
+                                    }
                                 </CardText>
                             </CardBody>
                         </Card>
@@ -50,16 +53,6 @@ List<Interface.CMS.BlogPost> Posts { get; set; } = new List<Interface.CMS.BlogPo
 protected override async Task OnInitAsync()
 {
     Posts = await Http.PostJsonAsync<List<Interface.CMS.BlogPost>>("api/cms/get-blog-posts", new { });
-}
-
-private string FormatBodyPreview(string content)
-{
-    content = content.Substring(0, 50)
-        .Replace("<html>", string.Empty)
-        .Replace("</html>", string.Empty)
-        .Replace("<p>", string.Empty)
-        .Replace("</p>", string.Empty);
-    return $"{content}...";
 }
 
 }

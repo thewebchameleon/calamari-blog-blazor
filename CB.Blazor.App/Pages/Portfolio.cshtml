@@ -20,11 +20,15 @@
                             <CardBody>
                                 <CardTitle Size="5">@project.Name</CardTitle>
                                 <CardText>
-                                    @project.Description
+                                    @foreach (var skill in project.Skills)
+                                    {
+                                        <Badge Color="@BlazoriseHelper.ResolveColour(skill.Colour)">@skill.Name</Badge>
+                                    }
                                 </CardText>
                                 <CardText>
-                                    <a class="text-muted" href="@project.ExternalUrl">Visit site</a>
+                                    @project.Description
                                 </CardText>
+                                <SimpleButton Color="Color.Primary" IsBlock="true" Margin="Margin.Is2.FromTop" Clicked="() => VisitSite(project.ExternalUrl)">Visit site</SimpleButton>
                             </CardBody>
                         </Card>
                     }
@@ -52,7 +56,7 @@
                     <CardBody>
                         @foreach (var skill in Data.Skills)
                         {
-                            <Badge Color="@ResolveColour(skill.Colour)">@skill.Name</Badge>
+                            <Badge Color="@BlazoriseHelper.ResolveColour(skill.Colour)">@skill.Name</Badge>
                         }
                     </CardBody>
                 </Card>
@@ -101,42 +105,47 @@
         UriHelper.NavigateTo("contact");
     }
 
-    private Blazorise.Color ResolveColour(string colour)
+    void VisitSite(string url)
     {
-        if (colour == "Primary")
-        {
-            return Color.Primary;
-        }
-        if (colour == "Secondary")
-        {
-            return Color.Secondary;
-        }
-        if (colour == "Success")
-        {
-            return Color.Success;
-        }
-        if (colour == "Info")
-        {
-            return Color.Info;
-        }
-        if (colour == "Warning")
-        {
-            return Color.Warning;
-        }
-        if (colour == "Danger")
-        {
-            return Color.Danger;
-        }
-        if (colour == "Light")
-        {
-            return Color.Light;
-        }
-        if (colour == "Dark")
-        {
-            return Color.Dark;
-        }
-
-        //todo: do something
-        return Color.Dark;
+        UriHelper.NavigateTo(url);
     }
+
+    //private Blazorise.Color ResolveColour(string colour)
+    //{
+    //    if (colour == "Primary")
+    //    {
+    //        return Color.Primary;
+    //    }
+    //    if (colour == "Secondary")
+    //    {
+    //        return Color.Secondary;
+    //    }
+    //    if (colour == "Success")
+    //    {
+    //        return Color.Success;
+    //    }
+    //    if (colour == "Info")
+    //    {
+    //        return Color.Info;
+    //    }
+    //    if (colour == "Warning")
+    //    {
+    //        return Color.Warning;
+    //    }
+    //    if (colour == "Danger")
+    //    {
+    //        return Color.Danger;
+    //    }
+    //    if (colour == "Light")
+    //    {
+    //        return Color.Light;
+    //    }
+    //    if (colour == "Dark")
+    //    {
+    //        return Color.Dark;
+    //    }
+
+    //    //todo: do something
+    //    return Color.Dark;
+    //}
 }

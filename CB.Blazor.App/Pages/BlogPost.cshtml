@@ -27,7 +27,10 @@
                         <CardTitle Size="4">@Post.Title </CardTitle>
                         <CardSubTitle>@Post.PublishedDate.ToString("dddd, dd MMM yyyy")</CardSubTitle>
                         <CardText>
-
+                            @foreach (var skill in Post.Skills)
+                            {
+                                <Badge Color="@BlazoriseHelper.ResolveColour(skill.Colour)">@skill.Name</Badge>
+                            }
                         </CardText>
                     </CardBody>
                 </Card>

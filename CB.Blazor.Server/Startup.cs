@@ -6,6 +6,7 @@ using CB.Blazor.Email;
 using CB.Blazor.Email.Contracts;
 using CB.Blazor.Infrastructure.Cache;
 using CB.Blazor.Infrastructure.Configuration;
+using CB.Blazor.Infrastructure.Logging;
 using CB.Blazor.Infrastructure.Repositories.SendGridRepo;
 using CB.Blazor.Infrastructure.Repositories.SendGridRepo.Contracts;
 using CB.Blazor.Infrastructure.Repositories.SquidexRepo;
@@ -17,6 +18,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Serilog;
 using System;
 using System.Linq;
 using System.Net.Mime;
@@ -25,6 +27,14 @@ namespace CB.Blazor.Server
 {
     public class Startup
     {
+        public Startup()
+        {
+            Log.Logger = new LoggerConfiguration()
+              .Enrich.FromLogContext()
+              .WriteTo.Console()
+              .CreateLogger();
+        }
+
         public IConfiguration Configuration { get; set; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
@@ -50,10 +60,13 @@ namespace CB.Blazor.Server
                 });
             });
 
+            services.AddLogging(loggingBuilder => loggingBuilder.AddSerilog(dispose: true));
+
             //cache
             services.AddMemoryCache();
             services.AddSingleton<ICacheProvider, MemoryCacheProvider>();
 
+            services.AddSingleton<ILoggerService, LoggerService>();
             services.AddSingleton<ICMSMapper, CMSMapper>();
             services.AddSingleton<ISquidexRepo, SquidexRepo>();
             services.AddSingleton<ISendGridRepo, SendGridRepo>();
