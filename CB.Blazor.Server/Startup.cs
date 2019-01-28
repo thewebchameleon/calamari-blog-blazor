@@ -30,10 +30,6 @@ namespace CB.Blazor.Server
             services.AddResponseCaching();
             services.AddMvc();
 
-            // Adds the Server-Side Blazor services, and those registered by the app project's startup.
-            // This doesn't hurt client side
-            services.AddServerSideBlazor<App.Startup>();
-
             Configuration = services.BuildServiceProvider().GetService<IConfiguration>();
 
             services.Configure<SquidexConfig>(options => Configuration.GetSection("Squidex").Bind(options));
@@ -90,8 +86,7 @@ namespace CB.Blazor.Server
                 routes.MapRoute(name: "default", template: "{controller}/{action}/{id?}");
             });
 
-            // This will also serve a client side app, it just registers SignalR in addition
-            app.UseServerSideBlazor<App.Startup>();
+            app.UseBlazor<App.Startup>();
         }
     }
 }
