@@ -1,6 +1,16 @@
 ﻿@page "/blog"
 @inject ICMSService CMS
 
+<style>
+    a {
+        color: black;
+    }
+
+        a:hover {
+            text-decoration: none;
+        }
+</style>
+
 <div class="app-content">
     <Heading Size="HeadingSize.Is1" Margin="Margin.Is3.FromBottom.Is3.FromTop">Blog</Heading>
 
@@ -13,18 +23,20 @@
         <Row>
             @foreach (var post in Posts)
             {
-                <Column ColumnSize="ColumnSize.Is6.OnDesktop.Is12.OnTablet.Is12.OnMobile">
-                    <Card Margin="Margin.Is4.FromBottom">
-                        <CardImage Source="@post.ImageUrl" Alt="@post.Title">
-                        </CardImage>
-                        <CardBody>
-                            <CardTitle Size="4">@post.Title </CardTitle>
-                            <CardSubTitle>@post.PublishedDate.ToString("dddd, dd MMM yyyy")</CardSubTitle>
-                            <CardText>
-                                @*@FormatBodyPreview(post.Body)*@
-                            </CardText>
-                        </CardBody>
-                    </Card>
+                <Column ColumnSize="ColumnSize.IsFull.OnMobile.Is6.OnTablet">
+                    <a href="blog-post/@post.Id">
+                        <Card Margin="Margin.Is4.FromBottom">
+                            <CardImage Source="@post.ImageUrl" Alt="@post.Title">
+                            </CardImage>
+                            <CardBody>
+                                <CardTitle Size="4">@post.Title </CardTitle>
+                                <CardSubTitle>@post.PublishedDate.ToString("dddd, dd MMM yyyy")</CardSubTitle>
+                                <CardText>
+                                    @*@FormatBodyPreview(post.Body)*@
+                                </CardText>
+                            </CardBody>
+                        </Card>
+                    </a>
                 </Column>
             }
         </Row>
@@ -33,7 +45,7 @@
 
     @functions {
 
-    List<BlogPost> Posts { get; set; } = new List<BlogPost>();
+    List<Interface.CMS.BlogPost> Posts { get; set; } = new List<Interface.CMS.BlogPost>();
 
     protected override async Task OnInitAsync()
     {
