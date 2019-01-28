@@ -33,31 +33,15 @@ namespace CB.Blazor.CMS
 
         #region Public Methods
 
-        public async Task<List<BlogCategory>> GetBlogCategories()
-        {
-            var categories = await GetItemFromCache(CacheConstants.BlogCategories, () => _repo.GetBlogCategories());
-            return _mapper.MapToBlogCategories(categories);
-        }
-
-        public async Task<BlogCategory> GetBlogCategory(string id)
-        {
-            var categories = await GetItemFromCache(CacheConstants.BlogCategories, () => _repo.GetBlogCategories());
-            var category = categories.FirstOrDefault(c => c.Id == id);
-            return _mapper.MapToBlogCategory(category);
-        }
-
         public async Task<BlogPost> GetBlogPost(string id)
         {
             var posts = await GetItemFromCache(CacheConstants.BlogPosts, () => _repo.GetBlogPosts());
             var post = posts.FirstOrDefault(p => p.Id == id);
 
-            var categories = await GetItemFromCache(CacheConstants.BlogCategories, () => _repo.GetBlogCategories());
-            var category = categories.Where(c => post.Data.Categories.Contains(c.Id)).FirstOrDefault();
+            var skills = await GetItemFromCache(CacheConstants.SkillTypes, () => _repo.GetSkillTypes());
+            var postSkills = skills.Where(s => post.Data.Skills.Contains(s.Id)).ToList();
 
-            var tags = await GetItemFromCache(CacheConstants.BlogPostTags, () => _repo.GetBlogPostTags());
-            tags = tags.Where(t => post.Data.Tags.Contains(t.Id)).ToList();
-
-            return _mapper.MapToBlogPost(post, category, tags);
+            return _mapper.MapToBlogPost(post, postSkills);
         }
 
         public async Task<List<BlogPost>> GetBlogPosts()
@@ -72,52 +56,26 @@ namespace CB.Blazor.CMS
             return result;
         }
 
-        public async Task<List<BlogPost>> GetBlogPostsByCategoryID(string id)
+        public async Task<Global> GetGlobal()
         {
-            var posts = await GetItemFromCache(CacheConstants.BlogPosts, () => _repo.GetBlogPosts());
-
-            posts = posts.Where(p => p.Data.Categories.Contains(id)).ToList();
-
-            var result = new List<BlogPost>();
-            foreach (var post in posts)
-            {
-                result.Add(await GetBlogPost(post.Id));
-            }
-            return result;
-        }
-
-        public async Task<List<BlogPostTag>> GetBlogPostTags()
-        {
-            var tags = await GetItemFromCache(CacheConstants.BlogPostTags, () => _repo.GetBlogPostTags());
-
-            var result = new List<BlogPostTag>();
-            result.AddRange(await GetBlogPostTags(tags.Select(t => t.Id).ToList()));
-            return result;
-        }
-
-        public async Task<List<BlogPostTag>> GetBlogPostTags(List<string> tagIds)
-        {
-            var result = new List<BlogPostTag>();
-            var tags = await GetItemFromCache(CacheConstants.BlogPostTags, () => _repo.GetBlogPostTags());
-
-            foreach (var tagId in tagIds)
-            {
-                var tag = tags.FirstOrDefault(t => t.Id == tagId);
-                result.Add(_mapper.MapToBlogPostTag(tag));
-            }
-            return result;
-        }
-
-        public async Task<GlobalConfig> GetGlobalConfig()
-        {
-            var config = await GetItemFromCache(CacheConstants.GlobalConfig, () => _repo.GetGlobalConfig());
-            return _mapper.MapToGlobalConfig(config);
+            var config = await GetItemFromCache(CacheConstants.Global, () => _repo.GetGlobal());
+            return _mapper.MapToGlobal(config);
         }
 
         public async Task<Portfolio> GetPortfolio()
         {
-            var profile = await GetItemFromCache(CacheConstants.Portfolio, () => _repo.GetPortfolio());
-            return _mapper.MapToProfile(profile);
+            var portfolio = await GetItemFromCache(CacheConstants.Portfolio, () => _repo.GetPortfolio());
+            var portfolioProjects = await GetItemFromCache(CacheConstants.PortfolioProjects, () => _repo.GetPortfolioProjects());
+            var skills = await GetItemFromCache(CacheConstants.SkillTypes, () => _repo.GetSkillTypes());
+
+            var mappedProjects = new List<PortfolioProject>();
+            foreach (var project in portfolioProjects)
+            {
+                var projectSkills = skills.Where(s => project.Data.Skills.Contains(s.Id)).ToList();
+                mappedProjects.Add(_mapper.MapToPortfolioProject(project, projectSkills));
+            }
+
+            return _mapper.MapToPortfolio(portfolio, mappedProjects, skills);
         }
 
         #endregion

@@ -15,11 +15,11 @@
             {
                 <Column ColumnSize="ColumnSize.Is6.OnDesktop.Is12.OnTablet.Is12.OnMobile">
                     <Card Margin="Margin.Is4.FromBottom">
-                        <CardImage Source="assets/images/gallery/9.jpg" Alt="Placeholder image">
+                        <CardImage Source="@post.ImageUrl" Alt="@post.Title">
                         </CardImage>
                         <CardBody>
                             <CardTitle Size="4">@post.Title </CardTitle>
-                            <Badge Color="Color.Primary">@post.PublishedDate</Badge>
+                            <CardSubTitle>@post.PublishedDate</CardSubTitle>
                             <CardText>
                                 @FormatBodyPreview(post.Body)
                             </CardText>

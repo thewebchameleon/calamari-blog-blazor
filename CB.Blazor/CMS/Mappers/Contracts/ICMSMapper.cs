@@ -6,18 +6,12 @@ namespace CB.Blazor.CMS.Mappers.Contracts
 {
     public interface ICMSMapper
     {
-        List<BlogCategory> MapToBlogCategories(List<BlogCategoryEntity> model);
+        BlogPost MapToBlogPost(BlogPostEntity model, List<SkillTypeEntity> skills);
 
-        BlogCategory MapToBlogCategory(BlogCategoryEntity model);
+        Global MapToGlobal(GlobalEntity model);
 
-        BlogPost MapToBlogPost(BlogPostEntity model, BlogCategoryEntity category, List<BlogPostTagEntity> tags);
+        PortfolioProject MapToPortfolioProject(PortfolioProjectEntity model, List<SkillTypeEntity> skills);
 
-        BlogPostTag MapToBlogPostTag(BlogPostTagEntity model);
-
-        List<BlogPostTag> MapToBlogPostTags(List<BlogPostTagEntity> model);
-
-        GlobalConfig MapToGlobalConfig(GlobalConfigEntity model);
-
-        Portfolio MapToProfile(ProfileEntity model);
+        Portfolio MapToPortfolio(PortfolioEntity model, List<PortfolioProject> projects, List<SkillTypeEntity> skills);
     }
 }

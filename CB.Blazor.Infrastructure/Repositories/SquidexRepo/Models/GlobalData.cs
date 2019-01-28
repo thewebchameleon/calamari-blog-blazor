@@ -1,31 +1,24 @@
 ﻿using Newtonsoft.Json;
 using Squidex.ClientLibrary;
-using System;
 using System.Collections.Generic;
 
 namespace CB.Blazor.Infrastructure.Repositories.SquidexRepo.Models
 {
-    public class BlogPostData
+    public class GlobalData
     {
         [JsonConverter(typeof(InvariantConverter))]
-        public string Title { get; set; }
+        public string SiteName { get; set; }
 
         [JsonConverter(typeof(InvariantConverter))]
-        public string Body { get; set; }
+        public string Subheading { get; set; }
 
         [JsonConverter(typeof(InvariantConverter))]
-        public List<string> Image { get; set; }
+        public string EmailAddress { get; set; }
 
         [JsonConverter(typeof(InvariantConverter))]
-        public DateTime PublishDate { get; set; }
+        public string AuthorImage { get; set; }
 
         [JsonConverter(typeof(InvariantConverter))]
-        public List<string> Skills { get; set; }
-
-        public BlogPostData()
-        {
-            Skills = new List<string>();
-            Image = new List<string>();
-        }
+        public string BackgroundImage { get; set; }
     }
 }

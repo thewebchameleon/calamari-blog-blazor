@@ -30,6 +30,8 @@ namespace CB.Blazor.App
 
             services.Configure<SquidexConfig>(options => Configuration.GetSection("Squidex").Bind(options));
             services.Configure<CacheConfig>(options => Configuration.GetSection("Cache").Bind(options));
+            services.Configure<EmailConfig>(options => Configuration.GetSection("Email").Bind(options));
+            services.Configure<LoggingConfig>(options => Configuration.GetSection("Logging").Bind(options));
 
             //blazorise
             services.AddBootstrapProviders().AddIconProvider(IconProvider.FontAwesome);

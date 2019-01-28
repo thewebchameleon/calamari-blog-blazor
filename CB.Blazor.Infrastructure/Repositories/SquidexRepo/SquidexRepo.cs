@@ -12,11 +12,11 @@ namespace CB.Blazor.Infrastructure.Repositories.SquidexRepo
 {
     public class SquidexRepo : ISquidexRepo
     {
-        private readonly SquidexClient<BlogCategoryEntity, BlogCategoryData> _blogCategoriesClient;
+        private readonly SquidexClient<PortfolioProjectEntity, PortfolioProjectData> _portfolioProjectsClient;
         private readonly SquidexClient<BlogPostEntity, BlogPostData> _blogPostClient;
-        private readonly SquidexClient<BlogPostTagEntity, BlogPostTagData> _blogPostTagClient;
-        private readonly SquidexClient<GlobalConfigEntity, GlobalConfigData> _globalClient;
-        private readonly SquidexClient<ProfileEntity, ProfileData> _profileClient;
+        private readonly SquidexClient<SkillTypeEntity, SkillTypeData> _skillTypesClient;
+        private readonly SquidexClient<GlobalEntity, GlobalData> _globalClient;
+        private readonly SquidexClient<PortfolioEntity, PortfolioData> _portfolioClient;
 
         private readonly ICacheProvider _cache;
 
@@ -31,18 +31,18 @@ namespace CB.Blazor.Infrastructure.Repositories.SquidexRepo
                     options.ClientId,
                     options.ClientSecret);
 
-            _blogCategoriesClient = clientManager.GetClient<BlogCategoryEntity, BlogCategoryData>("blog-categories");
+            _portfolioProjectsClient = clientManager.GetClient<PortfolioProjectEntity, PortfolioProjectData>("portfolio-projects");
             _blogPostClient = clientManager.GetClient<BlogPostEntity, BlogPostData>("blog-posts");
-            _blogPostTagClient = clientManager.GetClient<BlogPostTagEntity, BlogPostTagData>("blog-post-tags");
-            _globalClient = clientManager.GetClient<GlobalConfigEntity, GlobalConfigData>("global");
-            _profileClient = clientManager.GetClient<ProfileEntity, ProfileData>("profile");
+            _skillTypesClient = clientManager.GetClient<SkillTypeEntity, SkillTypeData>("skill-types");
+            _globalClient = clientManager.GetClient<GlobalEntity, GlobalData>("global");
+            _portfolioClient = clientManager.GetClient<PortfolioEntity, PortfolioData>("portfolio");
 
             _cache = cache;
         }
 
-        public async Task<List<BlogCategoryEntity>> GetBlogCategories(int page = 0, int pageSize = 3)
+        public async Task<List<PortfolioProjectEntity>> GetPortfolioProjects(int page = 0, int pageSize = 3)
         {
-            var data = await _blogCategoriesClient.GetAsync(page * pageSize, pageSize);
+            var data = await _portfolioProjectsClient.GetAsync(page * pageSize, pageSize);
             return data.Items;
         }
 
@@ -52,21 +52,21 @@ namespace CB.Blazor.Infrastructure.Repositories.SquidexRepo
             return data.Items;
         }
 
-        public async Task<List<BlogPostTagEntity>> GetBlogPostTags(int page = 0, int pageSize = 3)
+        public async Task<List<SkillTypeEntity>> GetSkillTypes(int page = 0, int pageSize = 3)
         {
-            var data = await _blogPostTagClient.GetAsync(page * pageSize, pageSize);
+            var data = await _skillTypesClient.GetAsync(page * pageSize, pageSize);
             return data.Items;
         }
 
-        public async Task<GlobalConfigEntity> GetGlobalConfig()
+        public async Task<GlobalEntity> GetGlobal()
         {
             var data = await _globalClient.GetAsync();
             return data.Items.FirstOrDefault();
         }
 
-        public async Task<ProfileEntity> GetPortfolio()
+        public async Task<PortfolioEntity> GetPortfolio()
         {
-            var data = await _profileClient.GetAsync();
+            var data = await _portfolioClient.GetAsync();
             return data.Items.FirstOrDefault();
         }
     }

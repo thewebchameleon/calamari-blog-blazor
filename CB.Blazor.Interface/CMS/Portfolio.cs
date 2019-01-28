@@ -1,13 +1,21 @@
-﻿namespace CB.Blazor.Interface.CMS
+﻿using System.Collections.Generic;
+
+namespace CB.Blazor.Interface.CMS
 {
     public class Portfolio
     {
-        public string Portrait { get; set; }
+        public string Biography { get; set; }
 
-        public string Name { get; set; }
+        public string CVUrl { get; set; }
 
-        public string Title { get; set; }
+        public List<PortfolioProject> Projects { get; set; }
 
-        public string Body { get; set; }
+        public List<SkillType> Skills { get; set; }
+
+        public Portfolio()
+        {
+            Projects = new List<PortfolioProject>();
+            Skills = new List<SkillType>();
+        }
     }
 }

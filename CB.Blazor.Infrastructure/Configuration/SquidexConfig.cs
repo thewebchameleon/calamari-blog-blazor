@@ -10,6 +10,8 @@
 
         public string ClientSecret { get; set; }
 
-        public string WebHookSecret { get; set; }
+        public string WebHookAssetSecret { get; set; }
+
+        public string WebHookContentSecret { get; set; }
     }
 }

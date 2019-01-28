@@ -2,10 +2,10 @@
 {
     public class CacheConstants
     {
-        public const string BlogCategories = "BlogCategories";
-        public const string BlogPostTags = "BlogPostTags";
+        public const string PortfolioProjects = "PortfolioProjects";
+        public const string SkillTypes = "SkillTypes";
         public const string BlogPosts = "BlogPosts";
-        public const string GlobalConfig = "GlobalConfig";
+        public const string Global = "Global";
         public const string Portfolio = "Portfolio";
     }
 }

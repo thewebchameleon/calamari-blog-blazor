@@ -1,12 +1,13 @@
 ﻿@inherits BlazorLayoutComponent
+@inject ICMSService CMS
 
 <Sidebar ref="sidebar">
     <SidebarContent>
         <SidebarBrand>
-            <a href="">The Web Chameleon</a>
+            <a href="">@GlobalConfig.SiteName</a>
         </SidebarBrand>
         <SidebarNavigation>
-            <SidebarLabel>Developer and Tinkerer</SidebarLabel>
+            <SidebarLabel>@GlobalConfig.SubHeading</SidebarLabel>
             <SidebarItem>
                 <SidebarLink To="portfolio" Title="Portfolio">
                     <Icon Name="IconName.Person" Margin="Margin.Is3.FromRight" />Portfolio
@@ -32,12 +33,17 @@
 
 @functions{
     Sidebar sidebar;
-    SidebarSubItem sidebarSubItemTests;
+    Global GlobalConfig { get; set; } = new Global();
 
     bool collapseNavMenu = true;
 
     void ToggleSidebar()
     {
         sidebar.Toggle();
+    }
+
+    protected override async Task OnInitAsync()
+    {
+        GlobalConfig = await CMS.GetGlobal();
     }
 }

@@ -2,7 +2,7 @@
 
 namespace CB.Blazor.Infrastructure.Repositories.SquidexRepo.Models
 {
-    public class GlobalConfigEntity : SquidexEntityBase<GlobalConfigData>
+    public class PortfolioProjectEntity : SquidexEntityBase<PortfolioProjectData>
     {
     }
 }

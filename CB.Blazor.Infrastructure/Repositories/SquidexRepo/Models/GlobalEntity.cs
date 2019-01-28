@@ -2,7 +2,7 @@
 
 namespace CB.Blazor.Infrastructure.Repositories.SquidexRepo.Models
 {
-    public class BlogPostTagEntity : SquidexEntityBase<BlogPostTagData>
+    public class GlobalEntity : SquidexEntityBase<GlobalData>
     {
     }
 }

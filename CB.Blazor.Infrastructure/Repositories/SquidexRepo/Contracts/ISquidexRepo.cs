@@ -6,14 +6,14 @@ namespace CB.Blazor.Infrastructure.Repositories.SquidexRepo.Contracts
 {
     public interface ISquidexRepo
     {
-        Task<List<BlogCategoryEntity>> GetBlogCategories(int page = 0, int pageSize = 3);
+        Task<List<PortfolioProjectEntity>> GetPortfolioProjects(int page = 0, int pageSize = 3);
 
         Task<List<BlogPostEntity>> GetBlogPosts(int page = 0, int pageSize = 3);
 
-        Task<List<BlogPostTagEntity>> GetBlogPostTags(int page = 0, int pageSize = 3);
+        Task<List<SkillTypeEntity>> GetSkillTypes(int page = 0, int pageSize = 3);
 
-        Task<GlobalConfigEntity> GetGlobalConfig();
+        Task<GlobalEntity> GetGlobal();
 
-        Task<ProfileEntity> GetPortfolio();
+        Task<PortfolioEntity> GetPortfolio();
     }
 }

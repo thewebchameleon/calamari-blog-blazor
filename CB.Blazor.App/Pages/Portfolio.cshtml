@@ -12,55 +12,32 @@
         <Row>
             <Column>
                 <CardGroup>
-                    <Card Margin="Margin.Is4.FromBottom">
-                        <CardImage Source="assets/images/gallery/9.jpg" Alt="Placeholder image">
-                        </CardImage>
-                        <CardBody>
-                            <CardTitle Size="5">Website 1</CardTitle>
-                            <CardText>
-                                This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.
-                            </CardText>
-                            <CardText>
-                                <a class="text-muted">Visit site</a>
-                            </CardText>
-                        </CardBody>
-                    </Card>
-                    <Card Margin="Margin.Is4.FromBottom">
-                        <CardImage Source="assets/images/gallery/2.jpg" Alt="Placeholder image">
-                        </CardImage>
-                        <CardBody>
-                            <CardTitle Size="5">Website 2</CardTitle>
-                            <CardText>
-                                This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.
-                            </CardText>
-                            <CardText>
-                                <a class="text-muted">Visit site</a>
-                            </CardText>
-                        </CardBody>
-                    </Card>
-                    <Card Margin="Margin.Is4.FromBottom">
-                        <CardImage Source="assets/images/gallery/3.jpg" Alt="Placeholder image">
-                        </CardImage>
-                        <CardBody>
-                            <CardTitle Size="5">Website 3</CardTitle>
-                            <CardText>
-                                This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.
-                            </CardText>
-                            <CardText>
-                                <a class="text-muted">Visit site</a>
-                            </CardText>
-                        </CardBody>
-                    </Card>
+                    @foreach (var project in Data.Projects)
+                    {
+                        <Card Margin="Margin.Is4.FromBottom">
+                            <CardImage Source="@project.ImageUrl" Alt="@project.Name">
+                            </CardImage>
+                            <CardBody>
+                                <CardTitle Size="5">@project.Name</CardTitle>
+                                <CardText>
+                                    @project.Description
+                                </CardText>
+                                <CardText>
+                                    <a class="text-muted" href="@project.ExternalUrl">Visit site</a>
+                                </CardText>
+                            </CardBody>
+                        </Card>
+                    }
                 </CardGroup>
             </Column>
         </Row>
         <Row>
             <Column ColumnSize="ColumnSize.IsFull">
-                <Card Margin="Margin.Is4.OnY" >
+                <Card Margin="Margin.Is4.OnY">
                     <CardBody>
                         <CardTitle Size="4">About me</CardTitle>
                         <CardText>
-                            @((MarkupString)Data.Body)
+                            @((MarkupString)Data.Biography)
                         </CardText>
                     </CardBody>
                 </Card>
@@ -73,27 +50,10 @@
                         <CardTitle Size="4">Skills</CardTitle>
                     </CardHeader>
                     <CardBody>
-                        <Badge Color="Color.Primary">C#</Badge>
-                        <Badge Color="Color.Primary">ASP.NET Core</Badge>
-                        <Badge Color="Color.Primary">ASP.NET MVC</Badge>
-                        <Badge Color="Color.Primary">ASP.NET Webforms</Badge>
-                        <Badge Color="Color.Primary">ASP.NET Blazor</Badge>
-
-                        <Badge Color="Color.Secondary">HTML5</Badge>
-
-                        <Badge Color="Color.Info">CSS3</Badge>
-                        <Badge Color="Color.Info">Bootstrap</Badge>
-                        <Badge Color="Color.Info">Foundation</Badge>
-                        <Badge Color="Color.Info">PotatoCSS</Badge>
-                        <Badge Color="Color.Info">Milligram</Badge>
-
-                        <Badge Color="Color.Success">Javascript</Badge>
-                        <Badge Color="Color.Success">KnockoutJS</Badge>
-                        <Badge Color="Color.Success">Angular</Badge>
-
-                        <Badge Color="Color.Warning">Visual Studio</Badge>
-                        <Badge Color="Color.Warning">Visual Studio Code</Badge>
-                        <Badge Color="Color.Warning">Webflow</Badge>
+                        @foreach (var skill in Data.Skills)
+                        {
+                            <Badge Color="@ResolveColour(skill.Colour)">@skill.Name</Badge>
+                        }
                     </CardBody>
                 </Card>
             </Column>
@@ -104,7 +64,7 @@
                         <CardText>
                             Drop a line with your requirements and get a free quote and timeline.
                         </CardText>
-                        <SimpleButton Color="Color.Primary" Margin="Margin.Is2.FromTop" IsBlock="true">Contact Me</SimpleButton>
+                        <SimpleButton Color="Color.Primary" Margin="Margin.Is2.FromTop" IsBlock="true" Clicked="GoToContact">Contact Me</SimpleButton>
                     </CardBody>
                 </Card>
             </Column>
@@ -115,7 +75,7 @@
                         <CardText>
                             Here is a link to my curriculum vitae in pdf format
                         </CardText>
-                        <SimpleButton Color="Color.Primary" Margin="Margin.Is2.FromTop" IsBlock="true">View</SimpleButton>
+                        <SimpleButton Color="Color.Primary" Margin="Margin.Is2.FromTop" IsBlock="true" Clicked="GoToCV">View</SimpleButton>
                     </CardBody>
                 </Card>
             </Column>
@@ -123,11 +83,60 @@
     }
 </div>
 
-    @functions {
+@functions {
     Interface.CMS.Portfolio Data { get; set; } = new Interface.CMS.Portfolio();
 
     protected override async Task OnInitAsync()
     {
         Data = await CMS.GetPortfolio();
     }
+
+    void GoToCV()
+    {
+        UriHelper.NavigateTo(Data.CVUrl);
     }
+
+    void GoToContact()
+    {
+        UriHelper.NavigateTo("contact");
+    }
+
+    private Blazorise.Color ResolveColour(string colour)
+    {
+        if (colour == "Primary")
+        {
+            return Color.Primary;
+        }
+        if (colour == "Secondary")
+        {
+            return Color.Secondary;
+        }
+        if (colour == "Success")
+        {
+            return Color.Success;
+        }
+        if (colour == "Info")
+        {
+            return Color.Info;
+        }
+        if (colour == "Warning")
+        {
+            return Color.Warning;
+        }
+        if (colour == "Danger")
+        {
+            return Color.Danger;
+        }
+        if (colour == "Light")
+        {
+            return Color.Light;
+        }
+        if (colour == "Dark")
+        {
+            return Color.Dark;
+        }
+
+        //todo: do something
+        return Color.Dark;
+    }
+}
