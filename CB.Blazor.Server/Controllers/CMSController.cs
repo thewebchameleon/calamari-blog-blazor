@@ -1,4 +1,5 @@
 ﻿using CB.Blazor.CMS.Contracts;
+using CB.Blazor.Email.Contracts;
 using CB.Blazor.Interface.CMS;
 using CB.Blazor.Interface.ServiceModels;
 using Microsoft.AspNetCore.Mvc;
@@ -11,10 +12,12 @@ namespace CB.Blazor.Server.Controllers
     public class CMSController
     {
         private readonly ICMSService _cmsService;
+        private readonly IEmailService _emailService;
 
-        public CMSController(ICMSService cmsService)
+        public CMSController(ICMSService cmsService, IEmailService emailService)
         {
             _cmsService = cmsService;
+            _emailService = emailService;
         }
 
         [Route("get-blog-posts")]
@@ -39,6 +42,12 @@ namespace CB.Blazor.Server.Controllers
         public async Task<Portfolio> GetPortfolio()
         {
             return await _cmsService.GetPortfolio();
+        }
+
+        [Route("send-contact-email")]
+        public async Task<SendContactEmailResponse> SendContactEmail([FromBody] SendContactEmailRequest request)
+        {
+            return await _emailService.SendContactEmail(request);
         }
     }
 }

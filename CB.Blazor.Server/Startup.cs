@@ -2,8 +2,12 @@ using CB.Blazor.CMS;
 using CB.Blazor.CMS.Contracts;
 using CB.Blazor.CMS.Mappers;
 using CB.Blazor.CMS.Mappers.Contracts;
+using CB.Blazor.Email;
+using CB.Blazor.Email.Contracts;
 using CB.Blazor.Infrastructure.Cache;
 using CB.Blazor.Infrastructure.Configuration;
+using CB.Blazor.Infrastructure.Repositories.SendGridRepo;
+using CB.Blazor.Infrastructure.Repositories.SendGridRepo.Contracts;
 using CB.Blazor.Infrastructure.Repositories.SquidexRepo;
 using CB.Blazor.Infrastructure.Repositories.SquidexRepo.Contracts;
 using Microsoft.AspNetCore.Blazor.Server;
@@ -52,7 +56,9 @@ namespace CB.Blazor.Server
 
             services.AddSingleton<ICMSMapper, CMSMapper>();
             services.AddSingleton<ISquidexRepo, SquidexRepo>();
+            services.AddSingleton<ISendGridRepo, SendGridRepo>();
             services.AddSingleton<ICMSService, CMSService>();
+            services.AddSingleton<IEmailService, EmailService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

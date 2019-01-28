@@ -15,29 +15,29 @@
                     <Field IsHorizontal="true">
                         <FieldLabel ColumnSize="ColumnSize.Is2">Name</FieldLabel>
                         <FieldBody ColumnSize="ColumnSize.Is10">
-                            <TextEdit Placeholder="name" bind-Text="@Name" />
+                            <TextEdit Placeholder="name" bind-Text="@name" />
                         </FieldBody>
                     </Field>
                     <Field IsHorizontal="true">
                         <FieldLabel ColumnSize="ColumnSize.Is2">Email</FieldLabel>
                         <FieldBody ColumnSize="ColumnSize.Is10">
-                            <TextEdit Role="TextRole.Email" Placeholder="email" bind-Text="@Email" />
+                            <TextEdit Role="TextRole.Email" Placeholder="email" bind-Text="@email" />
                         </FieldBody>
                     </Field>
                     <Field IsHorizontal="true">
                         <FieldLabel ColumnSize="ColumnSize.Is2">Mobile number</FieldLabel>
                         <FieldBody ColumnSize="ColumnSize.Is10">
-                            <TextEdit Placeholder="mobile number" bind-Text="@MobileNumber" />
+                            <TextEdit Placeholder="mobile number" bind-Text="@mobileNumber" />
                         </FieldBody>
                     </Field>
                     <Field IsHorizontal="true">
                         <FieldLabel ColumnSize="ColumnSize.Is2">Message</FieldLabel>
                         <FieldBody ColumnSize="ColumnSize.Is10">
-                            <MemoEdit Rows="8" bind-Text="@Message" />
+                            <MemoEdit Rows="8" bind-Text="@message" />
                         </FieldBody>
                     </Field>
                     <Field>
-                        <SimpleButton Color="Color.Primary" Clicked="SendMessage">Send message</SimpleButton>
+                        <SimpleButton Color="Color.Primary" Clicked="async () => await SendMessage()">Send message</SimpleButton>
                     </Field>
                 </CardBody>
             </Card>
@@ -51,27 +51,33 @@
 </div>
 
 @functions {
-        Global GlobalConfig { get; set; } = new Global();
-        bool MessageSent { get; set; }
-        Snackbar snackbar;
+    Global GlobalConfig { get; set; } = new Global();
+    bool MessageSent { get; set; }
+    Snackbar snackbar;
 
-        string Name { get; set; }
-        string Email { get; set; }
-        string MobileNumber { get; set; }
-        string Message { get; set; }
+    string name { get; set; }
+    string email { get; set; }
+    string mobileNumber { get; set; }
+    string message { get; set; }
 
-        public void SendMessage()
-        {
-            //todo: do work
+    public async Task SendMessage()
+    {
+        await Http.PostJsonAsync("api/cms/send-contact-email",
+            new Interface.ServiceModels.SendContactEmailRequest {
+                Name = name,
+                Email = email,
+                Message = message,
+                MobileNumber = mobileNumber
+            });
 
-            Name = string.Empty;
-            Email = string.Empty;
-            MobileNumber = string.Empty;
-            Message = string.Empty;
+        name = string.Empty;
+        email = string.Empty;
+        mobileNumber = string.Empty;
+        message = string.Empty;
 
-            snackbar.Show();
-            this.StateHasChanged();
-        }
+        snackbar.Show();
+        this.StateHasChanged();
+    }
 
     protected override async Task OnInitAsync()
     {
