@@ -1,5 +1,5 @@
 ﻿@page "/"
-@inject ICMSService CMS
+@inject HttpClient Http
 
 <style>
     .index-page {
@@ -53,20 +53,20 @@
 </div>
 
 @functions {
-Global GlobalConfig { get; set; } = new Global();
+        Global GlobalConfig { get; set; } = new Global();
 
-void GoToBlog()
-{
-    UriHelper.NavigateTo("blog");
-}
+        void GoToBlog()
+        {
+            UriHelper.NavigateTo("blog");
+        }
 
-void GoToPortfolio()
-{
-    UriHelper.NavigateTo("portfolio");
-}
+        void GoToPortfolio()
+        {
+            UriHelper.NavigateTo("portfolio");
+        }
 
-protected override async Task OnInitAsync()
-{
-    GlobalConfig = await CMS.GetGlobal();
-}
+    protected override async Task OnInitAsync()
+    {
+        GlobalConfig = await Http.PostJsonAsync<Global>("api/cms/get-global", new { });
+    }
 }

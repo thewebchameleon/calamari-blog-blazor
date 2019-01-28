@@ -1,5 +1,5 @@
 ﻿@page "/blog"
-@inject ICMSService CMS
+@inject HttpClient Http
 
 <style>
     a {
@@ -43,23 +43,23 @@
     }
 </div>
 
-    @functions {
+@functions {
 
-    List<Interface.CMS.BlogPost> Posts { get; set; } = new List<Interface.CMS.BlogPost>();
+List<Interface.CMS.BlogPost> Posts { get; set; } = new List<Interface.CMS.BlogPost>();
 
-    protected override async Task OnInitAsync()
-    {
-        Posts = await CMS.GetBlogPosts();
-    }
+protected override async Task OnInitAsync()
+{
+    Posts = await Http.PostJsonAsync<List<Interface.CMS.BlogPost>>("api/cms/get-blog-posts", new { });
+}
 
-    private string FormatBodyPreview(string content)
-    {
-        content = content.Substring(0, 50)
-            .Replace("<html>", string.Empty)
-            .Replace("</html>", string.Empty)
-            .Replace("<p>", string.Empty)
-            .Replace("</p>", string.Empty);
-        return $"{content}...";
-    }
+private string FormatBodyPreview(string content)
+{
+    content = content.Substring(0, 50)
+        .Replace("<html>", string.Empty)
+        .Replace("</html>", string.Empty)
+        .Replace("<p>", string.Empty)
+        .Replace("</p>", string.Empty);
+    return $"{content}...";
+}
 
-    }
+}

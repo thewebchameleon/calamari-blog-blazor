@@ -1,5 +1,6 @@
-﻿@page "/blog-post/{id}"
-@inject ICMSService CMS
+﻿@page "/blog-post"
+@page "/blog-post/{Id}"
+@inject HttpClient Http
 
 <style>
     .card-img-top {
@@ -26,7 +27,7 @@
                         <CardTitle Size="4">@Post.Title </CardTitle>
                         <CardSubTitle>@Post.PublishedDate.ToString("dddd, dd MMM yyyy")</CardSubTitle>
                         <CardText>
-                            
+
                         </CardText>
                     </CardBody>
                 </Card>
@@ -40,24 +41,14 @@
 
 @functions {
 
-Interface.CMS.BlogPost Post { get; set; }
+        Interface.CMS.BlogPost Post { get; set; }
 
-[Parameter]
-string Id { get; set; }
+    [Parameter]
+    string Id { get; set; }
 
-protected override async Task OnInitAsync()
-{
-    Post = await CMS.GetBlogPost(Id);
-}
-
-private string FormatBodyPreview(string content)
-{
-    content = content.Substring(0, 50)
-        .Replace("<html>", string.Empty)
-        .Replace("</html>", string.Empty)
-        .Replace("<p>", string.Empty)
-        .Replace("</p>", string.Empty);
-    return $"{content}...";
-}
+    protected override async Task OnInitAsync()
+    {
+        Post = await Http.PostJsonAsync<Interface.CMS.BlogPost>($"api/cms/get-blog-post", new { Id = Id });
+    }
 
 }

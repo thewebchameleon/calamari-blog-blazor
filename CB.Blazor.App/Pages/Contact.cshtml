@@ -1,5 +1,5 @@
 ﻿@page "/contact"
-@inject ICMSService CMS
+@inject HttpClient Http
 
 <div class="app-content">
     <Heading Size="HeadingSize.Is1" Margin="Margin.Is3.FromBottom.Is3.FromTop">Contact</Heading>
@@ -15,7 +15,7 @@
                     <Field IsHorizontal="true">
                         <FieldLabel ColumnSize="ColumnSize.Is2">Name</FieldLabel>
                         <FieldBody ColumnSize="ColumnSize.Is10">
-                            <TextEdit Placeholder="name" bind-Text="@Name"  />
+                            <TextEdit Placeholder="name" bind-Text="@Name" />
                         </FieldBody>
                     </Field>
                     <Field IsHorizontal="true">
@@ -51,30 +51,30 @@
 </div>
 
 @functions {
-    Global GlobalConfig { get; set; } = new Global();
-    bool MessageSent { get; set; }
-    Snackbar snackbar;
+        Global GlobalConfig { get; set; } = new Global();
+        bool MessageSent { get; set; }
+        Snackbar snackbar;
 
-    string Name { get; set; }
-    string Email { get; set; }
-    string MobileNumber { get; set; }
-    string Message { get; set; }
+        string Name { get; set; }
+        string Email { get; set; }
+        string MobileNumber { get; set; }
+        string Message { get; set; }
 
-    public void SendMessage()
-    {
-        //todo: do work
+        public void SendMessage()
+        {
+            //todo: do work
 
-        Name = string.Empty;
-        Email = string.Empty;
-        MobileNumber = string.Empty;
-        Message = string.Empty;
+            Name = string.Empty;
+            Email = string.Empty;
+            MobileNumber = string.Empty;
+            Message = string.Empty;
 
-        snackbar.Show();
-        this.StateHasChanged();
-    }
+            snackbar.Show();
+            this.StateHasChanged();
+        }
 
     protected override async Task OnInitAsync()
     {
-        GlobalConfig = await CMS.GetGlobal();
+        GlobalConfig = await Http.PostJsonAsync<Global>("api/cms/get-global", new { });
     }
 }

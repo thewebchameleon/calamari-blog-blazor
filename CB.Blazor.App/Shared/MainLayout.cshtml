@@ -1,5 +1,5 @@
 ﻿@inherits BlazorLayoutComponent
-@inject ICMSService CMS
+@inject HttpClient Http
 
 <style>
     nav.navbar {
@@ -47,18 +47,18 @@
 </div>
 
 @functions{
-    Sidebar sidebar;
-    Global GlobalConfig { get; set; } = new Global();
+        Sidebar sidebar;
+        Global GlobalConfig { get; set; } = new Global();
 
-    bool collapseNavMenu = true;
+        bool collapseNavMenu = true;
 
-    void ToggleSidebar()
-    {
-        sidebar.Toggle();
-    }
+        void ToggleSidebar()
+        {
+            sidebar.Toggle();
+        }
 
     protected override async Task OnInitAsync()
     {
-        GlobalConfig = await CMS.GetGlobal();
+        GlobalConfig = await Http.PostJsonAsync<Global>("api/cms/get-global", new { });
     }
 }

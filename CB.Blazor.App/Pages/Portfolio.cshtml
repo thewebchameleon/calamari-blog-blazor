@@ -1,5 +1,5 @@
 ﻿@page "/portfolio"
-@inject ICMSService CMS
+@inject HttpClient Http
 
 <div class="app-content">
     <Heading Size="HeadingSize.Is1" Margin="Margin.Is3.FromBottom.Is3.FromTop">Portfolio</Heading>
@@ -88,7 +88,7 @@
 
     protected override async Task OnInitAsync()
     {
-        Data = await CMS.GetPortfolio();
+        Data = await Http.PostJsonAsync<Interface.CMS.Portfolio>("api/cms/get-portfolio", new { });
     }
 
     void GoToCV()
