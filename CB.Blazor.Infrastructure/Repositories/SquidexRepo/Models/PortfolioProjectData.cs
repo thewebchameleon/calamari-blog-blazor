@@ -13,6 +13,7 @@ namespace CB.Blazor.Infrastructure.Repositories.SquidexRepo.Models
         public string Description { get; set; }
 
         [JsonConverter(typeof(InvariantConverter))]
+        [JsonProperty(PropertyName = "external-url")]
         public string ExternalUrl { get; set; }
 
         [JsonConverter(typeof(InvariantConverter))]

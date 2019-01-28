@@ -1,4 +1,5 @@
 ﻿@page "/contact"
+@inject ICMSService CMS
 
 <div class="app-content">
     <Heading Size="HeadingSize.Is1" Margin="Margin.Is3.FromBottom.Is3.FromTop">Contact</Heading>
@@ -8,39 +9,72 @@
             <Card Margin="Margin.Is4.OnY">
                 <CardHeader>
                     <CardTitle>Drop a line with your requirements and get a free quote and timeline.</CardTitle>
-                    <CardSubtitle>You can also contact me on name@example.com</CardSubtitle>
+                    <CardSubtitle>You can also contact me on @GlobalConfig.EmailAddress</CardSubtitle>
                 </CardHeader>
                 <CardBody>
                     <Field IsHorizontal="true">
                         <FieldLabel ColumnSize="ColumnSize.Is2">Name</FieldLabel>
                         <FieldBody ColumnSize="ColumnSize.Is10">
-                            <TextEdit Placeholder="name" />
+                            <TextEdit Placeholder="name" bind-Text="@Name"  />
                         </FieldBody>
                     </Field>
                     <Field IsHorizontal="true">
                         <FieldLabel ColumnSize="ColumnSize.Is2">Email</FieldLabel>
                         <FieldBody ColumnSize="ColumnSize.Is10">
-                            <TextEdit Role="TextRole.Email" Placeholder="email" />
+                            <TextEdit Role="TextRole.Email" Placeholder="email" bind-Text="@Email" />
                         </FieldBody>
                     </Field>
                     <Field IsHorizontal="true">
                         <FieldLabel ColumnSize="ColumnSize.Is2">Mobile number</FieldLabel>
                         <FieldBody ColumnSize="ColumnSize.Is10">
-                            <TextEdit Placeholder="mobile number" />
+                            <TextEdit Placeholder="mobile number" bind-Text="@MobileNumber" />
                         </FieldBody>
                     </Field>
                     <Field IsHorizontal="true">
                         <FieldLabel ColumnSize="ColumnSize.Is2">Message</FieldLabel>
                         <FieldBody ColumnSize="ColumnSize.Is10">
-                            <MemoEdit Rows="8" />
+                            <MemoEdit Rows="8" bind-Text="@Message" />
                         </FieldBody>
                     </Field>
                     <Field>
-                        <SimpleButton Color="Color.Primary">Send message</SimpleButton>
+                        <SimpleButton Color="Color.Primary" Clicked="SendMessage">Send message</SimpleButton>
                     </Field>
                 </CardBody>
             </Card>
         </Column>
     </Row>
-
+    <Snackbar ref="snackbar">
+        <SnackbarBody>
+            Your message has been sent successfully! :)
+        </SnackbarBody>
+    </Snackbar>
 </div>
+
+@functions {
+    Global GlobalConfig { get; set; } = new Global();
+    bool MessageSent { get; set; }
+    Snackbar snackbar;
+
+    string Name { get; set; }
+    string Email { get; set; }
+    string MobileNumber { get; set; }
+    string Message { get; set; }
+
+    public void SendMessage()
+    {
+        //todo: do work
+
+        Name = string.Empty;
+        Email = string.Empty;
+        MobileNumber = string.Empty;
+        Message = string.Empty;
+
+        snackbar.Show();
+        this.StateHasChanged();
+    }
+
+    protected override async Task OnInitAsync()
+    {
+        GlobalConfig = await CMS.GetGlobal();
+    }
+}

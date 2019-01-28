@@ -31,8 +31,8 @@ namespace CB.Blazor.CMS.Mappers
             return new Global()
             {
                 SiteName = model.Data.SiteName,
-                AuthorImage = ResolveAssetURL(model.Data.AuthorImage),
-                BackgroundImage = ResolveAssetURL(model.Data.BackgroundImage),
+                AuthorImage = ResolveAssetURL(model.Data.AuthorImage.First()),
+                BackgroundImage = ResolveAssetURL(model.Data.BackgroundImage.First()),
                 EmailAddress = model.Data.EmailAddress,
                 SubHeading = model.Data.Subheading
             };

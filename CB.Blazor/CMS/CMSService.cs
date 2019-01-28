@@ -38,7 +38,7 @@ namespace CB.Blazor.CMS
             var posts = await GetItemFromCache(CacheConstants.BlogPosts, () => _repo.GetBlogPosts());
             var post = posts.FirstOrDefault(p => p.Id == id);
 
-            var skills = await GetItemFromCache(CacheConstants.SkillTypes, () => _repo.GetSkillTypes());
+            var skills = await GetItemFromCache(CacheConstants.SkillTypes, () => _repo.GetSkillTypes(pageSize: 1000));
             var postSkills = skills.Where(s => post.Data.Skills.Contains(s.Id)).ToList();
 
             return _mapper.MapToBlogPost(post, postSkills);
@@ -66,7 +66,7 @@ namespace CB.Blazor.CMS
         {
             var portfolio = await GetItemFromCache(CacheConstants.Portfolio, () => _repo.GetPortfolio());
             var portfolioProjects = await GetItemFromCache(CacheConstants.PortfolioProjects, () => _repo.GetPortfolioProjects());
-            var skills = await GetItemFromCache(CacheConstants.SkillTypes, () => _repo.GetSkillTypes());
+            var skills = await GetItemFromCache(CacheConstants.SkillTypes, () => _repo.GetSkillTypes(pageSize: 1000));
 
             var mappedProjects = new List<PortfolioProject>();
             foreach (var project in portfolioProjects)

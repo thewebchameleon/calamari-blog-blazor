@@ -1,6 +1,19 @@
 ﻿@inherits BlazorLayoutComponent
 @inject ICMSService CMS
 
+<style>
+    nav.navbar {
+        position: fixed;
+        z-index: 1;
+        width: 100%;
+        top: 0;
+    }
+
+    .app-content {
+        margin-top: 56px;
+    }
+</style>
+
 <Sidebar ref="sidebar">
     <SidebarContent>
         <SidebarBrand>
@@ -28,6 +41,9 @@
 </Sidebar>
 
 <div class="app-main">
+    <Bar Class="app-bar" Breakpoint="Breakpoint.Desktop" Background="Background.Dark" Theme="Theme.Dark">
+        <BarToggler Clicked="@ToggleSidebar" Float="Float.Right"></BarToggler>
+    </Bar>
     @Body
 </div>
 

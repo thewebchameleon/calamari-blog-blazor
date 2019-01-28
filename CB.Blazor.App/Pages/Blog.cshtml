@@ -19,9 +19,9 @@
                         </CardImage>
                         <CardBody>
                             <CardTitle Size="4">@post.Title </CardTitle>
-                            <CardSubTitle>@post.PublishedDate</CardSubTitle>
+                            <CardSubTitle>@post.PublishedDate.ToString("dddd, dd MMM yyyy")</CardSubTitle>
                             <CardText>
-                                @FormatBodyPreview(post.Body)
+                                @*@FormatBodyPreview(post.Body)*@
                             </CardText>
                         </CardBody>
                     </Card>

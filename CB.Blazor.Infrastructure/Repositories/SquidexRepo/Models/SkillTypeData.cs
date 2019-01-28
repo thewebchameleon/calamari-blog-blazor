@@ -10,6 +10,7 @@ namespace CB.Blazor.Infrastructure.Repositories.SquidexRepo.Models
         public string Name { get; set; }
 
         [JsonConverter(typeof(InvariantConverter))]
+        [JsonProperty(PropertyName = "blazorise-colour")]
         public string BlazoriseColour { get; set; }
     }
 }

@@ -7,6 +7,9 @@
         width: 100%;
         height: 100%;
         background-image: url('@GlobalConfig.BackgroundImage');
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
     }
 
     .index-cards {
@@ -23,7 +26,7 @@
 <div class="index-page">
     <div class="index-cards">
         <Row>
-            <Column ColumnSize="ColumnSize.Is12.OnMobile.Is6.OnTablet">
+            <Column ColumnSize="ColumnSize.IsFull.OnMobile.Is6.OnTablet">
                 <Card Margin="Margin.Is4.FromBottom">
                     <CardBody>
                         <CardTitle Size="4">Blog Posts</CardTitle>
@@ -34,7 +37,7 @@
                     </CardBody>
                 </Card>
             </Column>
-            <Column ColumnSize="ColumnSize.Is12.OnMobile.Is6.OnTablet">
+            <Column ColumnSize="ColumnSize.IsFull.OnMobile.Is6.OnTablet">
                 <Card Margin="Margin.Is4.FromBottom">
                     <CardBody>
                         <CardTitle Size="4">Portfolio</CardTitle>
