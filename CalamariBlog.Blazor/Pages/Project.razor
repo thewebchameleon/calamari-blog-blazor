@@ -1,0 +1,39 @@
+﻿@page "/project/{Id}"
+@inject ICMSService CMS
+<!-- Page Header -->
+<header class="masthead" style="background-image: url('@ProjectModel.ImageHeaderUrl')">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-10 mx-auto">
+                <div class="page-heading">
+                    <h1>@ProjectModel.Title</h1>
+                    <span class="subheading">@ProjectModel.Subtitle</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-10 mx-auto">
+                @((MarkupString)ProjectModel.BodyHtml)
+            </div>
+        </div>
+    </div>
+</article>
+
+@functions {
+    [Parameter]
+    public string Id { get; set; }
+
+    Models.CMS.Project ProjectModel { get; set; } = new Models.CMS.Project();
+
+    protected override async Task OnInitializedAsync()
+    {
+        ProjectModel = await CMS.GetProject(Id);
+    }
+}

@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CalamariBlog.Infrastructure\CalamariBlog.Infrastructure.csproj" />
+    <ProjectReference Include="..\CalamariBlog.Models\CalamariBlog.Models.csproj" />
+    <ProjectReference Include="..\CalamariBlog.Repositories\CalamariBlog.Repositories.csproj" />
+  </ItemGroup>
+
+</Project>

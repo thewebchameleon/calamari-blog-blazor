@@ -1,0 +1,70 @@
+﻿@page "/"
+@inject ICMSService CMS
+@inject NavigationManager NavigationManager
+<!-- Page Header -->
+<header class="masthead" style="background-image: url('@GlobalModel.ImageHeaderIndex')">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-10 mx-auto">
+                <div class="site-heading">
+                    <h1>@GlobalModel.SiteName</h1>
+                    <span class="subheading">@GlobalModel.SubHeading</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Main Content -->
+<div class="container">
+    <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+            @foreach (var post in Posts)
+            {
+                <div class="post-preview">
+                    <a href="/post/@post.Id">
+                        <h2 class="post-title">
+                            @post.Title
+                        </h2>
+                        <h3 class="post-subtitle">
+                            @post.SubTitle
+                        </h3>
+                    </a>
+                    <p class="post-meta">
+                        Posted by
+                        <a href="@post.Author.Link">
+                            @post.Author.Name
+                        </a>
+                        on @post.PublishedDate.ToString("MMMM dd, yyyy")
+                    </p>
+                </div>
+                <hr>
+            }
+            <!-- Pager -->
+            <div class="clearfix">
+                <button @onclick="@LoadMorePosts" class="btn btn-primary float-right" href="#">Older Posts &rarr;</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@functions {
+    Global GlobalModel { get; set; } = new Global();
+    List<BlogPost> Posts { get; set; } = new List<BlogPost>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        GlobalModel = await CMS.GetGlobal();
+        Posts = await CMS.GetBlogPosts();
+
+        Posts = Posts.OrderByDescending(p => p.PublishedDate).Take(4).ToList();
+    }
+
+    private async Task LoadMorePosts()
+    {
+        var postCount = Posts.Count;
+        Posts = await CMS.GetBlogPosts();
+        Posts = Posts.OrderByDescending(p => p.PublishedDate).Take(4 + postCount).ToList();
+    }
+}

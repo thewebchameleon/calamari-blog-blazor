@@ -1,0 +1,45 @@
+﻿@page "/post/{Id}"
+@inject ICMSService CMS
+
+<!-- Page Header -->
+<header class="masthead" style="background-image: url('@BlogPost.ImageHeaderUrl')">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-10 mx-auto">
+                <div class="post-heading">
+                    <h1>@BlogPost.Title</h1>
+                    <h2 class="subheading">@BlogPost.SubTitle</h2>
+                    <span class="meta">
+                        Posted by
+                        <a href="@BlogPost.Author.Link">@BlogPost.Author.Name</a>
+                        on @BlogPost.PublishedDate.ToString("MMMM dd, yyyy")
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-10 mx-auto">
+                @((MarkupString)BlogPost.BodyHtml)
+            </div>
+        </div>
+    </div>
+</article>
+
+@functions {
+    [Parameter]
+    public string Id { get; set; }
+
+    BlogPost BlogPost { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        BlogPost = await CMS.GetBlogPost(Id);
+    }
+}

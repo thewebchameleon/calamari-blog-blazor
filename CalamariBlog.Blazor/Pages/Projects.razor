@@ -1,0 +1,52 @@
+﻿@page "/projects"
+@inject ICMSService CMS
+<!-- Page Header -->
+<header class="masthead" style="background-image: url('@GlobalModel.ImageHeaderProjects')">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-10 mx-auto">
+                <div class="page-heading">
+                    <h1>Projects</h1>
+                    <span class="subheading">This is what I do.</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Main Content -->
+<div class="container">
+    <div class="row">
+        <div class="col-lg-10 col-md-10 mx-auto">
+            @foreach (var project in ProjectsList)
+            {
+                <div class="row">
+                    <img class="col-lg-4 col-md-4" src="@project.ImageThumbnailUrl" />
+                    <div class="col-lg-8 col-md-8 post-preview">
+                        <a href="/project/@project.Id">
+                            <h2 class="post-title">
+                                @project.Title
+                            </h2>
+                            <h3 class="post-subtitle">
+                                @project.Subtitle
+                            </h3>
+                        </a>
+                    </div>
+                </div>
+                <hr>
+            }
+        </div>
+    </div>
+</div>
+
+@functions {
+    List<Models.CMS.Project> ProjectsList { get; set; } = new List<Models.CMS.Project>();
+    Models.CMS.Global GlobalModel { get; set; } = new Models.CMS.Global();
+
+    protected override async Task OnInitializedAsync()
+    {
+        ProjectsList = await CMS.GetProjects();
+        GlobalModel = await CMS.GetGlobal();
+    }
+}

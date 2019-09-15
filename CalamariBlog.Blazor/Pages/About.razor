@@ -1,0 +1,38 @@
+﻿@page "/about"
+@inject ICMSService CMS
+
+<!-- Page Header -->
+<header class="masthead" style="background-image: url('@GlobalModel.ImageHeaderAbout')">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-10 mx-auto">
+                <div class="page-heading">
+                    <h1>About Me</h1>
+                    <span class="subheading">This is who I am.</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Main Content -->
+<div class="container">
+    <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+            @((MarkupString)GlobalModel.BiographyHtml)
+        </div>
+        <div class="col-lg-8 col-md-10 mx-auto text-center mb-4">
+            <a href="@GlobalModel.CVUrl" class="btn btn-primary">Download CV</a>
+        </div>
+    </div>
+</div>
+
+@functions {
+    Models.CMS.Global GlobalModel { get; set; } = new Models.CMS.Global();
+
+    protected override async Task OnInitializedAsync()
+    {
+        GlobalModel = await CMS.GetGlobal();
+    }
+}

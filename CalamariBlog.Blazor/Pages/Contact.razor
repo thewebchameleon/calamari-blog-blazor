@@ -1,0 +1,95 @@
+﻿@page "/contact"
+@inject ICMSService CMS
+@inject IEmailService EmailService
+<!-- Page Header -->
+<header class="masthead" style="background-image: url('@GlobalModel.ImageHeaderContact')">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-10 mx-auto">
+                <div class="page-heading">
+                    <h1>Contact Me</h1>
+                    <span class="subheading">Have questions? I have answers.</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Main Content -->
+<div class="container">
+    <div class="row">
+        @if (hasSent)
+        {
+            <div class="col-lg-8 col-md-10 mx-auto">
+                <p><i class="fas fa-check text-success"></i> Thank you, your message has been sent</p>
+            </div>
+        }
+        else
+        {
+            <div class="col-lg-8 col-md-10 mx-auto">
+                <p>Want to get in touch? Fill out the form below to send me a message and I will get back to you as soon as possible!</p>
+                <EditForm Model="@contactRequest" OnValidSubmit="@HandleContactFormSubmit">
+                    <DataAnnotationsValidator />
+                    <ValidationSummary />
+
+                    <div class="control-group">
+                        <div class="form-group floating-label-form-group controls">
+                            <label>Name</label>
+                            <InputText class="form-control" placeholder="Name" @bind-Value="@contactRequest.Name" />
+                            <p class="help-block text-danger"></p>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <div class="form-group floating-label-form-group controls">
+                            <label>Email Address</label>
+                            <InputText type="email" class="form-control" placeholder="Email Address" @bind-Value="@contactRequest.Email" />
+                            <p class="help-block text-danger"></p>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <div class="form-group col-xs-12 floating-label-form-group controls">
+                            <label>Mobile Number</label>
+                            <InputText type="tel" class="form-control" placeholder="Mobile number" @bind-Value="@contactRequest.MobileNumber" />
+                            <p class="help-block text-danger"></p>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <div class="form-group floating-label-form-group controls">
+                            <label>Message</label>
+                            <InputTextArea class="form-control" placeholder="Message" @bind-Value="@contactRequest.Message" />
+                            <p class="help-block text-danger"></p>
+                        </div>
+                    </div>
+                    <br>
+                    <div id="success"></div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary">Send</button>
+                    </div>
+
+                </EditForm>
+            </div>
+        }
+    </div>
+</div>
+
+@code {
+    Models.CMS.Global GlobalModel { get; set; } = new Models.CMS.Global();
+
+    SendContactEmailRequest contactRequest = new SendContactEmailRequest();
+    bool hasSent = false;
+
+    protected override async Task OnInitializedAsync()
+    {
+        GlobalModel = await CMS.GetGlobal();
+    }
+
+    private async Task HandleContactFormSubmit()
+    {
+        var response = await EmailService.SendContactEmail(contactRequest);
+
+        contactRequest = new SendContactEmailRequest();
+        hasSent = true;
+    }
+}
+

@@ -1,0 +1,31 @@
+{
+  "name": "calamari-blog",
+  "version": "1.0.0",
+  "description": "Calamari Blog",
+  "main": "",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/thewebchameleon/CPTEisteddfod.git"
+  },
+  "keywords": [],
+  "author": "The Web Chameleon",
+  "license": "ISC",
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-autoprefixer": "^6.1.0",
+    "gulp-npm-files": "0.1.3",
+    "gulp-sass": "4.0.2",
+    "gulp-uglify-es": "1.0.4",
+    "gulp-rename": "1.4.0",
+    "gulp-concat": "2.6.1",
+    "gulp-sourcemaps": "2.6.5",
+    "node-sass": "4.12.0",
+    "bootstrap": "^4.3.1"
+  },
+  "dependencies": {
+    "jquery": "^3.4.1"
+  }
+}
