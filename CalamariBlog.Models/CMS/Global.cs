@@ -26,6 +26,8 @@ namespace CalamariBlog.Models.CMS
 
         public string ImageHeaderAbout { get; set; }
 
+        public string ImageFavicon { get; set; }
+
         public string BiographyHtml { get; set; }
     }
 }

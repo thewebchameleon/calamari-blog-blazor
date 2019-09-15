@@ -54,11 +54,16 @@ namespace CalamariBlog.Infrastructure.Repositories.SquidexRepo.Models
         public List<string> ImageHeaderAbout { get; set; }
 
         [JsonConverter(typeof(InvariantConverter))]
+        [JsonProperty(PropertyName = "image-favicon")]
+        public List<string> ImageFavicon { get; set; }
+
+        [JsonConverter(typeof(InvariantConverter))]
         [JsonProperty(PropertyName = "biography-html")]
         public string BiographyHtml { get; set; }
 
         public GlobalData()
         {
+            ImageFavicon = new List<string>();
             ImageHeaderContact = new List<string>();
             ImageHeaderIndex = new List<string>();
             ImageHeaderProjects = new List<string>();

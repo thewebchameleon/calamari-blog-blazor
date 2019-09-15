@@ -1,6 +1,11 @@
 ﻿@page "/"
 @namespace CalamariBlog.Blazor.Pages
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@inject CalamariBlog.Services.CMS.Contracts.ICMSService CMS
+
+@{
+    var globalModel = await CMS.GetGlobal();
+}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -10,9 +15,10 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>CalamariBlog.Blazor</title>
+    <title>@globalModel.SiteName</title>
     <base href="~/" />
 
+    <link href="@globalModel.ImageFavicon" rel="icon" />
     <link href="~/lib/fontawesome-free/css/all.min.css" rel="preload" as="style" onload="this.rel='stylesheet'">
     <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
