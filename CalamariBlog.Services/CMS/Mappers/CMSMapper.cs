@@ -44,6 +44,7 @@ namespace CalamariBlog.Services.CMS.Mappers
                 EmailAddress = model.Data.EmailAddress,
                 SubHeading = model.Data.Subheading,
                 Heading = model.Data.Heading,
+                LinkLinkedIn = model.Data.LinkLinkedIn,
                 BiographyHtml = model.Data.BiographyHtml,
                 ImageFavicon = ResolveAssetURL(model.Data.ImageFavicon.First()),
                 ImageHeaderAbout = ResolveAssetURL(model.Data.ImageHeaderAbout.First()),

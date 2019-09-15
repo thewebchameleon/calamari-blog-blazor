@@ -16,6 +16,8 @@ namespace CalamariBlog.Models.CMS
 
         public string LinkFacebook { get; set; }
 
+        public string LinkLinkedIn { get; set; }
+
         public string CVUrl { get; set; }
 
         public string ImageHeaderIndex { get; set; }

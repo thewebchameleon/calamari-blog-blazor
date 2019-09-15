@@ -23,6 +23,7 @@ using System.Net.Http;
 using Microsoft.AspNetCore.Mvc;
 using CalamariBlog.Services.Email.Contracts;
 using CalamariBlog.Services.Email;
+using Microsoft.AspNetCore.ResponseCompression;
 
 namespace CalamariBlog.Blazor
 {
@@ -71,6 +72,13 @@ namespace CalamariBlog.Blazor
             services.AddSingleton<ISendGridRepo, SendGridRepo>();
 
             #endregion
+
+            services.AddResponseCompression(options =>
+            {
+                options.Providers.Add<GzipCompressionProvider>();
+                options.MimeTypes = ResponseCompressionDefaults.MimeTypes.Concat(new[] { "image/svg+xml" });
+                options.EnableForHttps = true; // https://docs.microsoft.com/en-us/aspnet/core/performance/response-compression#compression-with-secure-protocol
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -87,6 +95,7 @@ namespace CalamariBlog.Blazor
                 app.UseHsts();
             }
 
+            app.UseResponseCompression();
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 

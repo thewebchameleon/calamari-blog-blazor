@@ -34,6 +34,10 @@ namespace CalamariBlog.Infrastructure.Repositories.SquidexRepo.Models
         public string LinkFacebook { get; set; }
 
         [JsonConverter(typeof(InvariantConverter))]
+        [JsonProperty(PropertyName = "link-linkedin")]
+        public string LinkLinkedIn { get; set; }
+
+        [JsonConverter(typeof(InvariantConverter))]
         [JsonProperty(PropertyName = "cv-url")]
         public List<string> CVUrl { get; set; }
 
