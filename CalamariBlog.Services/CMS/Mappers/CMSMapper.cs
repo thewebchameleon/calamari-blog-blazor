@@ -16,7 +16,7 @@ namespace CalamariBlog.Services.CMS.Mappers
             var result = new BlogPost()
             {
                 Id = model.Id,
-                PublishedDate = model.Created.Date,
+                PublishedDate = model.Data.PublishDate,
                 ImageHeaderUrl = ResolveAssetURL(model.Data.ImageHeader.First()),
                 Title = model.Data.Title,
                 Tags = model.Data.Tags,
@@ -64,7 +64,8 @@ namespace CalamariBlog.Services.CMS.Mappers
                 ImageHeaderUrl = ResolveAssetURL(model.Data.ImageHeader.First()),
                 ImageThumbnailUrl = ResolveAssetURL(model.Data.ImageThumbnail.First()),
                 Subtitle = model.Data.Subtitle,
-                Id = model.Id
+                Id = model.Id,
+                CreatedDate = model.Created.Date
             };
         }
     }

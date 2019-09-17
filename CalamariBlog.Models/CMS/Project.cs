@@ -1,3 +1,5 @@
+using System;
+
 namespace CalamariBlog.Models.CMS
 {
     public class Project
@@ -15,5 +17,7 @@ namespace CalamariBlog.Models.CMS
         public string ImageHeaderUrl { get; set; }
 
         public string BodyHtml { get; set; }
+
+        public DateTime CreatedDate { get; set; }
     }
 }

@@ -5,6 +5,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.ApplicationInsights" Version="2.10.0" />
+    <PackageReference Include="Microsoft.ApplicationInsights.PerfCounterCollector" Version="2.10.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\CalamariBlog.Models\CalamariBlog.Models.csproj" />
     <ProjectReference Include="..\CalamariBlog.Services\CalamariBlog.Services.csproj" />
   </ItemGroup>
