@@ -35,10 +35,10 @@ namespace CalamariBlog.Services.CMS
 
         public async Task<BlogPost> GetBlogPost(string id)
         {
-            var posts = await GetItemFromCache(CacheConstants.BlogPosts, () => _repo.GetBlogPosts());
+            var posts = await GetItemFromCache(CacheConstants.SquidexSchemas.BlogPosts, () => _repo.GetBlogPosts());
             var post = posts.FirstOrDefault(p => p.Id == id);
 
-            var authors = await GetItemFromCache(CacheConstants.Authors, () => _repo.GetAuthors());
+            var authors = await GetItemFromCache(CacheConstants.SquidexSchemas.Authors, () => _repo.GetAuthors());
             var author = authors.FirstOrDefault(a => a.Id == post.Data.Author.First());
 
             return _mapper.MapToBlogPost(post, author);
@@ -46,7 +46,7 @@ namespace CalamariBlog.Services.CMS
 
         public async Task<List<BlogPost>> GetBlogPosts()
         {
-            var posts = await GetItemFromCache(CacheConstants.BlogPosts, () => _repo.GetBlogPosts());
+            var posts = await GetItemFromCache(CacheConstants.SquidexSchemas.BlogPosts, () => _repo.GetBlogPosts());
 
             var result = new List<BlogPost>();
             foreach (var post in posts)
@@ -58,13 +58,13 @@ namespace CalamariBlog.Services.CMS
 
         public async Task<Global> GetGlobal()
         {
-            var config = await GetItemFromCache(CacheConstants.Global, () => _repo.GetGlobal());
+            var config = await GetItemFromCache(CacheConstants.SquidexSchemas.Global, () => _repo.GetGlobal());
             return _mapper.MapToGlobal(config);
         }
 
         public async Task<Project> GetProject(string id)
         {
-            var projects = await GetItemFromCache(CacheConstants.Projects, () => _repo.GetProjects());
+            var projects = await GetItemFromCache(CacheConstants.SquidexSchemas.Projects, () => _repo.GetProjects());
             var project = projects.FirstOrDefault(p => p.Id == id);
 
             return _mapper.MapToProject(project);
@@ -72,7 +72,7 @@ namespace CalamariBlog.Services.CMS
 
         public async Task<List<Project>> GetProjects()
         {
-            var projects = await GetItemFromCache(CacheConstants.Projects, () => _repo.GetProjects());
+            var projects = await GetItemFromCache(CacheConstants.SquidexSchemas.Projects, () => _repo.GetProjects());
 
             var result = new List<Project>();
             foreach (var project in projects)
