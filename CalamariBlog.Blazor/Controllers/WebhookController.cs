@@ -1,6 +1,7 @@
 ﻿using CalamariBlog.Infrastructure.Cache;
 using CalamariBlog.Infrastructure.Configuration;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.Extensions.Primitives;
 using Newtonsoft.Json.Linq;
@@ -14,13 +15,19 @@ namespace CalamariBlog.Blazor.Controllers
     [Route("api/[controller]")]
     public class WebhookController : Controller
     {
+        private readonly ILogger _logger;
         private readonly SquidexConfig _settings;
         private readonly ICacheProvider _cacheProvider;
 
-        public WebhookController(IOptions<SquidexConfig> settings, ICacheProvider cacheProvider)
+        public WebhookController(
+            IOptions<SquidexConfig> settings,
+            ICacheProvider cacheProvider,
+            ILogger<WebhookController> logger
+        )
         {
             _settings = settings.Value;
             _cacheProvider = cacheProvider;
+            _logger = logger;
         }
 
         [HttpPost]
@@ -48,11 +55,11 @@ namespace CalamariBlog.Blazor.Controllers
                     }
                     catch (Exception ex)
                     {
-                        //_logger.LogError(ex, "An error ocurred trying to flush cached items");
+                        _logger.LogError(ex, "An error ocurred trying to flush cached items");
                     }
                 }
             }
-            //_logger.LogWarning("Could not authenticate request");
+            _logger.LogWarning("Could not authenticate request");
             return Unauthorized();
         }
     }

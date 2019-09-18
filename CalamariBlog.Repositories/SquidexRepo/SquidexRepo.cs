@@ -17,9 +17,7 @@ namespace CalamariBlog.Infrastructure.Repositories.SquidexRepo
         private readonly SquidexClient<GlobalEntity, GlobalData> _globalClient;
         private readonly SquidexClient<AuthorEntity, AuthorData> _authorsClient;
 
-        private readonly ICacheProvider _cache;
-
-        public SquidexRepo(IOptions<SquidexConfig> appOptions, ICacheProvider cache)
+        public SquidexRepo(IOptions<SquidexConfig> appOptions)
         {
             var options = appOptions.Value;
 
@@ -30,12 +28,10 @@ namespace CalamariBlog.Infrastructure.Repositories.SquidexRepo
                     options.ClientId,
                     options.ClientSecret);
 
-            _portfolioProjectsClient = clientManager.GetClient<ProjectEntity, ProjectData>("projects");
-            _blogPostClient = clientManager.GetClient<BlogPostEntity, BlogPostData>("blog-posts");
-            _globalClient = clientManager.GetClient<GlobalEntity, GlobalData>("global");
-            _authorsClient = clientManager.GetClient<AuthorEntity, AuthorData>("authors");
-
-            _cache = cache;
+            _portfolioProjectsClient = clientManager.GetClient<ProjectEntity, ProjectData>(CacheConstants.SquidexSchemas.Projects);
+            _blogPostClient = clientManager.GetClient<BlogPostEntity, BlogPostData>(CacheConstants.SquidexSchemas.BlogPosts);
+            _globalClient = clientManager.GetClient<GlobalEntity, GlobalData>(CacheConstants.SquidexSchemas.Global);
+            _authorsClient = clientManager.GetClient<AuthorEntity, AuthorData>(CacheConstants.SquidexSchemas.Authors);
         }
 
         public async Task<List<ProjectEntity>> GetProjects(int page, int pageSize)
