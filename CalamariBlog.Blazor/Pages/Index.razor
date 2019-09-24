@@ -50,10 +50,12 @@
                 </div>
                 <hr>
             }
-            <!-- Pager -->
-            <div class="clearfix">
-                <button @onclick="@LoadMorePosts" class="btn btn-primary float-right" href="#">Older Posts &rarr;</button>
-            </div>
+            @if (showMorePosts)
+            {
+                <div class="clearfix">
+                    <button @onclick="@LoadMorePosts" class="btn btn-primary float-right" href="#">Older Posts &rarr;</button>
+                </div>
+            }
         </div>
     </div>
 </div>
@@ -62,18 +64,29 @@
     Models.CMS.Pages.PageIndex ViewModel { get; set; } = new Models.CMS.Pages.PageIndex();
     List<BlogPost> Posts { get; set; } = new List<BlogPost>();
 
+    const int defaultPostIncrement = 4;
+    int maxPostCount = 0;
+    bool showMorePosts = true;
+
     protected override async Task OnInitializedAsync()
     {
         ViewModel = await CMS.GetPage_Index();
         Posts = await CMS.GetBlogPosts();
 
-        Posts = Posts.OrderByDescending(p => p.PublishedDate).Take(4).ToList();
+        Posts = Posts.OrderByDescending(p => p.PublishedDate).Take(defaultPostIncrement).ToList();
     }
 
     private async Task LoadMorePosts()
     {
         var postCount = Posts.Count;
         Posts = await CMS.GetBlogPosts();
-        Posts = Posts.OrderByDescending(p => p.PublishedDate).Take(4 + postCount).ToList();
+        maxPostCount = Posts.Count;
+
+        Posts = Posts.OrderByDescending(p => p.PublishedDate).Take(defaultPostIncrement + postCount).ToList();
+
+        if (Posts.Count == maxPostCount)
+        {
+            showMorePosts = false;
+        }
     }
 }
