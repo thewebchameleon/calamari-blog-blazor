@@ -21,6 +21,8 @@ namespace CalamariBlog.Models.CMS
 
         public List<string> Tags { get; set; }
 
+        public string MetaDescription { get; set; }
+
         public BlogPost()
         {
             Tags = new List<string>();

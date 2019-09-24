@@ -2,6 +2,7 @@ using CalamariBlog.Infrastructure.Cache;
 using CalamariBlog.Infrastructure.Configuration;
 using CalamariBlog.Infrastructure.Repositories.SquidexRepo.Contracts;
 using CalamariBlog.Infrastructure.Repositories.SquidexRepo.Models;
+using CalamariBlog.Infrastructure.Repositories.SquidexRepo.Models.Pages;
 using Microsoft.Extensions.Options;
 using Squidex.ClientLibrary;
 using System.Collections.Generic;
@@ -16,6 +17,11 @@ namespace CalamariBlog.Infrastructure.Repositories.SquidexRepo
         private readonly SquidexClient<BlogPostEntity, BlogPostData> _blogPostClient;
         private readonly SquidexClient<GlobalEntity, GlobalData> _globalClient;
         private readonly SquidexClient<AuthorEntity, AuthorData> _authorsClient;
+
+        private readonly SquidexClient<PageAboutEntity, PageAboutData> _pageAboutClient;
+        private readonly SquidexClient<PageContactEntity, PageContactData> _pageContactClient;
+        private readonly SquidexClient<PageIndexEntity, PageIndexData> _pageIndexClient;
+        private readonly SquidexClient<PageProjectsEntity, PageProjectsData> _pageProjectsClient;
 
         public SquidexRepo(IOptions<SquidexConfig> appOptions)
         {
@@ -32,6 +38,11 @@ namespace CalamariBlog.Infrastructure.Repositories.SquidexRepo
             _blogPostClient = clientManager.GetClient<BlogPostEntity, BlogPostData>(CacheConstants.SquidexSchemas.BlogPosts);
             _globalClient = clientManager.GetClient<GlobalEntity, GlobalData>(CacheConstants.SquidexSchemas.Global);
             _authorsClient = clientManager.GetClient<AuthorEntity, AuthorData>(CacheConstants.SquidexSchemas.Authors);
+
+            _pageAboutClient = clientManager.GetClient<PageAboutEntity, PageAboutData>(CacheConstants.SquidexSchemas.Pages.About);
+            _pageContactClient = clientManager.GetClient<PageContactEntity, PageContactData>(CacheConstants.SquidexSchemas.Pages.Contact);
+            _pageIndexClient = clientManager.GetClient<PageIndexEntity, PageIndexData>(CacheConstants.SquidexSchemas.Pages.Index);
+            _pageProjectsClient = clientManager.GetClient<PageProjectsEntity, PageProjectsData>(CacheConstants.SquidexSchemas.Pages.Projects);
         }
 
         public async Task<List<ProjectEntity>> GetProjects(int page, int pageSize)
@@ -56,6 +67,30 @@ namespace CalamariBlog.Infrastructure.Repositories.SquidexRepo
         {
             var data = await _authorsClient.GetAsync();
             return data.Items;
+        }
+
+        public async Task<PageAboutEntity> GetPage_About()
+        {
+            var data = await _pageAboutClient.GetAsync();
+            return data.Items.FirstOrDefault();
+        }
+
+        public async Task<PageContactEntity> GetPage_Contact()
+        {
+            var data = await _pageContactClient.GetAsync();
+            return data.Items.FirstOrDefault();
+        }
+
+        public async Task<PageIndexEntity> GetPage_Index()
+        {
+            var data = await _pageIndexClient.GetAsync();
+            return data.Items.FirstOrDefault();
+        }
+
+        public async Task<PageProjectsEntity> GetPage_Projects()
+        {
+            var data = await _pageProjectsClient.GetAsync();
+            return data.Items.FirstOrDefault();
         }
     }
 }

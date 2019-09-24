@@ -7,6 +7,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using CalamariBlog.Infrastructure.Repositories.SquidexRepo.Contracts;
 using CalamariBlog.Models.CMS;
+using CalamariBlog.Models.CMS.Pages;
 
 namespace CalamariBlog.Services.CMS
 {
@@ -60,6 +61,30 @@ namespace CalamariBlog.Services.CMS
         {
             var config = await GetItemFromCache(CacheConstants.SquidexSchemas.Global, () => _repo.GetGlobal());
             return _mapper.MapToGlobal(config);
+        }
+
+        public async Task<PageAbout> GetPage_About()
+        {
+            var config = await GetItemFromCache(CacheConstants.SquidexSchemas.Pages.About, () => _repo.GetPage_About());
+            return _mapper.MapToPage_About(config);
+        }
+
+        public async Task<PageContact> GetPage_Contact()
+        {
+            var config = await GetItemFromCache(CacheConstants.SquidexSchemas.Pages.Contact, () => _repo.GetPage_Contact());
+            return _mapper.MapToPage_Contact(config);
+        }
+
+        public async Task<PageIndex> GetPage_Index()
+        {
+            var config = await GetItemFromCache(CacheConstants.SquidexSchemas.Pages.Index, () => _repo.GetPage_Index());
+            return _mapper.MapToPage_Index(config);
+        }
+
+        public async Task<PageProjects> GetPage_Projects()
+        {
+            var config = await GetItemFromCache(CacheConstants.SquidexSchemas.Pages.Projects, () => _repo.GetPage_Projects());
+            return _mapper.MapToPage_Projects(config);
         }
 
         public async Task<Project> GetProject(string id)

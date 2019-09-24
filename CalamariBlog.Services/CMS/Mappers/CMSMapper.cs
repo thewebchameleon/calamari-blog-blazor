@@ -4,6 +4,8 @@ using CalamariBlog.Infrastructure.Repositories.SquidexRepo.Models;
 using CalamariBlog.Models.CMS;
 using Microsoft.Extensions.Options;
 using System.Linq;
+using CalamariBlog.Infrastructure.Repositories.SquidexRepo.Models.Pages;
+using CalamariBlog.Models.CMS.Pages;
 
 namespace CalamariBlog.Services.CMS.Mappers
 {
@@ -37,20 +39,52 @@ namespace CalamariBlog.Services.CMS.Mappers
             return new Global()
             {
                 SiteName = model.Data.SiteName,
-                CVUrl = ResolveAssetURL(model.Data.CVUrl.First()),
                 LinkFacebook = model.Data.LinkFacebook,
                 LinkGithub = model.Data.LinkGithub,
                 LinkTwitter = model.Data.LinkTwitter,
-                EmailAddress = model.Data.EmailAddress,
-                SubHeading = model.Data.Subheading,
-                Heading = model.Data.Heading,
                 LinkLinkedIn = model.Data.LinkLinkedIn,
+                ImageFavicon = ResolveAssetURL(model.Data.ImageFavicon.First())
+            };
+        }
+
+        public PageAbout MapToPage_About(PageAboutEntity model)
+        {
+            return new PageAbout()
+            {
                 BiographyHtml = model.Data.BiographyHtml,
-                ImageFavicon = ResolveAssetURL(model.Data.ImageFavicon.First()),
+                CVUrl = ResolveAssetURL(model.Data.CVUrl.First()),
                 ImageHeaderAbout = ResolveAssetURL(model.Data.ImageHeaderAbout.First()),
-                ImageHeaderContact = ResolveAssetURL(model.Data.ImageHeaderContact.First()),
+                MetaDescription = model.Data.MetaDescription
+            };
+        }
+
+        public PageContact MapToPage_Contact(PageContactEntity model)
+        {
+            return new PageContact()
+            {
+                EmailAddress = model.Data.EmailAddress,
+                MetaDescription = model.Data.MetaDescription,
+                ImageHeaderContact = ResolveAssetURL(model.Data.ImageHeaderContact.First())
+            };
+        }
+
+        public PageIndex MapToPage_Index(PageIndexEntity model)
+        {
+            return new PageIndex()
+            {
                 ImageHeaderIndex = ResolveAssetURL(model.Data.ImageHeaderIndex.First()),
-                ImageHeaderProjects = ResolveAssetURL(model.Data.ImageHeaderProjects.First())
+                MetaDescription = model.Data.MetaDescription,
+                Heading = model.Data.Heading,
+                Subheading = model.Data.Subheading
+            };
+        }
+
+        public PageProjects MapToPage_Projects(PageProjectsEntity model)
+        {
+            return new PageProjects()
+            {
+                ImageHeaderProjects = ResolveAssetURL(model.Data.ImageHeaderProjects.First()),
+                MetaDescription = model.Data.MetaDescription
             };
         }
 

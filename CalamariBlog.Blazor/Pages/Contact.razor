@@ -2,7 +2,7 @@
 @inject ICMSService CMS
 @inject IEmailService EmailService
 <!-- Page Header -->
-<header class="masthead" style="background-image: url('@GlobalModel.ImageHeaderContact')">
+<header class="masthead" style="background-image: url('@ViewModel.ImageHeaderContact')">
     <div class="overlay"></div>
     <div class="container">
         <div class="row">
@@ -28,7 +28,7 @@
         else
         {
             <div class="col-lg-8 col-md-10 mx-auto">
-                <p>Want to get in touch? Fill out the form below to send me a message and I will get back to you as soon as possible! Alternatively, you can email me directly on @GlobalModel.EmailAddress.</p>
+                <p>Want to get in touch? Fill out the form below to send me a message and I will get back to you as soon as possible! Alternatively, you can email me directly on @ViewModel.EmailAddress.</p>
                 <EditForm Model="@contactRequest" OnValidSubmit="@HandleContactFormSubmit">
                     <DataAnnotationsValidator />
                     <ValidationSummary />
@@ -74,14 +74,14 @@
 </div>
 
 @code {
-    Models.CMS.Global GlobalModel { get; set; } = new Models.CMS.Global();
+    Models.CMS.Pages.PageContact ViewModel { get; set; } = new Models.CMS.Pages.PageContact();
 
     SendContactEmailRequest contactRequest = new SendContactEmailRequest();
     bool hasSent = false;
 
     protected override async Task OnInitializedAsync()
     {
-        GlobalModel = await CMS.GetGlobal();
+        ViewModel = await CMS.GetPage_Contact();
     }
 
     private async Task HandleContactFormSubmit()

@@ -1,4 +1,5 @@
 using CalamariBlog.Infrastructure.Repositories.SquidexRepo.Models;
+using CalamariBlog.Infrastructure.Repositories.SquidexRepo.Models.Pages;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -13,5 +14,13 @@ namespace CalamariBlog.Infrastructure.Repositories.SquidexRepo.Contracts
         Task<GlobalEntity> GetGlobal();
 
         Task<List<AuthorEntity>> GetAuthors();
+
+        Task<PageAboutEntity> GetPage_About();
+
+        Task<PageContactEntity> GetPage_Contact();
+
+        Task<PageIndexEntity> GetPage_Index();
+
+        Task<PageProjectsEntity> GetPage_Projects();
     }
 }

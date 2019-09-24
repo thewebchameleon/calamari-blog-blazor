@@ -18,6 +18,8 @@ namespace CalamariBlog.Models.CMS
 
         public string BodyHtml { get; set; }
 
+        public string MetaDescription { get; set; }
+
         public DateTime CreatedDate { get; set; }
     }
 }

@@ -8,8 +8,6 @@ namespace CalamariBlog.Models.CMS
 
         public string SubHeading { get; set; }
 
-        public string EmailAddress { get; set; }
-
         public string LinkGithub { get; set; }
 
         public string LinkTwitter { get; set; }
@@ -18,18 +16,6 @@ namespace CalamariBlog.Models.CMS
 
         public string LinkLinkedIn { get; set; }
 
-        public string CVUrl { get; set; }
-
-        public string ImageHeaderIndex { get; set; }
-
-        public string ImageHeaderContact { get; set; }
-
-        public string ImageHeaderProjects { get; set; }
-
-        public string ImageHeaderAbout { get; set; }
-
         public string ImageFavicon { get; set; }
-
-        public string BiographyHtml { get; set; }
     }
 }

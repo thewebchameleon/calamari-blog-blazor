@@ -32,6 +32,10 @@ namespace CalamariBlog.Infrastructure.Repositories.SquidexRepo.Models
         [JsonProperty(PropertyName = "image-header")]
         public List<string> ImageHeader { get; set; }
 
+        [JsonConverter(typeof(InvariantConverter))]
+        [JsonProperty(PropertyName = "meta-description")]
+        public string MetaDescription { get; set; }
+
         public BlogPostData()
         {
             Tags = new List<string>();

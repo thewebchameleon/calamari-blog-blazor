@@ -1,4 +1,5 @@
 using CalamariBlog.Models.CMS;
+using CalamariBlog.Models.CMS.Pages;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -15,5 +16,14 @@ namespace CalamariBlog.Services.CMS.Contracts
         Task<List<Project>> GetProjects();
 
         Task<Project> GetProject(string id);
+
+
+        Task<PageAbout> GetPage_About();
+
+        Task<PageContact> GetPage_Contact();
+
+        Task<PageIndex> GetPage_Index();
+
+        Task<PageProjects> GetPage_Projects();
     }
 }

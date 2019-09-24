@@ -2,14 +2,14 @@
 @inject ICMSService CMS
 @inject NavigationManager NavigationManager
 <!-- Page Header -->
-<header class="masthead" style="background-image: url('@GlobalModel.ImageHeaderIndex')">
+<header class="masthead" style="background-image: url('@ViewModel.ImageHeaderIndex')">
     <div class="overlay"></div>
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-md-10 mx-auto">
                 <div class="site-heading">
-                    <h1>@GlobalModel.SiteName</h1>
-                    <span class="subheading">@GlobalModel.SubHeading</span>
+                    <h1>@ViewModel.Heading</h1>
+                    <span class="subheading">@ViewModel.Subheading</span>
                 </div>
             </div>
         </div>
@@ -50,12 +50,12 @@
 </div>
 
 @functions {
-    Global GlobalModel { get; set; } = new Global();
+    Models.CMS.Pages.PageIndex ViewModel { get; set; } = new Models.CMS.Pages.PageIndex();
     List<BlogPost> Posts { get; set; } = new List<BlogPost>();
 
     protected override async Task OnInitializedAsync()
     {
-        GlobalModel = await CMS.GetGlobal();
+        ViewModel = await CMS.GetPage_Index();
         Posts = await CMS.GetBlogPosts();
 
         Posts = Posts.OrderByDescending(p => p.PublishedDate).Take(4).ToList();

@@ -2,7 +2,7 @@
 @inject ICMSService CMS
 
 <!-- Page Header -->
-<header class="masthead" style="background-image: url('@GlobalModel.ImageHeaderAbout')">
+<header class="masthead" style="background-image: url('@ViewModel.ImageHeaderAbout')">
     <div class="overlay"></div>
     <div class="container">
         <div class="row">
@@ -20,19 +20,19 @@
 <div class="container">
     <div class="row">
         <div class="col-lg-8 col-md-10 mx-auto">
-            @((MarkupString)GlobalModel.BiographyHtml)
+            @((MarkupString)ViewModel.BiographyHtml)
         </div>
         <div class="col-lg-8 col-md-10 mx-auto text-center mb-4">
-            <a href="@GlobalModel.CVUrl" class="btn btn-primary">Download CV</a>
+            <a href="@ViewModel.CVUrl" class="btn btn-primary">Download CV</a>
         </div>
     </div>
 </div>
 
 @functions {
-    Models.CMS.Global GlobalModel { get; set; } = new Models.CMS.Global();
+    Models.CMS.Pages.PageAbout ViewModel { get; set; } = new Models.CMS.Pages.PageAbout();
 
     protected override async Task OnInitializedAsync()
     {
-        GlobalModel = await CMS.GetGlobal();
+        ViewModel = await CMS.GetPage_About();
     }
 }

@@ -1,7 +1,7 @@
 ﻿@page "/projects"
 @inject ICMSService CMS
 <!-- Page Header -->
-<header class="masthead" style="background-image: url('@GlobalModel.ImageHeaderProjects')">
+<header class="masthead" style="background-image: url('@ViewModel.ImageHeaderProjects')">
     <div class="overlay"></div>
     <div class="container">
         <div class="row">
@@ -42,11 +42,11 @@
 
 @functions {
     List<Models.CMS.Project> ProjectsList { get; set; } = new List<Models.CMS.Project>();
-    Models.CMS.Global GlobalModel { get; set; } = new Models.CMS.Global();
+    Models.CMS.Pages.PageProjects ViewModel { get; set; } = new Models.CMS.Pages.PageProjects();
 
     protected override async Task OnInitializedAsync()
     {
         ProjectsList = await CMS.GetProjects();
-        GlobalModel = await CMS.GetGlobal();
+        ViewModel = await CMS.GetPage_Projects();
     }
 }
