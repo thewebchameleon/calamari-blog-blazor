@@ -11,14 +11,14 @@
                     <span class="subheading">@ProjectModel.Subtitle</span>
                     @if (ProjectModel.Tags.Any())
                     {
-                        <span class="meta d-block my-2">
+                        <span class="meta d-block mt-2">
                             @foreach (var tag in ProjectModel.Tags)
                             {
                                 <span class="badge badge-secondary">@tag</span>
                             }
                         </span>
                     }
-                    <span class="d-block">
+                    <span class="d-block mt-2">
                         <a class="text-white" href="@ProjectModel.ExternalUrl" target="_blank">@ProjectModel.ExternalUrl</a>
                     </span>
                 </div>

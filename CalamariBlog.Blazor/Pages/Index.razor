@@ -74,7 +74,9 @@
         Posts = await CMS.GetBlogPosts();
 
         Posts = Posts.OrderByDescending(p => p.PublishedDate).Take(defaultPostIncrement).ToList();
-    }
+
+        CheckForMorePosts();
+}
 
     private async Task LoadMorePosts()
     {
@@ -84,6 +86,11 @@
 
         Posts = Posts.OrderByDescending(p => p.PublishedDate).Take(defaultPostIncrement + postCount).ToList();
 
+        CheckForMorePosts();
+    }
+
+    private void CheckForMorePosts()
+    {
         if (Posts.Count == maxPostCount)
         {
             showMorePosts = false;
