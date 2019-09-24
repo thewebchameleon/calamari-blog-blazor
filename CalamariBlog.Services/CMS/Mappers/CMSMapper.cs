@@ -24,6 +24,7 @@ namespace CalamariBlog.Services.CMS.Mappers
                 Tags = model.Data.Tags,
                 SubTitle = model.Data.SubTitle,
                 BodyHtml = model.Data.BodyHtml,
+                MetaDescription = model.Data.MetaDescription,
                 Author = new Author()
                 {
                     Name = author.Data.Name,
@@ -99,7 +100,9 @@ namespace CalamariBlog.Services.CMS.Mappers
                 ImageThumbnailUrl = ResolveAssetURL(model.Data.ImageThumbnail.First()),
                 Subtitle = model.Data.Subtitle,
                 Id = model.Id,
-                CreatedDate = model.Created.Date
+                CreatedDate = model.Created.Date,
+                MetaDescription = model.Data.MetaDescription,
+                Tags = model.Data.Tags
             };
         }
     }

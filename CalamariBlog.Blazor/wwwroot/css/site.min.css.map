@@ -1,1 +1,1 @@
-{"version":3,"sources":[],"names":[],"mappings":"","file":"site.min.css","sourcesContent":[]}
+{"version":3,"sources":["site.scss"],"names":[],"mappings":"AAAA,YACI,cAAe","file":"site.min.css","sourcesContent":["article img {\r\n    max-width: 100%;\r\n}\r\n"]}

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace CalamariBlog.Models.CMS
 {
@@ -21,5 +22,12 @@ namespace CalamariBlog.Models.CMS
         public string MetaDescription { get; set; }
 
         public DateTime CreatedDate { get; set; }
+
+        public List<string> Tags { get; set; }
+
+        public Project()
+        {
+            Tags = new List<string>();
+        }
     }
 }

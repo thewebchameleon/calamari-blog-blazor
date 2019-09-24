@@ -31,6 +31,15 @@
                             <h3 class="post-subtitle">
                                 @project.Subtitle
                             </h3>
+                            @if (project.Tags.Any())
+                            {
+                                <span class="meta mb-2">
+                                    @foreach (var tag in project.Tags)
+                                    {
+                                        <span class="badge badge-secondary">@tag</span>
+                                    }
+                                </span>
+                            }
                         </a>
                     </div>
                 </div>

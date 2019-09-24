@@ -33,10 +33,14 @@ namespace CalamariBlog.Infrastructure.Repositories.SquidexRepo.Models
         [JsonProperty(PropertyName = "meta-description")]
         public string MetaDescription { get; set; }
 
+        [JsonConverter(typeof(InvariantConverter))]
+        public List<string> Tags { get; set; }
+
         public ProjectData()
         {
             ImageThumbnail = new List<string>();
             ImageHeader = new List<string>();
+            Tags = new List<string>();
         }
     }
 }

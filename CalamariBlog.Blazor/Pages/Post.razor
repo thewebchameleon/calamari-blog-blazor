@@ -1,6 +1,5 @@
 ﻿@page "/post/{Id}"
 @inject ICMSService CMS
-
 <!-- Page Header -->
 <header class="masthead" style="background-image: url('@BlogPost.ImageHeaderUrl')">
     <div class="overlay"></div>
@@ -10,6 +9,15 @@
                 <div class="post-heading">
                     <h1>@BlogPost.Title</h1>
                     <h2 class="subheading">@BlogPost.SubTitle</h2>
+                    @if (BlogPost.Tags.Any())
+                    {
+                        <span class="meta mb-2">
+                            @foreach (var tag in BlogPost.Tags)
+                            {
+                                <span class="badge badge-secondary">@tag</span>
+                            }
+                        </span>
+                    }
                     <span class="meta">
                         Posted by
                         <a href="@BlogPost.Author.Link">@BlogPost.Author.Name</a>

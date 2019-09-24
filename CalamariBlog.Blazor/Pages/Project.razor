@@ -9,7 +9,16 @@
                 <div class="page-heading">
                     <h1>@ProjectModel.Title</h1>
                     <span class="subheading">@ProjectModel.Subtitle</span>
-                    <span class="d-block mt-2">
+                    @if (ProjectModel.Tags.Any())
+                    {
+                        <span class="meta d-block my-2">
+                            @foreach (var tag in ProjectModel.Tags)
+                            {
+                                <span class="badge badge-secondary">@tag</span>
+                            }
+                        </span>
+                    }
+                    <span class="d-block">
                         <a class="text-white" href="@ProjectModel.ExternalUrl" target="_blank">@ProjectModel.ExternalUrl</a>
                     </span>
                 </div>

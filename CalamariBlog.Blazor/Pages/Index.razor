@@ -31,6 +31,15 @@
                             @post.SubTitle
                         </h3>
                     </a>
+                    @if (post.Tags.Any())
+                    {
+                        <span class="meta mb-2">
+                            @foreach (var tag in post.Tags)
+                            {
+                                <span class="badge badge-secondary">@tag</span>
+                            }
+                        </span>
+                    }
                     <p class="post-meta">
                         Posted by
                         <a href="@post.Author.Link">
