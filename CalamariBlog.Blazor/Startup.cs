@@ -49,13 +49,14 @@ namespace CalamariBlog.Blazor
             services.Configure<CacheConfig>(options => Configuration.GetSection("Cache").Bind(options));
             services.Configure<EmailConfig>(options => Configuration.GetSection("Email").Bind(options));
             services.Configure<LoggingConfig>(options => Configuration.GetSection("Logging").Bind(options));
+            services.Configure<DisqusConfig>(options => Configuration.GetSection("Disqus").Bind(options));
 
             #endregion
 
             #region Services
 
             // Infrastructure Services
-      
+
 
             // Caching
             services.AddMemoryCache();
