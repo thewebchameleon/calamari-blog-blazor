@@ -34,10 +34,10 @@ namespace CalamariBlog.Services.CMS
 
         #region Public Methods
 
-        public async Task<BlogPost> GetBlogPost(string id)
+        public async Task<BlogPost> GetBlogPost(string slug)
         {
             var posts = await GetItemFromCache(CacheConstants.SquidexSchemas.BlogPosts, () => _repo.GetBlogPosts());
-            var post = posts.FirstOrDefault(p => p.Id == id);
+            var post = posts.FirstOrDefault(p => p.Data.Slug == slug);
 
             var authors = await GetItemFromCache(CacheConstants.SquidexSchemas.Authors, () => _repo.GetAuthors());
             var author = authors.FirstOrDefault(a => a.Id == post.Data.Author.First());
@@ -52,7 +52,7 @@ namespace CalamariBlog.Services.CMS
             var result = new List<BlogPost>();
             foreach (var post in posts)
             {
-                result.Add(await GetBlogPost(post.Id));
+                result.Add(await GetBlogPost(post.Data.Slug));
             }
             return result;
         }
@@ -87,10 +87,10 @@ namespace CalamariBlog.Services.CMS
             return _mapper.MapToPage_Projects(config);
         }
 
-        public async Task<Project> GetProject(string id)
+        public async Task<Project> GetProject(string slug)
         {
             var projects = await GetItemFromCache(CacheConstants.SquidexSchemas.Projects, () => _repo.GetProjects());
-            var project = projects.FirstOrDefault(p => p.Id == id);
+            var project = projects.FirstOrDefault(p => p.Data.Slug == slug);
 
             return _mapper.MapToProject(project);
         }
@@ -102,7 +102,7 @@ namespace CalamariBlog.Services.CMS
             var result = new List<Project>();
             foreach (var project in projects)
             {
-                result.Add(await GetProject(project.Id));
+                result.Add(await GetProject(project.Data.Slug));
             }
             return result;
         }

@@ -9,13 +9,13 @@ namespace CalamariBlog.Services.CMS.Contracts
     {
         Task<List<BlogPost>> GetBlogPosts();
 
-        Task<BlogPost> GetBlogPost(string id);
+        Task<BlogPost> GetBlogPost(string slug);
 
         Task<Global> GetGlobal();
 
         Task<List<Project>> GetProjects();
 
-        Task<Project> GetProject(string id);
+        Task<Project> GetProject(string slug);
 
 
         Task<PageAbout> GetPage_About();

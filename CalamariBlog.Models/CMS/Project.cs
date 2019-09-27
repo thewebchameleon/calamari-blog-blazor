@@ -5,6 +5,8 @@ namespace CalamariBlog.Models.CMS
 {
     public class Project
     {
+        public string Slug { get; set; }
+
         public string Id { get; set; }
 
         public string Title { get; set; }

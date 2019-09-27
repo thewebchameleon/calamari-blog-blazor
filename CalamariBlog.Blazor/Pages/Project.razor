@@ -1,4 +1,4 @@
-﻿@page "/project/{Id}"
+﻿@page "/project/{Slug}"
 @inject ICMSService CMS
 <!-- Page Header -->
 <header class="masthead" style="background-image: url('@ProjectModel.ImageHeaderUrl')">
@@ -40,12 +40,12 @@
 
 @functions {
     [Parameter]
-    public string Id { get; set; }
+    public string Slug { get; set; }
 
     Models.CMS.Project ProjectModel { get; set; } = new Models.CMS.Project();
 
     protected override async Task OnInitializedAsync()
     {
-        ProjectModel = await CMS.GetProject(Id);
+        ProjectModel = await CMS.GetProject(Slug);
     }
 }

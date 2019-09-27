@@ -1,4 +1,4 @@
-﻿@page "/post/{Id}"
+﻿@page "/post/{Slug}"
 @inject ICMSService CMS
 <!-- Page Header -->
 <header class="masthead" style="background-image: url('@BlogPost.ImageHeaderUrl')">
@@ -42,12 +42,12 @@
 
 @functions {
     [Parameter]
-    public string Id { get; set; }
+    public string Slug { get; set; }
 
     BlogPost BlogPost { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
-        BlogPost = await CMS.GetBlogPost(Id);
+        BlogPost = await CMS.GetBlogPost(Slug);
     }
 }

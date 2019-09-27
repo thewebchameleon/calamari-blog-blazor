@@ -8,6 +8,9 @@ namespace CalamariBlog.Infrastructure.Repositories.SquidexRepo.Models
     public class BlogPostData
     {
         [JsonConverter(typeof(InvariantConverter))]
+        public string Slug { get; set; }
+
+        [JsonConverter(typeof(InvariantConverter))]
         public string Title { get; set; }
 
         [JsonConverter(typeof(InvariantConverter))]
