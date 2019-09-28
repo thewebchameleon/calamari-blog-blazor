@@ -1,4 +1,4 @@
-﻿function CreateDisqusElement(config) {
+﻿function InitialiseDisqus(config) {
     var disqus_config = function () {
         this.page.url = window.location.href;
         this.page.identifier = config.pageIdentifier;

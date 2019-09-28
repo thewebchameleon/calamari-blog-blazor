@@ -64,7 +64,7 @@
     protected override async Task OnInitializedAsync()
     {
         BlogPost = await CMS.GetBlogPost(Slug);
-        var response = await JsRuntime.InvokeAsync<string>("CreateDisqusElement", new DisqusConfig()
+        var response = await JsRuntime.InvokeAsync<string>("InitialiseDisqus", new DisqusConfig()
         {
             EmbedJsUrl = disqusConfig.Value.EmbedJsUrl,
             PageIdentifier = Slug

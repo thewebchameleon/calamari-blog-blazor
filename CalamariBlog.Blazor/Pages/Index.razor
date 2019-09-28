@@ -66,17 +66,18 @@
 
     const int defaultPostIncrement = 4;
     int maxPostCount = 0;
-    bool showMorePosts = true;
+    bool showMorePosts = false;
 
     protected override async Task OnInitializedAsync()
     {
         ViewModel = await CMS.GetPage_Index();
         Posts = await CMS.GetBlogPosts();
+        maxPostCount = Posts.Count;
 
         Posts = Posts.OrderByDescending(p => p.PublishedDate).Take(defaultPostIncrement).ToList();
 
         CheckForMorePosts();
-}
+    }
 
     private async Task LoadMorePosts()
     {
@@ -94,6 +95,9 @@
         if (Posts.Count == maxPostCount)
         {
             showMorePosts = false;
+        } else
+        {
+            showMorePosts = true;
         }
     }
 }
