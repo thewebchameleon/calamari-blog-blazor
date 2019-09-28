@@ -18,6 +18,7 @@ namespace CalamariBlog.Infrastructure.Cache
                 public const string Contact = "page-contact";
                 public const string About = "page-about";
                 public const string Index = "page-index";
+                public const string SearchResults = "page-search-results";
             }
         }
     }

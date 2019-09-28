@@ -1,0 +1,74 @@
+﻿@page "/search-tag/{tag}"
+@inject ICMSService CMS
+<!-- Page Header -->
+<header class="masthead" style="background-image: url('@ViewModel.ImageHeaderSearchResults')">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-10 mx-auto">
+                <div class="page-heading">
+                    <h1>Tag Results</h1>
+                    <span class="subheading">Showing results for '@Tag'</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Main Content -->
+<div class="container">
+    <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+            @foreach (var item in SearchResults)
+            {
+                <div class="post-preview">
+                    <a href="/@item.Url">
+                        <h2 class="post-title">
+                            @item.Title
+                        </h2>
+                        <h3 class="post-subtitle">
+                            @item.Subtitle
+                        </h3>
+                    </a>
+                    @if (item.Tags.Any())
+                    {
+                        <span class="meta mb-2">
+                            @foreach (var tag in item.Tags)
+                            {
+                                <span class="badge badge-secondary">@tag</span>
+                            }
+                        </span>
+                    }
+                    @if (item.PublishedDate.HasValue && item.Author != null)
+                    {
+                        <p class="post-meta">
+                            Posted by
+                            <a href="@item.Author.Link">
+                                @item.Author.Name
+                            </a>
+                            on @item.PublishedDate.Value.ToString("MMMM dd, yyyy")
+                        </p>
+                    }
+                </div>
+                <hr>
+            }
+        </div>
+    </div>
+</div>
+
+@functions {
+    [Parameter]
+    public string Tag { get; set; }
+
+    List<Models.ServiceModels.SearchResultItem> SearchResults { get; set; } = new List<Models.ServiceModels.SearchResultItem>();
+    Models.CMS.Pages.PageSearchResults ViewModel { get; set; } = new Models.CMS.Pages.PageSearchResults();
+
+    protected override async Task OnInitializedAsync()
+    {
+        SearchResults = await CMS.GetSearchByTagName(new GetSearchByTagNameRequest()
+        {
+            Tag = Tag
+        });
+        ViewModel = await CMS.GetPage_SearchResults();
+    }
+}

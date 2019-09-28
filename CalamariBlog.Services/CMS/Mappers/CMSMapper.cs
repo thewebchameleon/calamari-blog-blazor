@@ -23,7 +23,7 @@ namespace CalamariBlog.Services.CMS.Mappers
                 ImageHeaderUrl = ResolveAssetURL(model.Data.ImageHeader.First()),
                 Title = model.Data.Title,
                 Tags = model.Data.Tags,
-                SubTitle = model.Data.SubTitle,
+                Subtitle = model.Data.SubTitle,
                 BodyHtml = model.Data.BodyHtml,
                 MetaDescription = model.Data.MetaDescription,
                 Author = new Author()
@@ -86,6 +86,15 @@ namespace CalamariBlog.Services.CMS.Mappers
             return new PageProjects()
             {
                 ImageHeaderProjects = ResolveAssetURL(model.Data.ImageHeaderProjects.First()),
+                MetaDescription = model.Data.MetaDescription
+            };
+        }
+
+        public PageSearchResults MapToPage_SearchResults(PageSearchResultsEntity model)
+        {
+            return new PageSearchResults()
+            {
+                ImageHeaderSearchResults = model.Data.ImageHeaderSearchResults.First(),
                 MetaDescription = model.Data.MetaDescription
             };
         }

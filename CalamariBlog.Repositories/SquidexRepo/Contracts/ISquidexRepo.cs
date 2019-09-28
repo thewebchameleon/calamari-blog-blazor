@@ -22,5 +22,7 @@ namespace CalamariBlog.Infrastructure.Repositories.SquidexRepo.Contracts
         Task<PageIndexEntity> GetPage_Index();
 
         Task<PageProjectsEntity> GetPage_Projects();
+
+        Task<PageSearchResultsEntity> GetPage_SearchResults();
     }
 }

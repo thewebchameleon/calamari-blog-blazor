@@ -22,6 +22,7 @@ namespace CalamariBlog.Infrastructure.Repositories.SquidexRepo
         private readonly SquidexClient<PageContactEntity, PageContactData> _pageContactClient;
         private readonly SquidexClient<PageIndexEntity, PageIndexData> _pageIndexClient;
         private readonly SquidexClient<PageProjectsEntity, PageProjectsData> _pageProjectsClient;
+        private readonly SquidexClient<PageSearchResultsEntity, PageSearchResultsData> _pageSearchResultsClient;
 
         public SquidexRepo(IOptions<SquidexConfig> appOptions)
         {
@@ -43,6 +44,7 @@ namespace CalamariBlog.Infrastructure.Repositories.SquidexRepo
             _pageContactClient = clientManager.GetClient<PageContactEntity, PageContactData>(CacheConstants.SquidexSchemas.Pages.Contact);
             _pageIndexClient = clientManager.GetClient<PageIndexEntity, PageIndexData>(CacheConstants.SquidexSchemas.Pages.Index);
             _pageProjectsClient = clientManager.GetClient<PageProjectsEntity, PageProjectsData>(CacheConstants.SquidexSchemas.Pages.Projects);
+            _pageSearchResultsClient = clientManager.GetClient<PageSearchResultsEntity, PageSearchResultsData>(CacheConstants.SquidexSchemas.Pages.SearchResults);
         }
 
         public async Task<List<ProjectEntity>> GetProjects(int page, int pageSize)
@@ -90,6 +92,12 @@ namespace CalamariBlog.Infrastructure.Repositories.SquidexRepo
         public async Task<PageProjectsEntity> GetPage_Projects()
         {
             var data = await _pageProjectsClient.GetAsync();
+            return data.Items.FirstOrDefault();
+        }
+
+        public async Task<PageSearchResultsEntity> GetPage_SearchResults()
+        {
+            var data = await _pageSearchResultsClient.GetAsync();
             return data.Items.FirstOrDefault();
         }
     }

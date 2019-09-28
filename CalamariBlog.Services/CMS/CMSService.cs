@@ -8,6 +8,8 @@ using System.Threading.Tasks;
 using CalamariBlog.Infrastructure.Repositories.SquidexRepo.Contracts;
 using CalamariBlog.Models.CMS;
 using CalamariBlog.Models.CMS.Pages;
+using CalamariBlog.Models.ServiceModels;
+using CalamariBlog.Infrastructure.Extensions;
 
 namespace CalamariBlog.Services.CMS
 {
@@ -87,6 +89,12 @@ namespace CalamariBlog.Services.CMS
             return _mapper.MapToPage_Projects(config);
         }
 
+        public async Task<PageSearchResults> GetPage_SearchResults()
+        {
+            var config = await GetItemFromCache(CacheConstants.SquidexSchemas.Pages.SearchResults, () => _repo.GetPage_SearchResults());
+            return _mapper.MapToPage_SearchResults(config);
+        }
+
         public async Task<Project> GetProject(string slug)
         {
             var projects = await GetItemFromCache(CacheConstants.SquidexSchemas.Projects, () => _repo.GetProjects());
@@ -105,6 +113,104 @@ namespace CalamariBlog.Services.CMS
                 result.Add(await GetProject(project.Data.Slug));
             }
             return result;
+        }
+
+        public async Task<List<SearchResultItem>> GetSearch(GetSearchRequest request)
+        {
+            var results = new List<SearchResultItem>();
+
+            var blogPosts = await GetBlogPosts();
+            var filteredBlogPosts = blogPosts.Where(p => 
+            p.Title.Contains(request.Keyword)
+            || p.Subtitle.Contains(request.Keyword)
+            || p.Tags.Contains(request.Keyword)
+            || p.BodyHtml.Contains(request.Keyword)
+            || p.Author.Name.Contains(request.Keyword));
+
+            results.AddRange(filteredBlogPosts.Select(p => new SearchResultItem()
+            {
+                Title = p.Title,
+                Author = p.Author,
+                Subtitle = p.Subtitle,
+                Tags = p.Tags,
+                PublishedDate = p.PublishedDate,
+                Url = $"post/{p.Slug}"
+            }).ToList());
+
+            var projects = await GetProjects();
+            var filteredProjects = projects.Where(p =>
+            p.Title.Contains(request.Keyword)
+            || p.Subtitle.Contains(request.Keyword)
+            || p.Tags.Contains(request.Keyword)
+            || p.BodyHtml.Contains(request.Keyword));
+
+            results.AddRange(filteredProjects.Select(p => new SearchResultItem()
+            {
+                Title = p.Title,
+                Subtitle = p.Subtitle,
+                Tags = p.Tags,
+                Url = $"project/{p.Slug}"
+            }).ToList());
+
+            results = results.Shuffle();
+
+            return results;
+        }
+
+        public async Task<List<SearchResultItem>> GetSearchByTagName(GetSearchByTagNameRequest request)
+        {
+            var results = new List<SearchResultItem>();
+
+            var blogPosts = await GetBlogPosts();
+            var filteredBlogPosts = blogPosts.Where(p => p.Tags.Contains(request.Tag));
+
+            results.AddRange(filteredBlogPosts.Select(p => new SearchResultItem()
+            {
+                Title = p.Title,
+                Author = p.Author,
+                Subtitle = p.Subtitle,
+                Tags = p.Tags,
+                Url = $"post/{p.Slug}"
+            }).ToList());
+
+            var projects = await GetProjects();
+            var filteredProjects = projects.Where(p => p.Tags.Contains(request.Tag));
+
+            results.AddRange(filteredProjects.Select(p => new SearchResultItem()
+            {
+                Title = p.Title,
+                Subtitle = p.Subtitle,
+                Tags = p.Tags,
+                Url = $"project/{p.Slug}"
+            }).ToList());
+
+            results = results.Shuffle();
+
+            return results;
+        }
+
+        public async Task<List<TagCloudItem>> GetTagCloud(GetTagCloudRequest request)
+        {
+            var tags = new List<TagCloudItem>();
+
+            if (request.Type == TagCloudTypeEnum.BlogPosts)
+            {
+                var blogPosts = await GetBlogPosts();
+                var flattedBlogPostTags = blogPosts.SelectMany(p => p.Tags);
+
+                var projects = await GetProjects();
+                var flattedProjectTags = projects.SelectMany(p => p.Tags);
+
+                tags = flattedBlogPostTags.Concat(flattedProjectTags).GroupBy(p => p).Select(p =>
+                new TagCloudItem
+                {
+                    Tag = p.Key,
+                    Count = p.Count()
+                }).ToList();
+            }
+            tags = tags.Shuffle(); // randomise order
+
+            return tags;
         }
 
         #endregion

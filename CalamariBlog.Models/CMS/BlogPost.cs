@@ -11,7 +11,7 @@ namespace CalamariBlog.Models.CMS
 
         public string Title { get; set; }
 
-        public string SubTitle { get; set; }
+        public string Subtitle { get; set; }
 
         public Author Author { get; set; }
 

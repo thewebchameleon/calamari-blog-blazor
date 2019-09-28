@@ -20,5 +20,7 @@ namespace CalamariBlog.Services.CMS.Mappers.Contracts
         PageIndex MapToPage_Index(PageIndexEntity model);
 
         PageProjects MapToPage_Projects(PageProjectsEntity model);
+
+        PageSearchResults MapToPage_SearchResults(PageSearchResultsEntity model);
     }
 }
