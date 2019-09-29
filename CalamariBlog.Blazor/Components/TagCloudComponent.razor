@@ -1,0 +1,61 @@
+﻿@inject ICMSService CMS
+<!-- Blog Post Tag Cloud -->
+<div class="row">
+    <div class="col-lg-8 col-md-10 py-4 mx-auto text-center">
+        <h2 class="mb-4">Cloud Tags</h2>
+        @foreach (var item in TagCloudItems)
+        {
+            <a href="/search-tag/@item.Tag" class="@ResolveTagCloudCss(item, TagCloudItemsCount) mx-1">@item.Tag</a>
+        }
+    </div>
+</div>
+
+@code {
+    public List<TagCloudItem> TagCloudItems { get; set; } = new List<TagCloudItem>();
+
+    int TagCloudItemsCount { get; set; } = 0;
+
+    protected override async Task OnInitializedAsync()
+    {
+        TagCloudItems = await CMS.GetTagCloud();
+        TagCloudItemsCount = TagCloudItems.Count;
+    }
+
+    public static string ResolveTagCloudCss(TagCloudItem tag, int itemCount)
+    {
+        var tagPercent = (decimal)tag.Count / (decimal)itemCount * 100;
+        if (tagPercent >= 90)
+        {
+            return "tag-cloud-size-1";
+        }
+        else if (tagPercent >= 80)
+        {
+            return "tag-cloud-size-2";
+        }
+        else if (tagPercent >= 70)
+        {
+            return "tag-cloud-size-3";
+        }
+        else if (tagPercent >= 60)
+        {
+            return "tag-cloud-size-4";
+        }
+        else if (tagPercent >= 50)
+        {
+            return "tag-cloud-size-5";
+        }
+        else if (tagPercent >= 40)
+        {
+            return "tag-cloud-size-6";
+        }
+        else if (tagPercent >= 30)
+        {
+            return "tag-cloud-size-7";
+        }
+        else if (tagPercent >= 20)
+        {
+            return "tag-cloud-size-8";
+        }
+        return "tag-cloud-size-9";
+    }
+}

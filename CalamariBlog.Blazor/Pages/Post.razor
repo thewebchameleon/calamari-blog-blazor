@@ -2,6 +2,7 @@
 @inject ICMSService CMS
 @inject IJSRuntime JsRuntime;
 @inject Microsoft.Extensions.Options.IOptions<CalamariBlog.Infrastructure.Configuration.DisqusConfig> disqusConfig
+@inject NavigationManager NavigationManager
 <!-- Page Header -->
 <header class="masthead" style="background-image: url('@BlogPost.ImageHeaderUrl')">
     <div class="overlay"></div>
@@ -37,6 +38,10 @@
         <div class="row">
             <div class="col-lg-8 col-md-10 mx-auto">
                 @((MarkupString)BlogPost.BodyHtml)
+
+                <hr />
+
+                <SocialShareLinkComponent Url="@NavigationManager.Uri" Text="@BlogPost.Title" />
 
                 <hr />
 

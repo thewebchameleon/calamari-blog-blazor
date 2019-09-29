@@ -58,23 +58,13 @@
             }
         </div>
     </div>
-    <!-- Blog Post Tag Cloud -->
-    <div class="row">
-        <div class="col-lg-8 col-md-10 py-4 mx-auto text-center">
-            <h2 class="mb-4">Cloud Tags</h2>
-            @foreach (var item in TagCloudItems)
-            {
-                <a href="/search-tag/@item.Tag" class="@ResolveTagCloudCss(item, TagCloudItemsCount) mx-1">@item.Tag</a>
-            }
-        </div>
-    </div>
+    <TagCloudComponent />
 </div>
 
 @functions {
     Models.CMS.Pages.PageIndex ViewModel { get; set; } = new Models.CMS.Pages.PageIndex();
     List<BlogPost> Posts { get; set; } = new List<BlogPost>();
     List<TagCloudItem> TagCloudItems { get; set; } = new List<TagCloudItem>();
-    int TagCloudItemsCount { get; set; } = 0;
 
     const int defaultPostIncrement = 4;
     int maxPostCount = 0;
@@ -89,9 +79,6 @@
         Posts = Posts.OrderByDescending(p => p.PublishedDate).Take(defaultPostIncrement).ToList();
 
         CheckForMorePosts();
-
-        TagCloudItems = await CMS.GetTagCloud();
-        TagCloudItemsCount = TagCloudItems.Count;
     }
 
     private async Task LoadMorePosts()
@@ -115,43 +102,5 @@
         {
             showMorePosts = true;
         }
-    }
-
-    public static string ResolveTagCloudCss(TagCloudItem tag, int itemCount)
-    {
-        var tagPercent = (decimal)tag.Count / (decimal)itemCount * 100;
-        if (tagPercent >= 90)
-        {
-            return "tag-cloud-size-1";
-        }
-        else if (tagPercent >= 80)
-        {
-            return "tag-cloud-size-2";
-        }
-        else if (tagPercent >= 70)
-        {
-            return "tag-cloud-size-3";
-        }
-        else if (tagPercent >= 60)
-        {
-            return "tag-cloud-size-4";
-        }
-        else if (tagPercent >= 50)
-        {
-            return "tag-cloud-size-5";
-        }
-        else if (tagPercent >= 40)
-        {
-            return "tag-cloud-size-6";
-        }
-        else if (tagPercent >= 30)
-        {
-            return "tag-cloud-size-7";
-        }
-        else if (tagPercent >= 20)
-        {
-            return "tag-cloud-size-8";
-        }
-        return "tag-cloud-size-9";
     }
 }
