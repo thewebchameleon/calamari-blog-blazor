@@ -16,7 +16,7 @@
                         <span class="meta mb-2">
                             @foreach (var tag in BlogPost.Tags)
                             {
-                                <span class="badge badge-secondary">@tag</span>
+                                <a href="/search-tag/@tag" class="badge badge-secondary">@tag</a>
                             }
                         </span>
                     }

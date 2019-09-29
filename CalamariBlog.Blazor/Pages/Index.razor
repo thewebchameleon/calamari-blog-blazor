@@ -36,7 +36,7 @@
                         <span class="meta mb-2">
                             @foreach (var tag in post.Tags)
                             {
-                                <span class="badge badge-secondary">@tag</span>
+                                <a href="/search-tag/@tag" class="badge badge-secondary">@tag</a>
                             }
                         </span>
                     }
@@ -61,7 +61,7 @@
     <!-- Blog Post Tag Cloud -->
     <div class="row">
         <div class="col-lg-8 col-md-10 py-4 mx-auto text-center">
-            <h2 class="mb-2">Cloud Tags</h2>
+            <h2 class="mb-4">Cloud Tags</h2>
             @foreach (var item in TagCloudItems)
             {
                 <a href="/search-tag/@item.Tag" class="@ResolveTagCloudCss(item, TagCloudItemsCount) mx-1">@item.Tag</a>
@@ -127,18 +127,34 @@
         {
             return "tag-cloud-size-1";
         }
-        else if (tagPercent >= 70)
+        else if (tagPercent >= 80)
         {
             return "tag-cloud-size-2";
         }
-        else if (tagPercent >= 40)
+        else if (tagPercent >= 70)
         {
             return "tag-cloud-size-3";
         }
-        else if (tagPercent >= 20)
+        else if (tagPercent >= 60)
         {
             return "tag-cloud-size-4";
         }
-        return "tag-cloud-size-5";
+        else if (tagPercent >= 50)
+        {
+            return "tag-cloud-size-5";
+        }
+        else if (tagPercent >= 40)
+        {
+            return "tag-cloud-size-6";
+        }
+        else if (tagPercent >= 30)
+        {
+            return "tag-cloud-size-7";
+        }
+        else if (tagPercent >= 20)
+        {
+            return "tag-cloud-size-8";
+        }
+        return "tag-cloud-size-9";
     }
 }
