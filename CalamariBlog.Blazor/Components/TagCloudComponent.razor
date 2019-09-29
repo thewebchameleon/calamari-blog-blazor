@@ -2,7 +2,7 @@
 <!-- Blog Post Tag Cloud -->
 <div class="row">
     <div class="col-lg-8 col-md-10 py-4 mx-auto text-center">
-        <h2 class="mb-4">Cloud Tags</h2>
+        <h2 class="mb-4">Tag Cloud</h2>
         @foreach (var item in TagCloudItems)
         {
             <a href="/search-tag/@item.Tag" class="@ResolveTagCloudCss(item, TagCloudItemsCount) mx-1">@item.Tag</a>
