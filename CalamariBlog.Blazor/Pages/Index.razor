@@ -67,34 +67,37 @@
     List<TagCloudItem> TagCloudItems { get; set; } = new List<TagCloudItem>();
 
     const int defaultPostIncrement = 4;
-    int maxPostCount = 0;
+    int totalPostsCount = 0;
     bool showMorePosts = false;
 
     protected override async Task OnInitializedAsync()
     {
         ViewModel = await CMS.GetPage_Index();
-        Posts = await CMS.GetBlogPosts();
-        maxPostCount = Posts.Count;
-
-        Posts = Posts.OrderByDescending(p => p.PublishedDate).Take(defaultPostIncrement).ToList();
+        Posts = await LoadPosts();
 
         CheckForMorePosts();
     }
 
-    private async Task LoadMorePosts()
+    private async Task<List<BlogPost>> LoadPosts()
     {
         var postCount = Posts.Count;
-        Posts = await CMS.GetBlogPosts();
-        maxPostCount = Posts.Count;
+        var posts = await CMS.GetBlogPosts();
+        totalPostsCount = posts.Count;
 
-        Posts = Posts.OrderByDescending(p => p.PublishedDate).Take(defaultPostIncrement + postCount).ToList();
+        posts = posts.OrderByDescending(p => p.PublishedDate).Take(defaultPostIncrement + postCount).ToList();
 
+        return posts;
+    }
+
+    private async Task LoadMorePosts()
+    {
+        Posts = await LoadPosts();
         CheckForMorePosts();
     }
 
     private void CheckForMorePosts()
     {
-        if (Posts.Count == maxPostCount)
+        if (Posts.Count == totalPostsCount)
         {
             showMorePosts = false;
         }
