@@ -1,0 +1,26 @@
+﻿@inject IJSRuntime JsRuntime
+@inject Microsoft.Extensions.Options.IOptions<CalamariBlog.Infrastructure.Configuration.DisqusConfig> disqusConfig
+
+<!-- Disqus Comments -->
+<div id="disqus_thread"></div>
+
+@code {
+    [Parameter]
+    public string Slug { get; set; }
+
+    public class DisqusConfig
+    {
+        public string EmbedJsUrl { get; set; }
+
+        public string PageIdentifier { get; set; }
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        var response = await JsRuntime.InvokeAsync<string>("InitialiseDisqus", new DisqusConfig()
+        {
+            EmbedJsUrl = disqusConfig.Value.EmbedJsUrl,
+            PageIdentifier = Slug
+        });
+    }
+}

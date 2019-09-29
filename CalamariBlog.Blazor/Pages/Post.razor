@@ -1,8 +1,7 @@
 ﻿@page "/post/{Slug}"
 @inject ICMSService CMS
-@inject IJSRuntime JsRuntime;
-@inject Microsoft.Extensions.Options.IOptions<CalamariBlog.Infrastructure.Configuration.DisqusConfig> disqusConfig
 @inject NavigationManager NavigationManager
+
 <!-- Page Header -->
 <header class="masthead" style="background-image: url('@BlogPost.ImageHeaderUrl')">
     <div class="overlay"></div>
@@ -45,8 +44,8 @@
 
                 <hr />
 
-                <!-- Disqus Comments -->
-                <div id="disqus_thread"></div>
+                <DisqusComponent Slug="@NavigationManager.Uri" />
+
             </div>
         </div>
     </div>
@@ -59,20 +58,8 @@
 
     BlogPost BlogPost { get; set; }
 
-    public class DisqusConfig
-    {
-        public string EmbedJsUrl { get; set; }
-
-        public string PageIdentifier { get; set; }
-    }
-
     protected override async Task OnInitializedAsync()
     {
         BlogPost = await CMS.GetBlogPost(Slug);
-        var response = await JsRuntime.InvokeAsync<string>("InitialiseDisqus", new DisqusConfig()
-        {
-            EmbedJsUrl = disqusConfig.Value.EmbedJsUrl,
-            PageIdentifier = Slug
-        });
     }
 }
