@@ -1,12 +1,13 @@
 ﻿using CalamariBlog.Models.CMS;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace CalamariBlog.Models.ServiceModels
 {
     public class SearchResultItem
     {
+        public SearchResultItemTypeEnum Type { get; set; }
+
         public string Url { get; set; }
 
         public string Title { get; set; }
@@ -19,9 +20,22 @@ namespace CalamariBlog.Models.ServiceModels
 
         public DateTime? PublishedDate { get; set; }
 
+        public string ImageThumbnailUrl { get; set; }
+
+        public DateTime CreatedDate { get; set; }
+
+        public DateTime UpdatedDate { get; set; }
+
         public SearchResultItem()
         {
             Tags = new List<string>();
         }
+    }
+
+    public enum SearchResultItemTypeEnum
+    {
+        Undefined = 0,
+        BlogPost = 1,
+        Project = 2
     }
 }

@@ -20,7 +20,7 @@
 <div class="container">
     <div class="row">
         <div class="col-lg-8 col-md-10 mx-auto">
-            @foreach (var post in Posts)
+            @foreach (var post in Posts.OrderByDescending(p => p.PublishedDate))
             {
                 <div class="post-preview">
                     <a href="/post/@post.Slug">
@@ -90,10 +90,7 @@
 
         CheckForMorePosts();
 
-        TagCloudItems = await CMS.GetTagCloud(new GetTagCloudRequest()
-        {
-            Type = TagCloudTypeEnum.BlogPosts
-        });
+        TagCloudItems = await CMS.GetTagCloud();
         TagCloudItemsCount = TagCloudItems.Count;
     }
 

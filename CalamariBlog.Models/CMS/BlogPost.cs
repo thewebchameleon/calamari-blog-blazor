@@ -25,6 +25,10 @@ namespace CalamariBlog.Models.CMS
 
         public string MetaDescription { get; set; }
 
+        public DateTime UpdatedDate { get; set; }
+
+        public DateTime CreatedDate { get; set; }
+
         public BlogPost()
         {
             Tags = new List<string>();

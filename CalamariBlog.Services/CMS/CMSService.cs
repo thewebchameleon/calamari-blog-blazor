@@ -120,7 +120,7 @@ namespace CalamariBlog.Services.CMS
             var results = new List<SearchResultItem>();
 
             var blogPosts = await GetBlogPosts();
-            var filteredBlogPosts = blogPosts.Where(p => 
+            var filteredBlogPosts = blogPosts.Where(p =>
             p.Title.Contains(request.Keyword)
             || p.Subtitle.Contains(request.Keyword)
             || p.Tags.Contains(request.Keyword)
@@ -129,12 +129,15 @@ namespace CalamariBlog.Services.CMS
 
             results.AddRange(filteredBlogPosts.Select(p => new SearchResultItem()
             {
+                Type = SearchResultItemTypeEnum.BlogPost,
                 Title = p.Title,
                 Author = p.Author,
                 Subtitle = p.Subtitle,
                 Tags = p.Tags,
                 PublishedDate = p.PublishedDate,
-                Url = $"post/{p.Slug}"
+                Url = $"post/{p.Slug}",
+                CreatedDate = p.CreatedDate,
+                UpdatedDate = p.UpdatedDate
             }).ToList());
 
             var projects = await GetProjects();
@@ -146,10 +149,14 @@ namespace CalamariBlog.Services.CMS
 
             results.AddRange(filteredProjects.Select(p => new SearchResultItem()
             {
+                Type = SearchResultItemTypeEnum.BlogPost,
                 Title = p.Title,
                 Subtitle = p.Subtitle,
                 Tags = p.Tags,
-                Url = $"project/{p.Slug}"
+                Url = $"project/{p.Slug}",
+                CreatedDate = p.CreatedDate,
+                UpdatedDate = p.UpdatedDate,
+                ImageThumbnailUrl = p.ImageThumbnailUrl
             }).ToList());
 
             results = results.Shuffle();
@@ -166,11 +173,15 @@ namespace CalamariBlog.Services.CMS
 
             results.AddRange(filteredBlogPosts.Select(p => new SearchResultItem()
             {
+                Type = SearchResultItemTypeEnum.BlogPost,
                 Title = p.Title,
                 Author = p.Author,
                 Subtitle = p.Subtitle,
                 Tags = p.Tags,
-                Url = $"post/{p.Slug}"
+                Url = $"post/{p.Slug}",
+                PublishedDate = p.PublishedDate,
+                CreatedDate = p.CreatedDate,
+                UpdatedDate = p.UpdatedDate
             }).ToList());
 
             var projects = await GetProjects();
@@ -178,10 +189,14 @@ namespace CalamariBlog.Services.CMS
 
             results.AddRange(filteredProjects.Select(p => new SearchResultItem()
             {
+                Type = SearchResultItemTypeEnum.Project,
                 Title = p.Title,
                 Subtitle = p.Subtitle,
                 Tags = p.Tags,
-                Url = $"project/{p.Slug}"
+                Url = $"project/{p.Slug}",
+                CreatedDate = p.CreatedDate,
+                UpdatedDate = p.UpdatedDate,
+                ImageThumbnailUrl = p.ImageThumbnailUrl
             }).ToList());
 
             results = results.Shuffle();
@@ -189,25 +204,23 @@ namespace CalamariBlog.Services.CMS
             return results;
         }
 
-        public async Task<List<TagCloudItem>> GetTagCloud(GetTagCloudRequest request)
+        public async Task<List<TagCloudItem>> GetTagCloud()
         {
             var tags = new List<TagCloudItem>();
 
-            if (request.Type == TagCloudTypeEnum.BlogPosts)
+            var blogPosts = await GetBlogPosts();
+            var flattedBlogPostTags = blogPosts.SelectMany(p => p.Tags);
+
+            var projects = await GetProjects();
+            var flattedProjectTags = projects.SelectMany(p => p.Tags);
+
+            tags = flattedBlogPostTags.Concat(flattedProjectTags).GroupBy(p => p).Select(p =>
+            new TagCloudItem
             {
-                var blogPosts = await GetBlogPosts();
-                var flattedBlogPostTags = blogPosts.SelectMany(p => p.Tags);
+                Tag = p.Key,
+                Count = p.Count()
+            }).ToList();
 
-                var projects = await GetProjects();
-                var flattedProjectTags = projects.SelectMany(p => p.Tags);
-
-                tags = flattedBlogPostTags.Concat(flattedProjectTags).GroupBy(p => p).Select(p =>
-                new TagCloudItem
-                {
-                    Tag = p.Key,
-                    Count = p.Count()
-                }).ToList();
-            }
             tags = tags.Shuffle(); // randomise order
 
             return tags;

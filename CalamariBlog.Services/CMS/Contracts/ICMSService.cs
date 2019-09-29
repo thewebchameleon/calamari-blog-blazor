@@ -30,7 +30,7 @@ namespace CalamariBlog.Services.CMS.Contracts
         Task<PageSearchResults> GetPage_SearchResults();
 
 
-        Task<List<TagCloudItem>> GetTagCloud(GetTagCloudRequest request);
+        Task<List<TagCloudItem>> GetTagCloud();
 
         Task<List<SearchResultItem>> GetSearchByTagName(GetSearchByTagNameRequest request);
 

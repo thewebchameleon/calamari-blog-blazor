@@ -30,7 +30,9 @@ namespace CalamariBlog.Services.CMS.Mappers
                 {
                     Name = author.Data.Name,
                     Link = author.Data.Link
-                }
+                },
+                CreatedDate = model.Created.DateTime,
+                UpdatedDate = model.LastModified.DateTime
             };
 
             return result;
@@ -111,9 +113,10 @@ namespace CalamariBlog.Services.CMS.Mappers
                 ImageHeaderUrl = ResolveAssetURL(model.Data.ImageHeader.First()),
                 ImageThumbnailUrl = ResolveAssetURL(model.Data.ImageThumbnail.First()),
                 Subtitle = model.Data.Subtitle,
-                CreatedDate = model.Created.Date,
                 MetaDescription = model.Data.MetaDescription,
-                Tags = model.Data.Tags
+                Tags = model.Data.Tags,
+                CreatedDate = model.Created.DateTime,
+                UpdatedDate = model.LastModified.DateTime
             };
         }
     }
