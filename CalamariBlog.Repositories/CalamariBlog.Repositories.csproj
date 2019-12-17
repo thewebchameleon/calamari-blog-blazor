@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Squidex.ClientLibrary" Version="3.9.0" />
+    <PackageReference Include="Squidex.ClientLibrary" Version="4.0.2" />
   </ItemGroup>
 
   <ItemGroup>
