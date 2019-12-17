@@ -14,10 +14,11 @@ variables:
 
 steps:
 - task: UseDotNet@2
-  displayName: 'Use .NET Core SDK'
+  displayName: 'Use .NET Core 3.1 SDK'
   inputs:
-    version: 3.x
-    includePreviewVersions: true
+    packageType: sdk
+    version: 3.1.100
+    installationPath: $(Agent.ToolsDirectory)/dotnet
 
 - script: dotnet restore
   displayName: Restore
