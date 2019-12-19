@@ -1,7 +1,6 @@
 ﻿@inject IJSRuntime JsRuntime
 @inject Microsoft.Extensions.Options.IOptions<CalamariBlog.Infrastructure.Configuration.DisqusConfig> disqusConfig
 
-<!-- Disqus Comments -->
 <div id="disqus_thread"></div>
 
 @code {
@@ -15,12 +14,15 @@
         public string PageIdentifier { get; set; }
     }
 
-    protected override async Task OnInitializedAsync()
+    protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        var response = await JsRuntime.InvokeAsync<string>("InitialiseDisqus", new DisqusConfig()
+        if (firstRender)
         {
-            EmbedJsUrl = disqusConfig.Value.EmbedJsUrl,
-            PageIdentifier = Slug
-        });
+            var response = await JsRuntime.InvokeAsync<string>("InitialiseDisqus", new DisqusConfig()
+            {
+                EmbedJsUrl = disqusConfig.Value.EmbedJsUrl,
+                PageIdentifier = Slug
+            });
+        }
     }
 }
