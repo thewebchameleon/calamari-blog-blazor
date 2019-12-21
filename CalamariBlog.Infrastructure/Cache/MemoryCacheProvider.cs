@@ -1,4 +1,4 @@
-using CalamariBlog.Infrastructure.Configuration;
+using CalamariBlog.Infrastructure.Cache.Contracts;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Options;
 using System;
@@ -8,31 +8,48 @@ namespace CalamariBlog.Infrastructure.Cache
     public class MemoryCacheProvider : ICacheProvider
     {
         private readonly IMemoryCache _cache;
-        private readonly CacheConfig _config;
+        private readonly CacheSettings _settings;
 
-        public MemoryCacheProvider(IMemoryCache memoryCache, IOptions<CacheConfig> settings)
+        public MemoryCacheProvider(
+            IMemoryCache memoryCache,
+            IOptions<CacheSettings> settings
+        )
         {
             _cache = memoryCache;
-            _config = settings.Value;
+            _settings = settings.Value;
         }
-        
-        public bool TryGetItem<T>(string id, out T value)
+
+        public bool TryGet<T>(string id, out T value)
         {
-            if (_cache.TryGetValue(id, out value))
+            if (_cache.TryGetValue(id, out value)
+                && _settings.IsEnabled) // ensures that the cache is ignored
             {
                 return true;
             }
             return false;
         }
 
-        public T SetItem<T>(string key, T value)
+        public T Set<T>(string key, T value)
         {
-            return _cache.Set(key, value, TimeSpan.FromMinutes(_config.ExpiryTimeMinutes));
+            if (value != null)
+            {
+                return _cache.Set(key, value, TimeSpan.FromMinutes(_settings.ExpiryTimeMinutes));
+            }
+            return default(T);
         }
 
-        public void Clear(string key)
+        public void Remove(string key)
         {
             _cache.Remove(key);
+        }
+
+        public T Set<T>(string key, T value, DateTimeOffset expiryDate)
+        {
+            if (value != null)
+            {
+                return _cache.Set(key, value, expiryDate);
+            }
+            return default;
         }
     }
 }

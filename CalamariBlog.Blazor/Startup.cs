@@ -17,17 +17,20 @@ using CalamariBlog.Services.CMS.Mappers;
 using CalamariBlog.Services.Email.Contracts;
 using CalamariBlog.Services.Email;
 using Microsoft.AspNetCore.ResponseCompression;
+using CalamariBlog.Infrastructure.Cache.Contracts;
+using CalamariBlog.Services.Managers.Contracts;
+using CalamariBlog.Services.Managers;
 
 namespace CalamariBlog.Blazor
 {
     public class Startup
     {
+        private readonly IConfiguration _configuration;
+
         public Startup(IConfiguration configuration)
         {
-            Configuration = configuration;
+            _configuration = configuration;
         }
-
-        public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
@@ -38,21 +41,20 @@ namespace CalamariBlog.Blazor
 
             #region Configuration
 
-            services.Configure<SquidexConfig>(options => Configuration.GetSection("Squidex").Bind(options));
-            services.Configure<CacheConfig>(options => Configuration.GetSection("Cache").Bind(options));
-            services.Configure<EmailConfig>(options => Configuration.GetSection("Email").Bind(options));
-            services.Configure<LoggingConfig>(options => Configuration.GetSection("Logging").Bind(options));
-            services.Configure<DisqusConfig>(options => Configuration.GetSection("Disqus").Bind(options));
+            services.Configure<SquidexConfig>(_configuration.GetSection("Squidex"));
+            services.Configure<CacheSettings>(_configuration.GetSection("Cache"));
+            services.Configure<EmailConfig>(_configuration.GetSection("Email"));
+            services.Configure<DisqusConfig>(_configuration.GetSection("Disqus"));
 
             #endregion
 
             #region Services
 
             // Infrastructure Services
-
+            services.AddHttpClient();
 
             // Caching
-            services.AddMemoryCache();
+            services.AddDistributedMemoryCache();
             services.AddSingleton<ICacheProvider, MemoryCacheProvider>();
 
             // Business Logic Services
@@ -60,6 +62,9 @@ namespace CalamariBlog.Blazor
 
             services.AddSingleton<ICMSService, CMSService>();
             services.AddSingleton<IEmailService, EmailService>();
+
+            // Business Logic Managers
+            services.AddTransient<ICacheManager, CacheManager>();
 
             // Business Logic Service Repos
             services.AddSingleton<ISquidexRepo, SquidexRepo>();

@@ -1,4 +1,5 @@
 ﻿using CalamariBlog.Infrastructure.Cache;
+using CalamariBlog.Infrastructure.Cache.Contracts;
 using CalamariBlog.Infrastructure.Configuration;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -49,7 +50,7 @@ namespace CalamariBlog.Blazor.Controllers
                         var payload = jObject.payload;
 
                         string schemaName = ((string)payload.schemaId).Split(',')[1];
-                        _cacheProvider.Clear(schemaName);
+                        _cacheProvider.Remove(schemaName);
 
                         return Ok();
                     }
