@@ -24,7 +24,7 @@ namespace CalamariBlog.Infrastructure.Repositories.SquidexRepo
         private readonly SquidexClient<PageProjectsEntity, PageProjectsData> _pageProjectsClient;
         private readonly SquidexClient<PageSearchResultsEntity, PageSearchResultsData> _pageSearchResultsClient;
 
-        public SquidexRepo(IOptions<SquidexConfig> appOptions)
+        public SquidexRepo(IOptions<SquidexSettings> appOptions)
         {
             var options = appOptions.Value;
 

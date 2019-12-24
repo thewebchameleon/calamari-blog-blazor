@@ -10,9 +10,9 @@ namespace CalamariBlog.Services.Email
     public class EmailService : IEmailService
     {
         private readonly ISendGridRepo _sendGridRepo;
-        private readonly EmailConfig _settings;
+        private readonly EmailSettings _settings;
 
-        public EmailService(ISendGridRepo sendGridRepo, IOptions<EmailConfig> settings)
+        public EmailService(ISendGridRepo sendGridRepo, IOptions<EmailSettings> settings)
         {
             _settings = settings.Value;
             _sendGridRepo = sendGridRepo;

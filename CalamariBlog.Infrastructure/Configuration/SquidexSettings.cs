@@ -1,6 +1,6 @@
 namespace CalamariBlog.Infrastructure.Configuration
 {
-    public sealed class SquidexConfig
+    public sealed class SquidexSettings
     {
         public string AppName { get; set; }
 

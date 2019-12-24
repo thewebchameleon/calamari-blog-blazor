@@ -1,6 +1,6 @@
 namespace CalamariBlog.Infrastructure.Configuration
 {
-    public class SendGridConfig
+    public class SendGridSettings
     {
         public string APIKey { get; set; }
     }

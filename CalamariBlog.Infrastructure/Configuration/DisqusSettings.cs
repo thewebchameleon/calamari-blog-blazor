@@ -1,6 +1,6 @@
 ﻿namespace CalamariBlog.Infrastructure.Configuration
 {
-    public class DisqusConfig
+    public class DisqusSettings
     {
         public string EmbedJsUrl { get; set; }
     }

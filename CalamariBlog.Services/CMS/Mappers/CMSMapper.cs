@@ -11,7 +11,7 @@ namespace CalamariBlog.Services.CMS.Mappers
 {
     public class CMSMapper : BaseMapper, ICMSMapper
     {
-        public CMSMapper(IOptions<SquidexConfig> config) : base(config) { }
+        public CMSMapper(IOptions<SquidexSettings> config) : base(config) { }
 
         public BlogPost MapToBlogPost(BlogPostEntity model, AuthorEntity author)
         {

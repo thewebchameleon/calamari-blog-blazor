@@ -5,9 +5,9 @@ namespace CalamariBlog.Services.CMS
 {
     public abstract class BaseMapper
     {
-        protected readonly SquidexConfig _config;
+        protected readonly SquidexSettings _config;
 
-        public BaseMapper(IOptions<SquidexConfig> config)
+        public BaseMapper(IOptions<SquidexSettings> config)
         {
             _config = config.Value;
         }

@@ -17,11 +17,11 @@ namespace CalamariBlog.Blazor.Controllers
     public class WebhookController : Controller
     {
         private readonly ILogger _logger;
-        private readonly SquidexConfig _settings;
+        private readonly SquidexSettings _settings;
         private readonly ICacheProvider _cacheProvider;
 
         public WebhookController(
-            IOptions<SquidexConfig> settings,
+            IOptions<SquidexSettings> settings,
             ICacheProvider cacheProvider,
             ILogger<WebhookController> logger
         )

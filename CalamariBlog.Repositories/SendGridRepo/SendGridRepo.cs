@@ -10,10 +10,10 @@ namespace CalamariBlog.Infrastructure.Repositories.SendGridRepo
 {
     public class SendGridRepo : ISendGridRepo
     {
-        private readonly EmailConfig _settings;
+        private readonly EmailSettings _settings;
         private readonly ISendGridClient _client;
 
-        public SendGridRepo(IOptions<EmailConfig> settings)
+        public SendGridRepo(IOptions<EmailSettings> settings)
         {
             _settings = settings.Value;
             _client = new SendGridClient(_settings.SendGrid.APIKey);

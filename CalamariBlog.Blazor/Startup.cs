@@ -41,10 +41,10 @@ namespace CalamariBlog.Blazor
 
             #region Configuration
 
-            services.Configure<SquidexConfig>(_configuration.GetSection("Squidex"));
+            services.Configure<SquidexSettings>(_configuration.GetSection("Squidex"));
             services.Configure<CacheSettings>(_configuration.GetSection("Cache"));
-            services.Configure<EmailConfig>(_configuration.GetSection("Email"));
-            services.Configure<DisqusConfig>(_configuration.GetSection("Disqus"));
+            services.Configure<EmailSettings>(_configuration.GetSection("Email"));
+            services.Configure<DisqusSettings>(_configuration.GetSection("Disqus"));
 
             #endregion
 

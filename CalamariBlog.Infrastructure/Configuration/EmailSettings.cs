@@ -1,10 +1,10 @@
 namespace CalamariBlog.Infrastructure.Configuration
 {
-    public class EmailConfig
+    public class EmailSettings
     {
         public bool IsEnabled { get; set; }
 
-        public SendGridConfig SendGrid { get; set; }
+        public SendGridSettings SendGrid { get; set; }
 
         public string SystemEmailAddress { get; set; }
 
