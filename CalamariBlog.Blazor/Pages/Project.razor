@@ -61,12 +61,11 @@
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        await JsRuntime.InvokeAsync<string>("SetMetaTags", new SetMetaTagsRequest()
+        await MetaTagsManager.SetMetaTags(new SetMetaTagsRequest()
         {
             Title = ProjectModel.Title,
             Description = ProjectModel.Subtitle,
-            Image = ProjectModel.ImageHeaderUrl,
-            Url = _navigationManager.Uri
+            Image = ProjectModel.ImageHeaderUrl
         });
     }
 }

@@ -10,6 +10,11 @@
     text-shadow: black 0px 0px 10px;
 }
 
+@media (max-width: 991px) {
+    #mainNav {
+        text-shadow: none;
+    }
+}
 
 /* #region Tag Cloud */
 

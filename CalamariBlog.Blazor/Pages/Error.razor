@@ -18,11 +18,10 @@
 @functions {
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        await JsRuntime.InvokeAsync<string>("SetMetaTags", new SetMetaTagsRequest()
+        await MetaTagsManager.SetMetaTags(new SetMetaTagsRequest()
         {
             Title = "Error",
-            Description = "An error occurred while processing your request.",
-            Url = _navigationManager.Uri
+            Description = "An error occurred while processing your request."
         });
     }
 }

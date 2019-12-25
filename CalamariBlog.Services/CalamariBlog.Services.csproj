@@ -5,6 +5,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Components" Version="3.1.0" />
+    <PackageReference Include="Microsoft.JSInterop" Version="3.1.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\CalamariBlog.Infrastructure\CalamariBlog.Infrastructure.csproj" />
     <ProjectReference Include="..\CalamariBlog.Models\CalamariBlog.Models.csproj" />
     <ProjectReference Include="..\CalamariBlog.Repositories\CalamariBlog.Repositories.csproj" />

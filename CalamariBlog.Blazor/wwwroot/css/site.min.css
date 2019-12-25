@@ -1,3 +1,3 @@
-article img{max-width:100%}.post-heading{text-shadow:black 3px 3px 10px}#mainNav{text-shadow:black 0px 0px 10px}.tag-cloud-size-1{font-size:46px}.tag-cloud-size-2{font-size:42px}.tag-cloud-size-3{font-size:38px}.tag-cloud-size-4{font-size:34px}.tag-cloud-size-5{font-size:30px}.tag-cloud-size-6{font-size:26px}.tag-cloud-size-7{font-size:22px}.tag-cloud-size-8{font-size:18px}.tag-cloud-size-9{font-size:14px}
+article img{max-width:100%}.post-heading{text-shadow:black 3px 3px 10px}#mainNav{text-shadow:black 0px 0px 10px}@media (max-width: 991px){#mainNav{text-shadow:none}}.tag-cloud-size-1{font-size:46px}.tag-cloud-size-2{font-size:42px}.tag-cloud-size-3{font-size:38px}.tag-cloud-size-4{font-size:34px}.tag-cloud-size-5{font-size:30px}.tag-cloud-size-6{font-size:26px}.tag-cloud-size-7{font-size:22px}.tag-cloud-size-8{font-size:18px}.tag-cloud-size-9{font-size:14px}
 
 /*# sourceMappingURL=site.min.css.map */

@@ -65,6 +65,7 @@ namespace CalamariBlog.Blazor
 
             // Business Logic Managers
             services.AddTransient<ICacheManager, CacheManager>();
+            services.AddScoped<IMetaTagsManager, MetaTagsManager>();
 
             // Business Logic Service Repos
             services.AddSingleton<ISquidexRepo, SquidexRepo>();
