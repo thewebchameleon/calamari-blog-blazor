@@ -1,14 +1,15 @@
 ﻿@page "/projects"
 @inject ICMSService CMS
+
 <!-- Page Header -->
-<header class="masthead" style="background-image: url('@ViewModel.ImageHeaderProjects')">
+<header class="masthead" style="background-image: url('@ViewModel.ImageHeader')">
     <div class="overlay"></div>
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-md-10 mx-auto">
                 <div class="page-heading">
                     <h1>Projects</h1>
-                    <span class="subheading">This is what I do.</span>
+                    <span class="subheading">@Subtitle</span>
                 </div>
             </div>
         </div>
@@ -53,10 +54,22 @@
 @functions {
     List<Models.CMS.Project> ProjectsList { get; set; } = new List<Models.CMS.Project>();
     Models.CMS.Pages.PageProjects ViewModel { get; set; } = new Models.CMS.Pages.PageProjects();
+    string Subtitle = "These are some of the personal projects I've done";
 
     protected override async Task OnInitializedAsync()
     {
         ProjectsList = await CMS.GetProjects();
         ViewModel = await CMS.GetPage_Projects();
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await JsRuntime.InvokeAsync<string>("SetMetaTags", new SetMetaTagsRequest()
+        {
+            Title = "Projects",
+            Description = Subtitle,
+            Image = ViewModel.ImageHeader,
+            Url = _navigationManager.Uri
+        });
     }
 }

@@ -6,9 +6,9 @@ namespace CalamariBlog.Models.CMS.Pages
 {
     public class PageContact
     {
-        public string EmailAddress { get; set; }
+        public string ImageHeader { get; set; }
 
-        public string ImageHeaderContact { get; set; }
+        public string EmailAddress { get; set; }
 
         public string MetaDescription { get; set; }
     }

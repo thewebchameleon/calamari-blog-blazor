@@ -14,3 +14,15 @@
     For local debugging, enable the <strong>Development</strong> environment by setting the <strong>ASPNETCORE_ENVIRONMENT</strong> environment variable to <strong>Development</strong>
     and restarting the app.
 </p>
+
+@functions {
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await JsRuntime.InvokeAsync<string>("SetMetaTags", new SetMetaTagsRequest()
+        {
+            Title = "Error",
+            Description = "An error occurred while processing your request.",
+            Url = _navigationManager.Uri
+        });
+    }
+}

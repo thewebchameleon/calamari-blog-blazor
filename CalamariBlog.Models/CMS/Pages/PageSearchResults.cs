@@ -2,7 +2,7 @@
 {
     public class PageSearchResults
     {
-        public string ImageHeaderSearchResults { get; set; }
+        public string ImageHeader { get; set; }
 
         public string MetaDescription { get; set; }
     }

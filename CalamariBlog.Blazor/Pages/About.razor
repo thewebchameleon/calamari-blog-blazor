@@ -2,14 +2,14 @@
 @inject ICMSService CMS
 
 <!-- Page Header -->
-<header class="masthead" style="background-image: url('@ViewModel.ImageHeaderAbout')">
+<header class="masthead" style="background-image: url('@ViewModel.ImageHeader')">
     <div class="overlay"></div>
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-md-10 mx-auto">
                 <div class="page-heading">
                     <h1>About Me</h1>
-                    <span class="subheading">This is who I am.</span>
+                    <span class="subheading">@Subtitle</span>
                 </div>
             </div>
         </div>
@@ -30,9 +30,21 @@
 
 @functions {
     Models.CMS.Pages.PageAbout ViewModel { get; set; } = new Models.CMS.Pages.PageAbout();
+    string Subtitle = "This is who I am.";
 
     protected override async Task OnInitializedAsync()
     {
         ViewModel = await CMS.GetPage_About();
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await JsRuntime.InvokeAsync<string>("SetMetaTags", new SetMetaTagsRequest()
+        {
+            Title = "About",
+            Description = Subtitle,
+            Image = ViewModel.ImageHeader,
+            Url = _navigationManager.Uri
+        });
     }
 }

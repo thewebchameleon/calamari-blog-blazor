@@ -57,7 +57,7 @@ namespace CalamariBlog.Services.CMS.Mappers
             {
                 BiographyHtml = model.Data.BiographyHtml,
                 CVUrl = ResolveAssetURL(model.Data.CVUrl.First()),
-                ImageHeaderAbout = ResolveAssetURL(model.Data.ImageHeaderAbout.First()),
+                ImageHeader = ResolveAssetURL(model.Data.ImageHeaderAbout.First()),
                 MetaDescription = model.Data.MetaDescription
             };
         }
@@ -68,7 +68,7 @@ namespace CalamariBlog.Services.CMS.Mappers
             {
                 EmailAddress = model.Data.EmailAddress,
                 MetaDescription = model.Data.MetaDescription,
-                ImageHeaderContact = ResolveAssetURL(model.Data.ImageHeaderContact.First())
+                ImageHeader = ResolveAssetURL(model.Data.ImageHeaderContact.First())
             };
         }
 
@@ -76,7 +76,7 @@ namespace CalamariBlog.Services.CMS.Mappers
         {
             return new PageIndex()
             {
-                ImageHeaderIndex = ResolveAssetURL(model.Data.ImageHeaderIndex.First()),
+                ImageHeader = ResolveAssetURL(model.Data.ImageHeaderIndex.First()),
                 MetaDescription = model.Data.MetaDescription,
                 Heading = model.Data.Heading,
                 Subheading = model.Data.Subheading
@@ -87,7 +87,7 @@ namespace CalamariBlog.Services.CMS.Mappers
         {
             return new PageProjects()
             {
-                ImageHeaderProjects = ResolveAssetURL(model.Data.ImageHeaderProjects.First()),
+                ImageHeader = ResolveAssetURL(model.Data.ImageHeaderProjects.First()),
                 MetaDescription = model.Data.MetaDescription
             };
         }
@@ -96,7 +96,7 @@ namespace CalamariBlog.Services.CMS.Mappers
         {
             return new PageSearchResults()
             {
-                ImageHeaderSearchResults = model.Data.ImageHeaderSearchResults.First(),
+                ImageHeader = model.Data.ImageHeaderSearchResults.First(),
                 MetaDescription = model.Data.MetaDescription
             };
         }

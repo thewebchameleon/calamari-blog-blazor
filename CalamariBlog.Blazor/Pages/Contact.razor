@@ -1,15 +1,16 @@
 ﻿@page "/contact"
 @inject ICMSService CMS
 @inject IEmailService EmailService
+
 <!-- Page Header -->
-<header class="masthead" style="background-image: url('@ViewModel.ImageHeaderContact')">
+<header class="masthead" style="background-image: url('@ViewModel.ImageHeader')">
     <div class="overlay"></div>
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-md-10 mx-auto">
                 <div class="page-heading">
                     <h1>Contact Me</h1>
-                    <span class="subheading">Have questions? I have answers.</span>
+                    <span class="subheading">@Subtitle</span>
                 </div>
             </div>
         </div>
@@ -75,6 +76,7 @@
 
 @code {
     Models.CMS.Pages.PageContact ViewModel { get; set; } = new Models.CMS.Pages.PageContact();
+    string Subtitle = "Have questions? I have answers.";
 
     SendContactEmailRequest contactRequest = new SendContactEmailRequest();
     bool hasSent = false;
@@ -82,6 +84,17 @@
     protected override async Task OnInitializedAsync()
     {
         ViewModel = await CMS.GetPage_Contact();
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await JsRuntime.InvokeAsync<string>("SetMetaTags", new SetMetaTagsRequest()
+        {
+            Title = "Contact",
+            Description = Subtitle,
+            Image = ViewModel.ImageHeader,
+            Url = _navigationManager.Uri
+        });
     }
 
     private async Task HandleContactFormSubmit()

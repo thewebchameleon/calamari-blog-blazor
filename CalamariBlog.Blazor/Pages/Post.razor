@@ -1,7 +1,6 @@
 ﻿@page "/post/{Slug}"
 @inject ICMSService CMS
 @inject NavigationManager NavigationManager
-
 <!-- Page Header -->
 <header class="masthead" style="background-image: url('@BlogPost.ImageHeaderUrl')">
     <div class="overlay"></div>
@@ -61,5 +60,16 @@
     protected override async Task OnInitializedAsync()
     {
         BlogPost = await CMS.GetBlogPost(Slug);
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await JsRuntime.InvokeAsync<string>("SetMetaTags", new SetMetaTagsRequest()
+        {
+            Title = BlogPost.Title,
+            Description = BlogPost.Subtitle,
+            Image = BlogPost.ImageHeaderUrl,
+            Url = _navigationManager.Uri
+        });
     }
 }

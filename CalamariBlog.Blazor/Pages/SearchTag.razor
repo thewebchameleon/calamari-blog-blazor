@@ -1,7 +1,7 @@
 ﻿@page "/search-tag/{Tag}"
 @inject ICMSService CMS
 <!-- Page Header -->
-<header class="masthead" style="background-image: url('@ViewModel.ImageHeaderSearchResults')">
+<header class="masthead" style="background-image: url('@ViewModel.ImageHeader')">
     <div class="overlay"></div>
     <div class="container">
         <div class="row">
@@ -96,5 +96,16 @@
             Tag = Tag
         });
         ViewModel = await CMS.GetPage_SearchResults();
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await JsRuntime.InvokeAsync<string>("SetMetaTags", new SetMetaTagsRequest()
+        {
+            Title = "Search Tags",
+            Description = $"Tag results for {Tag}",
+            Image = ViewModel.ImageHeader,
+            Url = _navigationManager.Uri
+        });
     }
 }

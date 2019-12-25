@@ -1,8 +1,7 @@
 ﻿@page "/"
 @inject ICMSService CMS
-@inject NavigationManager NavigationManager
 <!-- Page Header -->
-<header class="masthead" style="background-image: url('@ViewModel.ImageHeaderIndex')">
+<header class="masthead" style="background-image: url('@ViewModel.ImageHeader')">
     <div class="overlay"></div>
     <div class="container">
         <div class="row">
@@ -76,6 +75,17 @@
         Posts = await LoadPosts();
 
         CheckForMorePosts();
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await JsRuntime.InvokeAsync<string>("SetMetaTags", new SetMetaTagsRequest()
+        {
+            Title = "Calamari Blog",
+            Description = ViewModel.Subheading,
+            Image = ViewModel.ImageHeader,
+            Url = _navigationManager.Uri
+        });
     }
 
     private async Task<List<BlogPost>> LoadPosts()

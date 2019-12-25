@@ -2,7 +2,7 @@
 @inject ICMSService CMS
 
 <!-- Page Header -->
-<header class="masthead" style="background-image: url('@ViewModel.ImageHeaderSearchResults')">
+<header class="masthead" style="background-image: url('@ViewModel.ImageHeader')">
     <div class="overlay"></div>
     <div class="container">
         <div class="row">
@@ -97,5 +97,16 @@
             Keyword = Keyword
         });
         ViewModel = await CMS.GetPage_SearchResults();
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await JsRuntime.InvokeAsync<string>("SetMetaTags", new SetMetaTagsRequest()
+        {
+            Title = "Search",
+            Description = $"Search results for {Keyword}",
+            Image = ViewModel.ImageHeader,
+            Url = _navigationManager.Uri
+        });
     }
 }

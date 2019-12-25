@@ -10,6 +10,7 @@
 
 @using CalamariBlog.Models.CMS
 @using CalamariBlog.Models.ServiceModels
+@using CalamariBlog.Models.JavascriptModels
 @using CalamariBlog.Services.CMS.Contracts
 @using CalamariBlog.Services.Email.Contracts
 
@@ -17,3 +18,6 @@
 @using System.Text
 
 @using CalamariBlog.Blazor.Components
+
+@inject NavigationManager _navigationManager
+@inject IJSRuntime JsRuntime

@@ -13,3 +13,19 @@
 
     return 'success';
 }
+
+function SetMetaTags(model) {
+    if (model.title) {
+        $("#title").text(model.title);
+        $("#meta_Title").attr('content', model.title);
+    }
+    if (model.type) {
+        $("#meta_Type").attr('content', model.type);
+    }
+    if (model.url) {
+        $("#meta_Url").attr('content', model.url);
+    }
+    if (model.image) {
+        $("#meta_Image").attr('content', model.image);
+    }
+}
