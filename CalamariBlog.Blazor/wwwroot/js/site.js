@@ -28,7 +28,7 @@ function SetMetaTags(model) {
     if (model.title) {
         placeholderElement.append(
             '<title id="title" class="metaTags">' + model.title + '</title>' +
-            '<meta property="og:title" content="" id="meta_Title" class="metaTags" />' +
+            '<meta property="og:title" content="" id="meta_Title" class="metaTags" />'
         );
     }
     if (model.type) {
