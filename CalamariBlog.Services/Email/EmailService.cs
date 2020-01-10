@@ -25,8 +25,9 @@ namespace CalamariBlog.Services.Email
                 //todo: this is a terrible way, rather use an html template
                 await _sendGridRepo.SendSystemEmail($"New Message from {request.Name}",
                     "<html><head></head><body>" +
-                    $"<h2><b>From:</b> {request.Name}</h1>" +
-                    $"<h4><b>Mobile:</b> {request.MobileNumber}</h1>" +
+                    $"<h2><b>From:</b> {request.Name}</h2>" +
+                    $"<h4><b>Email:</b> {request.Email}</h4>" +
+                    $"<h4><b>Mobile:</b> {request.MobileNumber}</h4>" +
                     $"<p>{request.Message}</p>" +
                     "</body></html>");
             }
