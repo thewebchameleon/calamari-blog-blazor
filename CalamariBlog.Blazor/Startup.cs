@@ -107,6 +107,7 @@ namespace CalamariBlog.Blazor
                         "public,max-age=" + ApplicationConstants.StaticFileCachingSeconds;
                 }
             });
+            app.UseStaticFiles();
 
             app.UseRouting();
 
