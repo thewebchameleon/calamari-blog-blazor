@@ -15,11 +15,16 @@
     <base href="~/" />
     <partial name="_MetaTags" />
     <title id="metaPlaceHolder"></title>
-    
+
     <link href="@globalModel.ImageFavicon" rel="icon" />
-    <link href="~/lib/fontawesome-free/css/all.min.css" rel="stylesheet" media="print" onload="this.media='all'">
-    <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel="stylesheet" media="print" onload="this.media='all'" type='text/css'>
-    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel="stylesheet" media="print" onload="this.media='all'" type='text/css'>
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css" 
+          integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" 
+          crossorigin="anonymous"
+          asp-fallback-href="~/lib/fontawesome-free/css/all.min.css"
+          asp-fallback-test-class="fab" asp-fallback-test-property="font-style" asp-fallback-test-value="normal"
+          asp-suppress-fallback-integrity="true"  />
 
     <link href="~/css/framework.min.css" rel="stylesheet" asp-append-version="true" />
     <link href="~/css/site.min.css" rel="preload" as="style" onload="this.rel='stylesheet'" asp-append-version="true" />
@@ -33,5 +38,6 @@
     <script src="_framework/blazor.server.js"></script>
     <script src="~/js/framework.min.js" asp-append-version="true"></script>
     <script src="~/js/site.min.js" asp-append-version="true"></script>
+
 </body>
 </html>
