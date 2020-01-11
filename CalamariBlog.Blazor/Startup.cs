@@ -20,6 +20,7 @@ using Microsoft.AspNetCore.ResponseCompression;
 using CalamariBlog.Infrastructure.Cache.Contracts;
 using CalamariBlog.Services.Managers.Contracts;
 using CalamariBlog.Services.Managers;
+using Microsoft.Net.Http.Headers;
 
 namespace CalamariBlog.Blazor
 {
@@ -98,7 +99,14 @@ namespace CalamariBlog.Blazor
 
             app.UseResponseCompression();
             app.UseHttpsRedirection();
-            app.UseStaticFiles();
+            app.UseStaticFiles(new StaticFileOptions()
+            {
+                OnPrepareResponse = ctx =>
+                {
+                    ctx.Context.Response.Headers[HeaderNames.CacheControl] =
+                        "public,max-age=" + ApplicationConstants.StaticFileCachingSeconds;
+                }
+            });
 
             app.UseRouting();
 
