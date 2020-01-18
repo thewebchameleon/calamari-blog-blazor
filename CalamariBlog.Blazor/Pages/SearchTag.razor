@@ -19,6 +19,8 @@
 <div class="container">
     <div class="row">
         <div class="col-lg-10 col-md-10 mx-auto">
+            <h4 class="text-center mt-4">Showing @SearchResults.Count result(s)</h4>
+            <hr>
             @foreach (var item in SearchResults.OrderByDescending(r => r.CreatedDate))
             {
                 <div class="row">
@@ -77,7 +79,6 @@
                 </div>
                 <hr>
             }
-            <h4 class="text-center mt-4">Showing @SearchResults.Count results</h4>
         </div>
     </div>
 </div>
