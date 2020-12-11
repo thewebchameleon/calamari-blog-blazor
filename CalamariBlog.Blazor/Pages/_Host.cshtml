@@ -19,21 +19,22 @@
     <link href="@globalModel.ImageFavicon" rel="icon" />
 
     <link rel="stylesheet" media="print" onload="this.media='all'"
-          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css" 
-          integrity="sha384-i1LQnF23gykqWXg6jxC2ZbCbUMxyw5gLZY6UiUS98LYV5unm8GWmfkIS6jqJfb4E" 
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css"
+          integrity="sha384-i1LQnF23gykqWXg6jxC2ZbCbUMxyw5gLZY6UiUS98LYV5unm8GWmfkIS6jqJfb4E"
           crossorigin="anonymous"
           asp-fallback-href="~/lib/fontawesome-free/css/all.min.css"
           asp-fallback-test-class="fab" asp-fallback-test-property="font-style" asp-fallback-test-value="normal"
-          asp-suppress-fallback-integrity="true"  />
+          asp-suppress-fallback-integrity="true" />
 
     <link href="~/css/framework.min.css" rel="stylesheet" asp-append-version="true" />
+    <link href="CalamariBlog.Blazor.styles.css" rel="stylesheet" />
     <link href="~/css/site.min.css" rel="stylesheet" media="print" onload="this.media='all'" asp-append-version="true" />
 
 </head>
 <body>
-    <app>
+    <div id="app">
         @(await Html.RenderComponentAsync<App>(RenderMode.ServerPrerendered))
-    </app>
+    </div>
 
     <script src="_framework/blazor.server.js"></script>
     <script src="~/js/framework.min.js" asp-append-version="true"></script>
