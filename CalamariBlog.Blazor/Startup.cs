@@ -53,7 +53,6 @@ namespace CalamariBlog.Blazor
 
             // Infrastructure Services
             services.AddHttpClient();
-            services.AddApplicationInsightsTelemetry();
 
             // Caching
             services.AddDistributedMemoryCache();

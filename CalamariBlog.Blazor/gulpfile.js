@@ -1,6 +1,6 @@
 ﻿/// <binding BeforeBuild='build-css, build-scripts, build-scripts-framework' />
 let gulp = require("gulp"),
-    sass = require("gulp-sass"),
+    sass = require("gulp-sass")(require('sass')),
     autoprefixer = require("gulp-autoprefixer"),
     rename = require("gulp-rename"),
     concat = require('gulp-concat'),
