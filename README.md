@@ -12,5 +12,5 @@ API Caching
 
 The client will cache Squidex API calls via an ICacheProvider. Cached items are cleared via a Webhook configured in Squidex.
 
-[Demo](https://calamari-blog-blazor.azurewebsites.net) 
+[Demo](https://calamari-blog-blazor.thewebchameleon.co.za) 
 ----
